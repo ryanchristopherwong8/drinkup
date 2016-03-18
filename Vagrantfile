@@ -10,6 +10,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   config.vm.network "forwarded_port", guest: 80, host: 8080
+  #config.vm.network "forwarded_port", guest: 3000, host: 3000
+
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -23,7 +25,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # If you need to more than double the defaults for this course, you have
   # done something wrong.
   cpus = "1"
-  memory = "512" # MB
+  memory = "1024" # MB
   config.vm.provider :virtualbox do |vb|
     vb.customize ["modifyvm", :id, "--cpus", cpus, "--memory", memory]
   end

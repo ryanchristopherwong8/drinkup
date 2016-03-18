@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: drinkup_production
-  username: drinkup
-  password: <%= ENV['DRINKUP_DATABASE_PASSWORD'] %>
+  username: vagrant
+  password:

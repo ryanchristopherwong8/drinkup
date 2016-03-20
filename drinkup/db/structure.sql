@@ -162,7 +162,7 @@ CREATE TABLE users (
     first_name character varying NOT NULL,
     last_name character varying NOT NULL,
     email character varying NOT NULL,
-    password character varying NOT NULL,
+    password_digest character varying NOT NULL,
     gender gender,
     date_of_birth date NOT NULL,
     location character varying,
@@ -272,4 +272,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160318202442');
 INSERT INTO schema_migrations (version) VALUES ('20160318202447');
 
 INSERT INTO schema_migrations (version) VALUES ('20160318202456');
+
+INSERT INTO schema_migrations (version) VALUES ('20160320031957');
 

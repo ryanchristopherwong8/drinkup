@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   root 'sessions#index'
-
+  resources :events
   match ':controller(/:action(/:id))', :via => [:get, :post]
 
   # The priority is based upon order of creation: first created -> highest priority.

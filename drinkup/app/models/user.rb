@@ -15,5 +15,6 @@ class User < ActiveRecord::Base
     has_secure_password
 
     #validate password
-    validates :password_digest, presence: true, length: { minimum: 6 }
+    validates :password, presence: true, length: { minimum: 6 }
+    
 end

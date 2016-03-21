@@ -8,7 +8,7 @@ class CreateEvents < ActiveRecord::Migration
       t.column "gender", :gender
       t.json "age"
       t.json "top_conversations"
-      #t.string "google_location_id"
+      t.string "google_location_id"
 
       t.timestamps null: false
     end

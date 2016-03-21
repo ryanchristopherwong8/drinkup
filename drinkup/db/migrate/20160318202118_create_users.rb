@@ -1,7 +1,7 @@
 class CreateUsers < ActiveRecord::Migration
   def up
   	execute <<-SQL
-  		CREATE TYPE gender AS ENUM ('male', 'female');
+  		CREATE TYPE gender AS ENUM ('any', 'male', 'female');
   	SQL
     create_table :users do |t|
       t.string "first_name", :null => false

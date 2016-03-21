@@ -18,6 +18,8 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       #helper method to login user = sessions_helper.rb
       log_in user
+      #get rememeber me from form
+      params[:session][:remember_me] == '1' ? remember(user) : forget(user)
       #redirects to user profile page
       redirect_to user
     else
@@ -30,8 +32,10 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    #helper method to logout user = sessions_helper.rb
-    log_out
+    #Helper method to logout user = sessions_helper.rb
+    #Fix bug = if user has multiple windows open and logs out of one and logs out of another. 
+    #Make sure user is logged in before logging out
+    log_out if logged_in?
     redirect_to root_url
   end
 

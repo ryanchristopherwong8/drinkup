@@ -169,7 +169,8 @@ CREATE TABLE users (
     conversatons json,
     is_deleted boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    remember_digest character varying
 );
 
 
@@ -274,4 +275,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160318202447');
 INSERT INTO schema_migrations (version) VALUES ('20160318202456');
 
 INSERT INTO schema_migrations (version) VALUES ('20160320031957');
+
+INSERT INTO schema_migrations (version) VALUES ('20160321001335');
 

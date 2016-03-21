@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
 
   root 'sessions#index'
-
+  resources :events
   match ':controller(/:action(/:id))', :via => [:get, :post]
 
   

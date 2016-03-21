@@ -1,0 +1,11 @@
+<%= link_to 'Back to Event Index', events_path%>
+<h1>Event:</h1>
+<p><b>Event Name:</b><%= @event.name%></p>
+<p><b>Lat:</b><%= @event.lat%></p>
+<p><b>Long:</b><%= @event.lng%></p>
+<p><b>Date and Time:</b><%= @event.datetime%></p>
+<p><b>Gender:</b><%= @event.gender%></p>
+<%= link_to 'Edit', edit_event_path(@event)%> |
+<%= link_to 'Destroy', event_path(@event),
+              method: :delete,
+              data: { confirm: 'Are you sure you want to delete this event?' }%>

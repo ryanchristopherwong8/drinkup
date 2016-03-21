@@ -9,8 +9,3 @@ var greeter = React.createClass({
     );
   }
 });
-
-ReactDOM.render(
-  <greeter />,
-  document.getElementById("react")
-);

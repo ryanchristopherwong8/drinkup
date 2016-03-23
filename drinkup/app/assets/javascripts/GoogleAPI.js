@@ -4,6 +4,7 @@ var service;
 var postionOfUserFromGeolocation=new Array;
 var drinktype='cafe'
 var infowindow;
+var bounds;
 
 function getUserLocation()
 {
@@ -47,6 +48,7 @@ function initMap(lat_user,lng_user,zoom) {
         });
   service = new google.maps.places.PlacesService(map);
   infowindow = new google.maps.InfoWindow();
+  bounds = new google.maps.LatLngBounds();
       }
 
 function changeMapLocation(lat_user,lng_user,zoom)
@@ -79,18 +81,29 @@ function setup(lat_user,lng_user,radius,drinktype)
 }
 
 function callback(results, status) {
+        var numberResultsToReturn=results.length;
+        if (results.length>8)
+        {
+          numberResultsToReturn=8;
+        }
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-          for (var i = 0; i < results.length; i++) {
-            createMarker(results[i]);
+          for (var i = 0; i < numberResultsToReturn; i++) {
+            var lat=results[i].geometry.location.lat();
+            var lng=results[i].geometry.location.lng();
+            bounds.extend(new google.maps.LatLng(lat, lng));
+            createMarker(results[i],(i+1));
           }
         }
+        map.fitBounds(bounds);
       }
 
-function createMarker(place) {
+function createMarker(place,number) {
+        var image='http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+number+'|FE6256|000000';
         var placeLoc = place.geometry.location;
         var marker = new google.maps.Marker({
           map: map,
-          position: place.geometry.location
+          position: place.geometry.location,
+          icon: image
         });
 
         google.maps.event.addListener(marker, 'click', function() {

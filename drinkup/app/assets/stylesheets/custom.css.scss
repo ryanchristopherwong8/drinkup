@@ -38,6 +38,8 @@ input {
 
 body {
   padding-top: 60px;
+  height: 100%;
+  width: 100%;
 }
 
 section {
@@ -82,4 +84,9 @@ h2 {
 p {
   font-size: 1.1em;
   line-height: 1.7em;
+}
+
+html, body, #map {
+  height: 20em;
+  width: 50em;
 }

@@ -21,6 +21,7 @@ class SessionsController < ApplicationController
       #get rememeber me from form
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
       #redirects to user profile page
+      flash[:success] = "Welcome back" + " "  + user.first_name + "!"
       redirect_to user
     else
       flash.now[:danger] = 'Invalid email/password combination'

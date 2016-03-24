@@ -14,7 +14,7 @@ class UsersController < ApplicationController
       #login user
       log_in @user
   	  #display successful login
-      flash[:success] = "Welcome to the Sample App!"
+      flash[:success] = "Welcome" + " "  + user_params[:first_name] + "!"
       #redirect to show by default
       redirect_to @user
     else

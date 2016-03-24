@@ -6,6 +6,17 @@ var drinktype='cafe'
 var infowindow;
 var bounds;
 
+var searchresultsJSON;
+var address = new Array() ;
+
+function setDrinktypeCafe() {
+  drinktype = 'cafe'
+}
+
+function setDrinktypeBar() {
+  drinktype = 'bar'
+}
+
 function getUserLocation()
 {
 	if (navigator.geolocation) 
@@ -25,7 +36,7 @@ function storePosition(position) {
 function getManualLocation(error) {
 	//generate message that location could not be got
   document.getElementById('error').innerHTML="Could Not Get Geolocation";
-}
+} 
 
 function initAutocomplete() {
   // Create the autocomplete object, restricting the search to geographical
@@ -72,16 +83,37 @@ function setup(lat_user,lng_user,radius,drinktype)
   document.getElementById('error').innerHTML="";
   var user_location = {lat:lat_user , lng:lng_user};
   
-        
-        service.nearbySearch({
-          location: user_location,
-          radius: radius,
-          type: [drinktype]
-        }, callback);
+   var request = {
+    location: user_location,
+    radius: radius,
+    types: [drinktype]
+  };
+  
+  service.nearbySearch(request, callback);
 }
+/*
+function listResults() 
+{
+  for (var i = 0; i < searchresultsJSON.results.length; i++) 
+  {
+    address[i] = searchresultsJSON.results[i].formatted_address;
+    console.log(address[i]);
+  }
 
+  var resultsContent = document.getElementById("resultsContent");
+  resultsContent.setAttribute("align", center);
+
+  var resultsList=document.createElement("ol");
+  for (var i = 0; i < address.length; i++)
+  {
+    var addressItem = document.createElement("li");
+    resultsList.appendChild(addressItem);
+  }
+}
+*/
 function callback(results, status) {
         var numberResultsToReturn=results.length;
+        var resultsList = document.getElementById("resultsList");
         if (results.length>8)
         {
           numberResultsToReturn=8;
@@ -92,10 +124,19 @@ function callback(results, status) {
             var lng=results[i].geometry.location.lng();
             bounds.extend(new google.maps.LatLng(lat, lng));
             createMarker(results[i],(i+1));
+
+            // doesnt work because needs to be detailed address[i] = results[i].formatted_address;
+            console.log(results[i].name);
+
+            var entry = document.createElement('li');
+            entry.appendChild(document.createTextNode(results[i].name));
+            console.log(entry);
+            resultsList.appendChild(entry);
           }
         }
         map.fitBounds(bounds);
       }
+
 
 function createMarker(place,number) {
         var image='http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+number+'|FE6256|000000';

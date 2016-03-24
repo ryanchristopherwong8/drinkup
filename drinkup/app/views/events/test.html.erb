@@ -1,32 +1,27 @@
-<!DOCTYPE html>
-<html>
-<head>
-<script src="GoogleAPI.js"></script>
+
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZdA5AE3hXH5bcskGACiNQhGtvxJ0e7r8&libraries=places"></script>
 
-<style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      #map {
-        height: 50%;
-      }
-    </style>
-</head>
-<body>
+<div class="center jumbotron">
   <div id="error">
     <p></p>
   </div>
     <div id="locationField">
-        <input id="autocomplete" placeholder="Where Are You?" type="text"></input><br>
+    	<h2>What Kind of Drink Up Would You Like to Go To?</h2>
+        <input type="button" class="bars selector" value="Bar"
+                onclick="javascript:setDrinktypeBar()" />
+        <input type="button" class="cafe selector" value="Cafe"
+                onclick="javascript:setDrinktypeCafe()" />
+        <input id="autocomplete" placeholder="Where Are You?" type="text"></input>
+        <br>
     </div>
+
     <div id="map"></div>
     <script>initAutocomplete()</script>
     <script>initMap(49.2667967,-123.2056314,10)</script>
     <script>getUserLocation()</script>
+	
+</div>
 
-
-  </body>
-</html> 
+<div>
+	<ul id="resultsList"></ul></div>
+</div>

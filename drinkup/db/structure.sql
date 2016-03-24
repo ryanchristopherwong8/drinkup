@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.0
--- Dumped by pg_dump version 9.5.0
+-- Dumped from database version 9.5.1
+-- Dumped by pg_dump version 9.5.1
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -34,7 +34,6 @@ SET search_path = public, pg_catalog;
 --
 
 CREATE TYPE gender AS ENUM (
-    'any',
     'male',
     'female'
 );
@@ -121,7 +120,6 @@ CREATE TABLE events (
     gender gender,
     age json,
     top_conversations json,
-    google_location_id character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );

@@ -1,6 +1,31 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+#logo {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+#logo a {
+  font-size: 3em;
+  color: white;
+  font-family: Tahoma, Geneva, sans-serif;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.navbar-nav {
+  padding-top: 5px;
+}
+
+body .navbar-inverse .navbar-nav > li > a {
+  color: white;
+}
+
 @mixin box_sizing {
   -moz-box-sizing:    border-box;
   -webkit-box-sizing: border-box;

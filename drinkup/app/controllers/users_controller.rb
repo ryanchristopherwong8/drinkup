@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :redirect_if_not_logged_in
+  before_action :redirect_if_not_logged_in, :except => [:new, :create]
 
   def show
     @user = User.find(params[:id])

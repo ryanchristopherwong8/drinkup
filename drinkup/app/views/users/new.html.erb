@@ -27,6 +27,9 @@
     <%= f.label :password_confirmation, "Confirmation"%>
     <%= f.password_field :password_confirmation, class: 'form-control' %>
   </div>
+  <div class="field form-group">
+    <%= f.file_field :avatar %>
+  </div>
   <div class="actions form-group">
     <%= f.submit "Create my account", class: "btn btn-primary" %>
   </div>

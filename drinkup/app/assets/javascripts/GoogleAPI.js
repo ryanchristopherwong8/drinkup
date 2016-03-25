@@ -105,7 +105,6 @@ function callback(results, status) {
             createMarker(results[i],(i+1));
 
             console.log(results[i].vicinity);
-
             //create list elements 
             var addressListItem = document.createElement('li');            
             addressListItem.appendChild(document.createTextNode(results[i].vicinity));
@@ -125,17 +124,11 @@ function createMarker(place,number) {
           position: place.geometry.location,
           icon: image
         });
-        //adds location details to marker on click.
-        var request = { reference: place.reference }; 
-        service.getDetails(request, function(details, status) {
-          google.maps.event.addListener(marker, 'click', function() {
-            infowindow.setContent(details.name + "<br />" + details.formatted_address +"<br />" + details.website + "<br />" + details.rating + "<br />" + details.formatted_phone_number);
-            infowindow.open(map, this);
-          });
-        });
-
-        google.maps.event.addListener(marker, 'click', function() {
-          infowindow.setContent(place.name);
-          infowindow.open(map, this);
-        });
+       
+    
+      google.maps.event.addListener(marker, 'click', function() {
+        infowindow.setContent(place.name + "<br />" + place.vicinity + "<br />");
+        infowindow.open(map, this);
+      });
+        
   }

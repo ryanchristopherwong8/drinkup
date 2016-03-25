@@ -3,7 +3,7 @@ class Event < ActiveRecord::Base
 	validates :name, presence: true
 	validates :lat, presence: true
 	validates :lng, presence: true
-	validates :gender, presence: true, inclusion: { in: %w(male female),
+	validates :gender, presence: true, inclusion: { in: %w(any male female),
     		 				message: "%{value} is not a valid gender" }
     validates :datetime, presence: true
 end

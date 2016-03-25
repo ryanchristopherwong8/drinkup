@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
 
-  before_action :redirect_if_not_logged_in, :except => [:new, :create, :destroy]
+  before_action :redirect_if_not_logged_in, :except => [:index, :new, :create, :destroy]
 
   def index
   end
@@ -40,7 +40,7 @@ class SessionsController < ApplicationController
     #Fix bug = if user has multiple windows open and logs out of one and logs out of another. 
     #Make sure user is logged in before logging out
     log_out if logged_in?
-    redirect_to root_url
+    redirect_to '/sessions/new'
   end
 
 end

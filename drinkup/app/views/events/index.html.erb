@@ -1,5 +1,5 @@
- <h1 class="section_header">Listing All Events</h1>
-<%= link_to 'Add New Event', new_event_path %>
+ <h1 class="section_header">Drinkups Around You</h1>
+<%= link_to 'Create Drinkup', new_event_path, :class => 'col-md-12 text-right' %>
   <% @events.each do |event| %>
 <p><b>Event Name:</b><%= event.name%></p>
 <p><b>Lat:</b><%= event.lat%></p>

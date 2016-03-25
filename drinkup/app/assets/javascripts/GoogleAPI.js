@@ -88,29 +88,11 @@ function setup(lat_user,lng_user,radius,drinktype)
     radius: radius,
     types: [drinktype]
   };
+
   
   service.nearbySearch(request, callback);
 }
-/*
-function listResults() 
-{
-  for (var i = 0; i < searchresultsJSON.results.length; i++) 
-  {
-    address[i] = searchresultsJSON.results[i].formatted_address;
-    console.log(address[i]);
-  }
 
-  var resultsContent = document.getElementById("resultsContent");
-  resultsContent.setAttribute("align", center);
-
-  var resultsList=document.createElement("ol");
-  for (var i = 0; i < address.length; i++)
-  {
-    var addressItem = document.createElement("li");
-    resultsList.appendChild(addressItem);
-  }
-}
-*/
 function callback(results, status) {
         var numberResultsToReturn=results.length;
         var resultsList = document.getElementById("resultsList");
@@ -128,10 +110,25 @@ function callback(results, status) {
             // doesnt work because needs to be detailed address[i] = results[i].formatted_address;
             console.log(results[i].name);
 
+            //create list elements 
+            var addressListItem = document.createElement('li');
+
+            var request = { reference: results[i].reference};
+            service.getDetails(request, function(details, status) {
+              addressListItem.appendChild(document.createTextNode(details.name + "<br />" + 
+                details.formatted_address +"<br />" + details.website + "<br />" + 
+                details.rating + "<br />" + details.formatted_phone_number)
+              )
+            });
+
+            resultsList.appendChild(addressListItem);
+            /*
             var entry = document.createElement('li');
             entry.appendChild(document.createTextNode(results[i].name));
             console.log(entry);
             resultsList.appendChild(entry);
+            */
+
           }
         }
         map.fitBounds(bounds);
@@ -147,8 +144,15 @@ function createMarker(place,number) {
           icon: image
         });
 
+        var request = { reference: place.reference };
+        service.getDetails(request, function(details, status) {
+          google.maps.event.addListener(marker, 'click', function() {
+            infowindow.setContent(details.name + "<br />" + details.formatted_address +"<br />" + details.website + "<br />" + details.rating + "<br />" + details.formatted_phone_number);
+            infowindow.open(map, this);
+          });
+        });
+      }/*
         google.maps.event.addListener(marker, 'click', function() {
           infowindow.setContent(place.name);
           infowindow.open(map, this);
-        });
-      }
+        });*/

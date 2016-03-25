@@ -40,6 +40,17 @@ module SessionsHelper
     !current_user.nil?
   end
 
+  def redirect_if_not_logged_in
+    if !logged_in?
+      flash[:danger] = "Please log in."
+      redirect_to(:controller => 'sessions', :action => 'new')
+      return false # halts the before_action
+    else 
+      return true
+    end 
+  end
+
+
   # Forgets cookie
   def forget(user)
     user.forget

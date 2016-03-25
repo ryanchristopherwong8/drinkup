@@ -1,4 +1,7 @@
 class SessionsController < ApplicationController
+
+  before_action :redirect_if_not_logged_in, :except => [:new, :create, :logout]
+
   def index
   end
 
@@ -22,7 +25,7 @@ class SessionsController < ApplicationController
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
       #redirects to user profile page
       flash[:success] = "Welcome back" + " "  + user.first_name + "!"
-      redirect_to user
+      redirect_to events_path
     else
       flash.now[:danger] = 'Invalid email/password combination'
       render 'new'

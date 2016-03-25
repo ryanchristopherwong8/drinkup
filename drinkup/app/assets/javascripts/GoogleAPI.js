@@ -6,9 +6,6 @@ var drinktype='cafe'
 var infowindow;
 var bounds;
 
-var searchresultsJSON;
-var address = new Array() ;
-
 function setDrinktypeCafe() {
   drinktype = 'cafe'
 }
@@ -107,27 +104,12 @@ function callback(results, status) {
             bounds.extend(new google.maps.LatLng(lat, lng));
             createMarker(results[i],(i+1));
 
-            // doesnt work because needs to be detailed address[i] = results[i].formatted_address;
-            console.log(results[i].name);
+            console.log(results[i].vicinity);
 
             //create list elements 
-            var addressListItem = document.createElement('li');
-
-            var request = { reference: results[i].reference};
-            service.getDetails(request, function(details, status) {
-              addressListItem.appendChild(document.createTextNode(details.name + "<br />" + 
-                details.formatted_address +"<br />" + details.website + "<br />" + 
-                details.rating + "<br />" + details.formatted_phone_number)
-              )
-            });
-
+            var addressListItem = document.createElement('li');            
+            addressListItem.appendChild(document.createTextNode(results[i].vicinity));
             resultsList.appendChild(addressListItem);
-            /*
-            var entry = document.createElement('li');
-            entry.appendChild(document.createTextNode(results[i].name));
-            console.log(entry);
-            resultsList.appendChild(entry);
-            */
 
           }
         }
@@ -143,16 +125,17 @@ function createMarker(place,number) {
           position: place.geometry.location,
           icon: image
         });
-
-        var request = { reference: place.reference };
+        //adds location details to marker on click.
+        var request = { reference: place.reference }; 
         service.getDetails(request, function(details, status) {
           google.maps.event.addListener(marker, 'click', function() {
             infowindow.setContent(details.name + "<br />" + details.formatted_address +"<br />" + details.website + "<br />" + details.rating + "<br />" + details.formatted_phone_number);
             infowindow.open(map, this);
           });
         });
-      }/*
+
         google.maps.event.addListener(marker, 'click', function() {
           infowindow.setContent(place.name);
           infowindow.open(map, this);
-        });*/
+        });
+  }

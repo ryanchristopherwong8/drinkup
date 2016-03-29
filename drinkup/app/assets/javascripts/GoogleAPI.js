@@ -9,10 +9,21 @@ var markers=[];
 
 function setDrinktypeCafe() {
   drinktype = 'cafe'
+  var x=document.getElementById("cafeSelector");
+  var y=document.getElementById("barSelector");
+  x.style.backgroundColor == "aquamarine";
+  y.style.backgroundColor == "buttonface";
+  deleteMarkers();
+  changeMapLocation(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],15);
+  setup(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],1000, drinktype);
+
 }
 
 function setDrinktypeBar() {
   drinktype = 'bar'
+  deleteMarkers();
+  changeMapLocation(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],15);
+  setup(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],1000, drinktype);
 }
 
 function getUserLocation()

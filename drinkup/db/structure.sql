@@ -122,7 +122,11 @@ CREATE TABLE events (
     gender gender,
     age json,
     top_conversations json,
+<<<<<<< HEAD
     place_id character varying,
+=======
+    google_location_id character varying,
+>>>>>>> maps_bugfixes
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );

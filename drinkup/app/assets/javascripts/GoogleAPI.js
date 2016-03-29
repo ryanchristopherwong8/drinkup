@@ -2,9 +2,10 @@ var map;
 var autocomplete;
 var service;
 var postionOfUserFromGeolocation=new Array;
-var drinktype='cafe'
+var drinktype='bar';
 var infowindow;
 var bounds;
+var markers=[];
 
 function setDrinktypeCafe() {
   drinktype = 'cafe'
@@ -24,6 +25,7 @@ function getUserLocation()
 }
 
 function storePosition(position) {
+  deleteMarkers();
 	postionOfUserFromGeolocation[0]=position.coords.latitude;
 	postionOfUserFromGeolocation[1]=position.coords.longitude;
 	changeMapLocation(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],15);
@@ -56,7 +58,7 @@ function initMap(lat_user,lng_user,zoom) {
         });
   service = new google.maps.places.PlacesService(map);
   infowindow = new google.maps.InfoWindow();
-  bounds = new google.maps.LatLngBounds();
+  //bounds = new google.maps.LatLngBounds();
       }
 
 function changeMapLocation(lat_user,lng_user,zoom)
@@ -68,6 +70,7 @@ function changeMapLocation(lat_user,lng_user,zoom)
 
 function storePositionFromGoogleAPI()
 {
+  deleteMarkers();
 	var place = autocomplete.getPlace();
 	postionOfUserFromGeolocation[0]=place.geometry.location.lat();
 	postionOfUserFromGeolocation[1]=place.geometry.location.lng();
@@ -104,7 +107,6 @@ function callback(results, status) {
             bounds.extend(new google.maps.LatLng(lat, lng));
             createMarker(results[i],(i+1));
 
-            console.log(results[i].vicinity);
             //create list elements 
             var addressListItem = document.createElement('li');            
             addressListItem.appendChild(document.createTextNode(results[i].vicinity));
@@ -124,6 +126,9 @@ function createMarker(place,number) {
           position: place.geometry.location,
           icon: image
         });
+
+      markers.push(marker);
+
        
     
       google.maps.event.addListener(marker, 'click', function() {
@@ -132,3 +137,12 @@ function createMarker(place,number) {
       });
         
   }
+
+function deleteMarkers() {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(null);
+  }
+
+  bounds = new google.maps.LatLngBounds()
+  markers = [];
+}

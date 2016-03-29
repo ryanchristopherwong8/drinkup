@@ -1,12 +1,17 @@
 <div class="row">
-  <div class="col-md-6 col-md-offset-3">
+  <div class="container">
       <h1>
-        <%= @user.email %>
-        <%= @user.first_name %>
-        <%= @user.last_name %>
-        <%= image_tag @user.avatar.url %>
-        <%= image_tag @user.avatar.url(:medium) %>
-        <%= image_tag @user.avatar.url(:thumb) %>
+        Profile:
       </h1>
+      <div><%= image_tag @user.avatar.url(:medium) %></div>
+      <p><b>First Name:</b><%=@user.first_name %></p>
+      <p><b>Last Name:</b><%=@user.last_name %></p>
+      <p><b>Email:</b><%= @user.email %></p>
+      <p><b>Date of Birth:</b><%= @user.date_of_birth %></p>
+
   </div>
+<%= link_to 'Edit', edit_user_path(@user), class: "btn btn-default" %>
+<%= link_to 'Destroy', user_path(@user),
+              method: :delete,
+              data: { confirm: 'Are you sure you want to delete your profile?' }, class: "btn btn-default" %>
 </div>

@@ -1,25 +1,28 @@
 <h1 class="section_header">Drinkups Around You</h1>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZdA5AE3hXH5bcskGACiNQhGtvxJ0e7r8&libraries=places"></script>
+<%= link_to 'Create Drinkup', new_event_path, :class => "col-md-12 text-right" %>
 <div class="center jumbotron">
  <div id="error">
    <p></p>
  </div>
    <div id="locationField">
        <br>
-   </div>    <div id="map"></div>
+   </div>    
+   <div id="map"></div>
    <script>initMap(49.2667967,-123.2056314,10)</script>    
 </div>
 
 <div class="container" style="background-color:#EEEEEE; padding:15px;">
-    <%= link_to 'Create Drinkup', new_event_path, :class => 'col-md-12 text-right btn btn-primary' %>
-
     <% @events.each do |event| %>
         <p><b>Event Name:</b><%= event.name%></p>
         <p><b>Lat:</b><%= event.lat%></p>
         <p><b>Long:</b><%= event.lng%></p>
-        <p><b>Date and Time:</b><%= event.datetime%></p>
+        <p><b>Start Time:</b><%= event.start_time%></p>
+        <p><b>End Time:</b><%= event.end_time%></p>
         <p><b>Gender:</b><%= event.gender%></p>
+        <p><b>Place ID:</b><%= event.place_id%></p>
         <%= link_to 'Show', event_path(event) %>
+        <%= link_to('Join', {:controller => "events", :action => "join", :id => event.id} )%>
     <%end%>
 </div>
 

@@ -106,11 +106,20 @@ function setup(lat_user,lng_user,radius,drinktype)
 
 function callback(results, status) {
         var numberResultsToReturn=results.length;
+
+
         var resultsList = document.getElementById("resultsList");
+
+        //removes results from previous search
+        while (resultsList.firstChild) {
+            resultsList.removeChild(resultsList.firstChild);
+        }
+
         if (results.length>8)
         {
           numberResultsToReturn=8;
         }
+
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           for (var i = 0; i < numberResultsToReturn; i++) {
             var lat=results[i].geometry.location.lat();
@@ -120,7 +129,7 @@ function callback(results, status) {
 
             //create list elements 
             var addressListItem = document.createElement('li');            
-            addressListItem.appendChild(document.createTextNode(results[i].vicinity));
+            addressListItem.appendChild(document.createTextNode(i + " " + results[i].vicinity));
             resultsList.appendChild(addressListItem);
 
           }

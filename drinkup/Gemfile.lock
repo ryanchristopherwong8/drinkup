@@ -186,8 +186,8 @@ DEPENDENCIES
   figaro
   jbuilder (~> 2.0)
   jquery-rails
-  paperclip
   mail (= 2.6.3)
+  paperclip
   pg
   rails (= 4.2.5)
   react-rails

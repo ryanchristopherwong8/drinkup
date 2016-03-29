@@ -1,5 +1,6 @@
 class Event < ActiveRecord::Base
 	has_many :attendees
+	attr_accessor :place_name, :place_address
 	validates :name, presence: true
 	validates :lat, presence: true
 	validates :lng, presence: true

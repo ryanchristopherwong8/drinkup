@@ -15,26 +15,37 @@
     <% end %>
    
     <p>
-      <%= f.label :name %><br>
+      <%= f.label :name, value: 'Name of Event' %>
       <%= f.text_field :name %>
     </p>
-      <p>
+    <p>
+      <%= f.label :place_name, id: 'place_name' ,value: 'Name of Location' %>
+      <%= f.text_field :place_name, readonly: true %>
+    </p>
+    <p>
+      <%= f.label :place_address, value: 'Address of Location' %>
+      <%= f.text_field :place_address, readonly: true %>
+    </p>
+    <p>
+      <%= f.label :start_time %>
+      <%= f.date_field :start_time %>
+    </p>
+    <p>
+      <%= f.label :end_time %>
+      <%= f.date_field :end_time %>
+    </p>
+    <p>
+      <%= f.label :gender %>
+      <%= f.text_field :gender %>
+    </p>
+    <p>
       <%= f.hidden_field :lat, id: 'lat' %>
     </p>
       <p>
       <%= f.hidden_field :lng, id: 'lng' %>
     </p>
     <p>
-      <%= f.label :start_time %><br>
-      <%= f.datefield :start_time %>
-    </p>
-    <p>
-      <%= f.label :end_time %><br>
-      <%= f.datefield :end_time %>
-    </p>
-    <p>
-      <%= f.label :gender %><br>
-      <%= f.text_field :gender %>
+      <%= f.hidden_field :place_id, id: 'place_id' %>
     </p>
     <p>
       <%= f.submit %>

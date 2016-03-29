@@ -16,6 +16,13 @@ execute 'ntp_restart' do
   command 'service ntp restart'
 end
 
+execute 'image_update' do
+  command 'sudo apt-get update'
+end
+execute 'image_install' do
+  command 'sudo apt-get -y install imagemagick'
+end
+
 #installing web server nginx
 package "nginx"
 #install and set up postgres database

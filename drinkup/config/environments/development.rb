@@ -39,7 +39,7 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  #development mode, must have .env file in application directory
+  #development mode, must have application.yml
   config.paperclip_defaults = {
     storage: :s3,
     s3_host_name: ENV['s3_host_name'],

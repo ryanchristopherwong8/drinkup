@@ -34,6 +34,7 @@ SET search_path = public, pg_catalog;
 --
 
 CREATE TYPE gender AS ENUM (
+    'any',
     'male',
     'female'
 );
@@ -116,10 +117,12 @@ CREATE TABLE events (
     name character varying NOT NULL,
     lat numeric(10,6),
     lng numeric(10,6),
-    datetime timestamp without time zone NOT NULL,
+    start_time timestamp without time zone NOT NULL,
+    end_time timestamp without time zone NOT NULL,
     gender gender,
     age json,
     top_conversations json,
+    place_id character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );

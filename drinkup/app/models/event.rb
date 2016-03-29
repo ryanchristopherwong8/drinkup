@@ -5,5 +5,6 @@ class Event < ActiveRecord::Base
 	validates :lng, presence: true
 	validates :gender, presence: true, inclusion: { in: %w(any male female),
     		 				message: "%{value} is not a valid gender" }
-    validates :datetime, presence: true
+    validates :start_time, presence: true
+    validates :end_time, presence: true
 end

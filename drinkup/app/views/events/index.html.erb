@@ -21,7 +21,8 @@
         <p><b>Gender:</b><%= event.gender%></p>
         <p><b>Place ID:</b><%= event.place_id%></p>
         <%= link_to 'Show', event_path(event) %>
-        <%= link_to('Join', {:controller => "events", :action => "join", :id => event.id} )%>
+        <%= link_to('Attend', {:controller => "events", :action => "join", :id => event.id}) if !@events_attending.include?(event.id) %>
+        <%= link_to('Unattend', {:controller => "events", :action => "unjoin", :id => event.id}) if @events_attending.include?(event.id) %>
     <%end%>
 </div>
 

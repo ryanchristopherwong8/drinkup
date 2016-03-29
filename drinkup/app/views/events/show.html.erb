@@ -9,7 +9,7 @@
 
 <p><strong>Attendees: </strong></p>
 <% @event.attendees.each do |attendee| %>
-<p><%= "#{attendee.user.first_name} #{attendee.user.last_name}"  %></p>
+<p><%= "#{attendee.user.first_name} #{attendee.user.last_name}" if attendee.is_attending %></p>
 <% end %>
 
 <%= link_to 'Edit', edit_event_path(@event) if @creator_status %>

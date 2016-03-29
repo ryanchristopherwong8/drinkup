@@ -1,22 +1,29 @@
 class EventsController < ApplicationController
 
   before_action :redirect_if_not_logged_in
+  before_filter :set_cache_headers
   
   def test
   end
   
   def index
   	@events = Event.all
+    @events_attending = []
+
+    current_user.events.each do |event|
+      if !event.attendees.attending.first.blank?
+        @events_attending << event.id
+      end
+    end
   end
 
   def show
   	@event = Event.find(params[:id])
-    attendee = @event.attendees.where(:user_id => current_user.id).first
+    attendee = @event.attendees.user_attending(current_user).first
+    @creator_status = false
 
     if !attendee.blank?
       @creator_status = attendee.is_creator
-    else 
-      @creator_status = false
     end
   end
 
@@ -29,13 +36,16 @@ class EventsController < ApplicationController
     @user = current_user
  
   	if @event.save
-      @attendee = Attendee.new
-      @attendee.is_creator = true
+      # @attendee = Attendee.new
+      # @attendee.is_creator = true
+      # @attendee.is_attending = true
       
-      if @attendee.save
-        @event.attendees << @attendee
-        @user.attendees << @attendee
-      end
+      # if @attendee.save
+      #   @event.attendees << @attendee
+      #   @user.attendees << @attendee
+      # end
+
+      @user.attendees.create(:event => @event, :is_attending => true, :is_creator => true)
 
   		redirect_to @event
   	else
@@ -77,17 +87,36 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @user = current_user
 
-    @attendee = @event.attendees.where(:user_id => current_user.id).first
+    @attendee = @event.attendees.user_attending(@user).first
 
     if @attendee.blank?
-      @attendee = Attendee.new
-      @attendee.save
+      # @attendee = Attendee.new
+      # @attendee.is_attending = true
+      # @attendee.save
 
-      @event.attendees << @attendee
-      @user.attendees << @attendee
+      # @event.attendees << @attendee
+      # @user.attendees << @attendee
+
+      @user.attendees.create(:event => @event, :is_attending => true)
+
+    else
+      @attendee.update_attributes(:is_attending => true)
     end
 
     redirect_to @event
+  end
+
+  def unjoin
+    @event = Event.find(params[:id])
+    @user = current_user
+
+    @attendee = @event.attendees.user_attending(@user).first
+
+    if @attendee.update_attributes(:is_attending => false)
+      redirect_to @event
+    else
+      render('index')
+    end
   end
 
   private

@@ -16,7 +16,8 @@
         <p><b>Event Name:</b><%= event.name%></p>
         <p><b>Lat:</b><%= event.lat%></p>
         <p><b>Long:</b><%= event.lng%></p>
-        <p><b>Date and Time:</b><%= event.datetime%></p>
+        <p><b>Start Date and Time:</b><%= event.start_time%></p>
+        <p><b>End Date and Time:</b><%= event.end_time%></p>
         <p><b>Gender:</b><%= event.gender%></p>
         <%= link_to 'Show', event_path(event) %>
     <%end%>

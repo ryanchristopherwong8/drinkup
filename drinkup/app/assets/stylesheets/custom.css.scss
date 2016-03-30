@@ -37,12 +37,16 @@ body .navbar-inverse .navbar-nav > li > a {
 }
 
 /* forms */
-input, textarea, select, .uneditable-input {
+input, textarea, .uneditable-input {
   border: 1px solid #bbb;
   width: 100%;
   margin-bottom: 15px;
+  select {
+  width: auto;
+}
   @include box_sizing;
 }
+
 
 #error_explanation {
   color: red;

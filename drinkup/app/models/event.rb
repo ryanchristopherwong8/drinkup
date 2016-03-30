@@ -1,6 +1,6 @@
 class Event < ActiveRecord::Base
 	has_many :attendees
-	attr_accessor :place_name, :place_address
+	attr_accessor :location_name, :location_address
 	validates :name, presence: true
 	validates :lat, presence: true
 	validates :lng, presence: true
@@ -8,4 +8,5 @@ class Event < ActiveRecord::Base
     		 				message: "%{value} is not a valid gender" }
     validates :start_time, presence: true
     validates :end_time, presence: true
+    validates :place_id, presence: true
 end

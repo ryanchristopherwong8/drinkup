@@ -128,8 +128,28 @@ function callback(results, status) {
             createMarker(results[i],(i+1));
 
             //create list elements 
-            var addressListItem = document.createElement('li');            
-            addressListItem.appendChild(document.createTextNode(i + " " + results[i].vicinity));
+            var addressListItem = document.createElement('li'); 
+            addressListItem.setAttribute("class", "location-item");
+            addressListItem.setAttribute("name", results[i].name);
+            addressListItem.setAttribute("lat", lat);
+            addressListItem.setAttribute("lng", lng);
+            addressListItem.appendChild(document.createTextNode(results[i].vicinity));
+
+            var button = document.createElement("button");
+            button.setAttribute("id", "location-"+i);
+            button.setAttribute("class", "btn-location-add btn btn-primary glyphicon glyphicon-plus");
+
+            $(button).click(function(){
+                var parentNode = this.parentNode;
+                var test = $("#event_place_name");
+                $("#event_place_name").val(parentNode.getAttributeNode("name").value);
+                $("#event_place_address").val(parentNode.textContent);
+                $("#lat").val(parentNode.getAttributeNode("lat").value);
+                $("#lng").val(parentNode.getAttributeNode("lng").value);
+                //alert("lat is: " + myparent.lat + " long is: " + myparent.lng);
+            });
+            
+            addressListItem.appendChild(button);
             resultsList.appendChild(addressListItem);
 
           }

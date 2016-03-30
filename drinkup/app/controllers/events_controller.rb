@@ -1,16 +1,24 @@
 class EventsController < ApplicationController
 
   before_action :redirect_if_not_logged_in
+  before_filter :set_cache_headers
   
   def test
   end
   
   def index
   	@events = Event.all
+    @events_attending = current_user.attendees.attending.select("event_id").map(&:event_id)
   end
 
   def show
   	@event = Event.find(params[:id])
+    @creator_status = current_user.attendees.creator_of_event(@event).select("is_creator").map(&:is_creator)
+    
+    if @creator_status.blank?
+      @creator_status = false
+    end
+
   end
 
   def new
@@ -21,6 +29,7 @@ class EventsController < ApplicationController
   	@event = Event.new(event_params)
  
   	if @event.save
+      @event.attendees.create(:user => current_user, :is_attending => true, :is_creator => true)
   		redirect_to @event
   	else
   		render 'new'
@@ -45,11 +54,43 @@ class EventsController < ApplicationController
   end
 
   def destroy
-  @event = Event.find(params[:id])
-  @event.destroy
- 
-  redirect_to events_path
-end
+    @event = Event.find(params[:id])
+    @event.destroy
+
+    attendees_for_event = Attendee.where(:event_id => @event.id)
+    
+    attendees_for_event.each do |attendee|
+      attendee.destroy
+    end
+
+    redirect_to events_path
+  end
+
+  def join
+    @event = Event.find(params[:id])
+
+    attendee = current_user.attendees.where(:event_id => @event.id).first
+
+    if attendee.blank?
+      @event.attendees.create(:user => current_user, :is_attending => true)
+    else
+      attendee.update_attributes(:is_attending => true)
+    end
+
+    redirect_to @event
+  end
+
+  def unjoin
+    @event = Event.find(params[:id])
+
+    attendee = current_user.attendees.attending_event(@event).first
+
+    if attendee.update_attributes(:is_attending => false)
+      redirect_to @event
+    else
+      render('index')
+    end
+  end
 
   private
   def event_params

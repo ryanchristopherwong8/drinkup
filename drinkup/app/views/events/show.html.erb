@@ -1,13 +1,21 @@
 <%= link_to 'Back to Event Index', events_path%>
 <h1>Event:</h1>
-<p><b>Event Name:</b><%= @event.name%></p>
-<p><b>place_id:</b><%= @event.place_id%></p>
-<p><b>Lat:</b><%= @event.lat%></p>
-<p><b>Long:</b><%= @event.lng%></p>
-<p><b>Start Date and Time:</b><%= @event.start_time%></p>
-<p><b>End Date and Time:</b><%= @event.end_time%></p>
-<p><b>Gender:</b><%= @event.gender%></p>
-<%= link_to 'Edit', edit_event_path(@event)%> |
+
+<p><strong>Event Name: </strong><%= @event.name%></p>
+<p><strong>place_id:</strong><%= @event.place_id%></p>
+<p><strong>Lat: </strong><%= @event.lat%></p>
+<p><strong>Long: </strong><%= @event.lng%></p>
+<p><strong>Start Time: </strong><%= @event.start_time%></p>
+<p><strong>End Time: </strong><%= @event.end_time%></p>
+<p><strong>Gender: </strong><%= @event.gender%></p>
+
+<p><strong>Attendees: </strong></p>
+<% @event.attendees.each do |attendee| %>
+<p><%= "#{attendee.user.first_name} #{attendee.user.last_name}" if attendee.is_attending %></p>
+<% end %>
+
+<%= link_to 'Edit', edit_event_path(@event) if @creator_status %>
+>>>>>>> origin/master
 <%= link_to 'Destroy', event_path(@event),
               method: :delete,
-              data: { confirm: 'Are you sure you want to delete this event?' }%>
+              data: { confirm: 'Are you sure you want to delete this event?' }  if @creator_status  %>

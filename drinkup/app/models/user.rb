@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 	before_save { self.email = email.downcase }
 
 	has_many :attendees
+  has_many :events, through: :attendees
 
   #profile pictures
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"

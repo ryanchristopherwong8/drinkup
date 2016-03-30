@@ -54,7 +54,8 @@ CREATE TABLE attendees (
     event_id integer,
     is_attending boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    is_creator boolean DEFAULT false
 );
 
 
@@ -286,4 +287,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160320031957');
 INSERT INTO schema_migrations (version) VALUES ('20160321001335');
 
 INSERT INTO schema_migrations (version) VALUES ('20160325111613');
+
+INSERT INTO schema_migrations (version) VALUES ('20160329031644');
 

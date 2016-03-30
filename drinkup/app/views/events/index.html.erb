@@ -1,26 +1,28 @@
 <h1 class="section_header">Drinkups Around You</h1>
+<%= link_to 'Create Drinkup', new_event_path, :class => "col-md-12 text-right" %>
 <div class="center jumbotron">
  <div id="error">
    <p></p>
  </div>
    <div id="locationField">
        <br>
-   </div>    <div id="map"></div>
+   </div>    
+   <div id="map"></div>
    <script>initMap(49.2667967,-123.2056314,10)</script>    
 </div>
 
 <div class="container" style="background-color:#EEEEEE; padding:15px;">
-    <%= link_to 'Create Drinkup', new_event_path, :class => 'col-md-12 text-right btn btn-primary' %>
-
     <% @events.each do |event| %>
         <p><b>Event Name:</b><%= event.name%></p>
-        <p><b>place_id:</b><%= event.place_id%></p>
+        <p><b>Place ID:</b><%= event.place_id%></p>
         <p><b>Lat:</b><%= event.lat%></p>
         <p><b>Long:</b><%= event.lng%></p>
-        <p><b>Start Date and Time:</b><%= event.start_time%></p>
-        <p><b>End Date and Time:</b><%= event.end_time%></p>
+        <p><b>Start Time:</b><%= event.start_time%></p>
+        <p><b>End Time:</b><%= event.end_time%></p>
         <p><b>Gender:</b><%= event.gender%></p>
         <%= link_to 'Show', event_path(event) %>
+        <%= link_to('Attend', {:controller => "events", :action => "join", :id => event.id}) if !@events_attending.include?(event.id) %>
+        <%= link_to('Unattend', {:controller => "events", :action => "unjoin", :id => event.id}) if @events_attending.include?(event.id) %>
     <%end%>
 </div>
 

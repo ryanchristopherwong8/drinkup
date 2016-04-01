@@ -13,14 +13,6 @@
 
 <script type="text/javascript">
 getUserLocationforDrinkups();
-$.getJSON("/events/getEvents", function (data) {
-
-    var drinkups = data.events;
-    createBounds();
-    for(i = 0; i < drinkups.length; i++) {
-      createMarkerForEventsAroundYou(drinkups[i], i+1);
-    }
-  });
 </script>
 
 <div class="container" style="background-color:#EEEEEE; padding:15px;">

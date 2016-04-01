@@ -45,6 +45,15 @@ function setGeoCookie(position) {
 
   var geoCookie = crd.latitude + "|" + crd.longitude;
   document.cookie = "lat_lng=" + escape(geoCookie);
+
+  $.getJSON("/events/getEvents", function (data) {
+
+    var drinkups = data.events;
+    createBounds();
+    for(i = 0; i < drinkups.length; i++) {
+      createMarkerForEventsAroundYou(drinkups[i], i+1);
+    }
+  });
 }
 
 function storePosition(position) {

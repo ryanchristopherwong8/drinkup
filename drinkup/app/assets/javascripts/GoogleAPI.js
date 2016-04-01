@@ -122,6 +122,7 @@ function callback(results, status) {
             var lat=results[i].geometry.location.lat();
             var lng=results[i].geometry.location.lng();
             bounds.extend(new google.maps.LatLng(lat, lng));
+            console.log(results);
             createMarker(results[i],(i+1));
           }
           renderList(results);
@@ -131,24 +132,49 @@ function callback(results, status) {
 
 
 function createMarker(place,number) {
-        var image='http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+number+'|FE6256|000000';
-        var placeLoc = place.geometry.location;
-        var marker = new google.maps.Marker({
-          map: map,
-          position: place.geometry.location,
-          icon: image
-        });
+      var image='http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+number+'|FE6256|000000';
+      var placeLoc = place.geometry.location;
+      var marker = new google.maps.Marker({
+        map: map,
+        position: place.geometry.location,
+        icon: image
+      });
 
       markers.push(marker);
 
-       
-    
       google.maps.event.addListener(marker, 'click', function() {
         infowindow.setContent(place.name + "<br />" + place.vicinity + "<br />");
         infowindow.open(map, this);
       });
-        
-  }
+      
+}
+
+function createDrinkupMarker(place,drinkup,number) {
+      var image='http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+number+'|FE6256|000000';
+      var placeLoc = place.geometry.location;
+      var marker = new google.maps.Marker({
+        map: map,
+        position: place.geometry.location,
+        icon: image
+      });
+
+      markers.push(marker);
+
+      google.maps.event.addListener(marker, 'click', function() {
+        infowindow.setContent(drinkup.name + "<br />" + place.name + "<br />" + place.vicinity + "<br />");
+        infowindow.open(map, this);
+      });
+}
+
+
+
+function createMarkerForEventsAroundYou(drinkup,number) {
+    service.getDetails({ placeId: drinkup.place_id }, function(place, status) {
+      if (status == google.maps.places.PlacesServiceStatus.OK) {
+        createDrinkupMarker(place, drinkup, number);
+      }
+    });
+}
 
 function deleteMarkers() {
   for (var i = 0; i < markers.length; i++) {

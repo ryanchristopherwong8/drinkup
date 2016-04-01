@@ -9,7 +9,7 @@ class Event < ActiveRecord::Base
 	validates :lng, presence: true
 	validates :start_time, presence: true
     validates :end_time, presence: true
-	validates :gender, presence: true, inclusion: { in: %w(any male female),
-    		 				message: "%{value} is not a valid gender" }
+	# validates :gender, presence: true, inclusion: { in: %w(any male female),
+ #    		 				message: "%{value} is not a valid gender" }
     validates :place_id, presence: true
 end

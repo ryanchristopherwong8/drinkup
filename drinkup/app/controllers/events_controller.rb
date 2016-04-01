@@ -9,6 +9,11 @@ class EventsController < ApplicationController
   def index
   	@events = Event.all
     @events_attending = current_user.attendees.attending.select("event_id").map(&:event_id)
+
+    respond_to do |format|
+      format.html
+      format.json {render :json => {:events => @events, :events_attending => @events_attending }}
+    end
   end
 
   def show

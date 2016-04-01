@@ -142,7 +142,7 @@ function createMarker(place,number) {
 
   markers.push(marker);
        
-    
+  //TODO refactor
   google.maps.event.addListener(marker, 'click', function() {
     var locationData = $(marker).data("locationData")
     $("#event_location_name").val(locationData.location_name);

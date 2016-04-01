@@ -26,13 +26,25 @@ function setDrinktypeBar() {
   setup(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],1000, drinktype);
 }
 
-function getUserLocation()
-{
-	if (navigator.geolocation) 
-	{
+function getUserLocation() {
+	if (navigator.geolocation) {
 		var options={timeout:30000};
-        navigator.geolocation.getCurrentPosition(storePosition,getManualLocation,options);
-    } 
+    navigator.geolocation.getCurrentPosition(storePosition,getManualLocation,options);
+  } 
+}
+
+function getUserLocationforDrinkups() {
+  if (navigator.geolocation) {
+    var options={timeout:30000};
+    navigator.geolocation.getCurrentPosition(setGeoCookie,getManualLocation,options);
+  } 
+}
+
+function setGeoCookie(position) {
+  var crd = position.coords;
+
+  var geoCookie = crd.latitude + "|" + crd.longitude;
+  document.cookie = "lat_lng=" + escape(geoCookie);
 }
 
 function storePosition(position) {
@@ -118,7 +130,6 @@ function callback(results, status) {
       var lat=results[i].geometry.location.lat();
       var lng=results[i].geometry.location.lng();
       bounds.extend(new google.maps.LatLng(lat, lng));
-            console.log(results);
       createMarker(results[i],(i+1));
     }
     renderList(results);
@@ -180,8 +191,6 @@ function createMarkerForEventsAroundYou(drinkup,number) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
         var lat=place.geometry.location.lat();
         var lng=place.geometry.location.lng();
-        console.log(lat);
-        console.log(lng);
         bounds.extend(new google.maps.LatLng(lat, lng));
         createDrinkupMarker(place, drinkup, number);
         map.fitBounds(bounds);
@@ -198,6 +207,6 @@ function deleteMarkers() {
     markers[i].setMap(null);
   }
 
-  bounds = new google.maps.LatLngBounds()
+  createBounds();
   markers = [];
 }

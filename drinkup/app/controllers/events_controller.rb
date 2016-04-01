@@ -7,7 +7,10 @@ class EventsController < ApplicationController
   end
   
   def index
-  	@events = Event.all
+    #@events = Event.all
+    @lat_lng = cookies[:lat_lng].split("|")
+
+    @events = Event.within(5, :origin => [@lat_lng[0], @lat_lng[1]])
     @events_attending = current_user.attendees.attending.select("event_id").map(&:event_id)
 
     respond_to do |format|

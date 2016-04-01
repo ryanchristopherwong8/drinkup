@@ -7,10 +7,9 @@ function renderList(results) {
         $(addressListItem).data('locationData', { location_name: results[i].name, location_address: results[i].vicinity, 
             lat: results[i].geometry.location.lat(), lng: results[i].geometry.location.lng(), place_id: results[i].place_id });
         addressListItem.appendChild(document.createTextNode(results[i].name));
-        addressListItem.appendChild(document.createTextNode(results[i].vicinity));
+        addressListItem.appendChild(document.createTextNode(", " + results[i].vicinity));
 
         var button = document.createElement("button");
-        button.setAttribute("id", "location-"+i);
         button.setAttribute("class", "btn-location-add btn btn-primary glyphicon glyphicon-plus");
 
         $(button).click(function(){

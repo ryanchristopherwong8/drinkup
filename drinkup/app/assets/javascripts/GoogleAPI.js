@@ -71,15 +71,13 @@ function initMap(lat_user,lng_user,zoom) {
   infowindow = new google.maps.InfoWindow();
       }
 
-function changeMapLocation(lat_user,lng_user,zoom)
-{
+function changeMapLocation(lat_user,lng_user,zoom){
 	var user_location = {lat:lat_user , lng:lng_user};
 	map.setCenter(user_location);
   map.setZoom(zoom);
 }
 
-function storePositionFromGoogleAPI()
-{
+function storePositionFromGoogleAPI(){
   deleteMarkers();
 	var place = autocomplete.getPlace();
 	postionOfUserFromGeolocation[0]=place.geometry.location.lat();
@@ -88,8 +86,7 @@ function storePositionFromGoogleAPI()
   setup(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],1000, drinktype);
 }
 
-function setup(lat_user,lng_user,radius,drinktype)
-{
+function setup(lat_user,lng_user,radius,drinktype){
   document.getElementById('error').innerHTML="";
   var user_location = {lat:lat_user , lng:lng_user};
   
@@ -103,49 +100,60 @@ function setup(lat_user,lng_user,radius,drinktype)
 }
 
 function callback(results, status) {
-        var numberResultsToReturn=results.length;
-        var resultsList = document.getElementById("resultsList");
+  var numberResultsToReturn=results.length;
+  var resultsList = document.getElementById("resultsList");
 
-        //removes results from previous search
-        while (resultsList.firstChild) {
-            resultsList.removeChild(resultsList.firstChild);
-        }
+  //removes results from previous search
+  while (resultsList.firstChild) {
+    resultsList.removeChild(resultsList.firstChild);
+  }
 
-        if (results.length>8)
-        {
-          numberResultsToReturn=8;
-        }
+  if (results.length>8)
+  {
+    numberResultsToReturn=8;
+  }
 
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-          for (var i = 0; i < numberResultsToReturn; i++) {
-            var lat=results[i].geometry.location.lat();
-            var lng=results[i].geometry.location.lng();
-            bounds.extend(new google.maps.LatLng(lat, lng));
+  if (status === google.maps.places.PlacesServiceStatus.OK) {
+    for (var i = 0; i < numberResultsToReturn; i++) {
+      var lat=results[i].geometry.location.lat();
+      var lng=results[i].geometry.location.lng();
+      bounds.extend(new google.maps.LatLng(lat, lng));
             console.log(results);
-            createMarker(results[i],(i+1));
-          }
-          renderList(results);
-        }
-        map.fitBounds(bounds);
-      }
+      createMarker(results[i],(i+1));
+    }
+    renderList(results);
+  }
+  map.fitBounds(bounds);
+}
 
 
 function createMarker(place,number) {
-      var image='http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+number+'|FE6256|000000';
-      var placeLoc = place.geometry.location;
-      var marker = new google.maps.Marker({
-        map: map,
-        position: place.geometry.location,
-        icon: image
-      });
+        var image='http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+number+'|FE6256|000000';
+        var placeLoc = place.geometry.location;
+        var marker = new google.maps.Marker({
+          map: map,
+          position: place.geometry.location,
+          icon: image
+        });
 
-      markers.push(marker);
+  $(marker).data('locationData', { location_name: place.name, location_address: place.vicinity, 
+        lat: place.geometry.location.lat(), lng: place.geometry.location.lng(), place_id: place.place_id });
 
-      google.maps.event.addListener(marker, 'click', function() {
-        infowindow.setContent(place.name + "<br />" + place.vicinity + "<br />");
-        infowindow.open(map, this);
-      });
-      
+  markers.push(marker);
+       
+  //TODO refactor
+  google.maps.event.addListener(marker, 'click', function() {
+    var locationData = $(marker).data("locationData")
+    $("#event_location_name").val(locationData.location_name);
+    $("#event_location_address").val(locationData.location_address);
+    $("#lat").val(locationData.lat);
+    $("#lng").val(locationData.lng);
+    $("#place_id").val(locationData.place_id);
+
+    infowindow.setContent(place.name + "<br />" + place.vicinity + "<br />");
+    infowindow.open(map, this);
+  });
+        
 }
 
 function createDrinkupMarker(place,drinkup,number) {

@@ -7,14 +7,18 @@ class EventsController < ApplicationController
   end
   
   def index
-    #@events = Event.all
+    # Right now we are just returning all events to test display event data on the index page
+    # We will be removing this, once we are able to use jQuery to populate event data to display.
+    @events = Event.all
+    @events_attending = current_user.attendees.attending.select("event_id").map(&:event_id)
+  end
+
+  def getEvents
     @lat_lng = cookies[:lat_lng].split("|")
 
     @events = Event.within(5, :origin => [@lat_lng[0], @lat_lng[1]])
-    @events_attending = current_user.attendees.attending.select("event_id").map(&:event_id)
 
     respond_to do |format|
-      format.html
       format.json {render :json => {:events => @events, :events_attending => @events_attending }}
     end
   end

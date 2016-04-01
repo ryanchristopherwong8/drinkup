@@ -69,7 +69,6 @@ function initMap(lat_user,lng_user,zoom) {
         });
   service = new google.maps.places.PlacesService(map);
   infowindow = new google.maps.InfoWindow();
-  //bounds = new google.maps.LatLngBounds();
       }
 
 function changeMapLocation(lat_user,lng_user,zoom)
@@ -171,9 +170,19 @@ function createDrinkupMarker(place,drinkup,number) {
 function createMarkerForEventsAroundYou(drinkup,number) {
     service.getDetails({ placeId: drinkup.place_id }, function(place, status) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
+        var lat=place.geometry.location.lat();
+        var lng=place.geometry.location.lng();
+        console.log(lat);
+        console.log(lng);
+        bounds.extend(new google.maps.LatLng(lat, lng));
         createDrinkupMarker(place, drinkup, number);
+        map.fitBounds(bounds);
       }
     });
+}
+
+function createBounds() {
+    bounds = new google.maps.LatLngBounds()
 }
 
 function deleteMarkers() {

@@ -13,11 +13,15 @@
 
 <script type="text/javascript">
 $.getJSON("/events", function (data) {
+
     var drinkups = data.events;
+    createBounds();
     for(i = 0; i < drinkups.length; i++) {
       createMarkerForEventsAroundYou(drinkups[i], i+1);
       console.log(drinkups[i]);
     }
+    console.log(bounds);
+    //map.fitBounds(bounds);
   });
 </script>
 

@@ -16,14 +16,37 @@ function renderList(results) {
             var parentNode = this.parentNode;
             //use jquery to get data
             var locationData = $(parentNode).data("locationData")
-            //setting 
-            $("#event_location_name").val(locationData.location_name);
-            $("#event_location_address").val(locationData.location_address);
-            $("#lat").val(locationData.lat);
-            $("#lng").val(locationData.lng);
-            $("#place_id").val(locationData.place_id);
+            fillForm(locationData);
+            
         });      
         addressListItem.appendChild(button);
         resultsList.appendChild(addressListItem);
     }
 }
+
+function createShowListButton (){
+  var child = $("#locationDetails").firstChild;
+  if($("#show-list-toggle").length === 0){
+    var showListButton = "<button id='show-list-toggle' onclick = 'showList()''>show list</button>";
+    $("#locationDetails").prepend(showListButton);
+  }
+}
+
+function fillForm(data){
+   $("#event_location_name").val(data.location_name);
+    $("#event_location_address").val(data.location_address);
+    $("#lat").val(data.lat);
+    $("#lng").val(data.lng);
+    $("#place_id").val(data.place_id);
+}
+
+function showList() {
+    var list = document.getElementById("resultsList");
+
+    if (list.style.display == "none"){
+        list.style.display = "block";
+    }else{
+        list.style.display = "none";
+    }
+}
+

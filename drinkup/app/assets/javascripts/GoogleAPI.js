@@ -33,6 +33,19 @@ function getUserLocation() {
   } 
 }
 
+function storePosition(position) {
+  deleteMarkers();
+	postionOfUserFromGeolocation[0]=position.coords.latitude;
+	postionOfUserFromGeolocation[1]=position.coords.longitude;
+	changeMapLocation(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],15);
+  setup(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],1000,drinktype);
+}
+
+function getManualLocation(error) {
+	//generate message that location could not be got
+  document.getElementById('error').innerHTML="Could Not Get Geolocation";
+} 
+
 function getUserLocationforDrinkups() {
   if (navigator.geolocation) {
     var options={timeout:30000};
@@ -56,18 +69,6 @@ function setGeoCookie(position) {
   });
 }
 
-function storePosition(position) {
-  deleteMarkers();
-	postionOfUserFromGeolocation[0]=position.coords.latitude;
-	postionOfUserFromGeolocation[1]=position.coords.longitude;
-	changeMapLocation(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],15);
-  setup(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],1000,drinktype);
-}
-
-function getManualLocation(error) {
-	//generate message that location could not be got
-  document.getElementById('error').innerHTML="Could Not Get Geolocation";
-} 
 
 function initAutocomplete() {
   // Create the autocomplete object, restricting the search to geographical
@@ -85,12 +86,12 @@ function initMap(lat_user,lng_user,zoom) {
   var user_location = {lat:lat_user , lng:lng_user};
 
   map = new google.maps.Map(document.getElementById('map'), {
-      center: user_location,
-      zoom: zoom
-        });
+    center: user_location,
+    zoom: zoom
+  });
   service = new google.maps.places.PlacesService(map);
   infowindow = new google.maps.InfoWindow();
-      }
+}
 
 function changeMapLocation(lat_user,lng_user,zoom){
 	var user_location = {lat:lat_user , lng:lng_user};
@@ -107,6 +108,7 @@ function storePositionFromGoogleAPI(){
   setup(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],1000, drinktype);
 }
 
+//creates a nearby search request to google service
 function setup(lat_user,lng_user,radius,drinktype){
   document.getElementById('error').innerHTML="";
   var user_location = {lat:lat_user , lng:lng_user};
@@ -118,6 +120,7 @@ function setup(lat_user,lng_user,radius,drinktype){
   };
   
   service.nearbySearch(request, callback);
+
 }
 
 function callback(results, status) {
@@ -141,6 +144,7 @@ function callback(results, status) {
       bounds.extend(new google.maps.LatLng(lat, lng));
       createMarker(results[i],(i+1));
     }
+    createShowListButton();
     renderList(results);
   }
   map.fitBounds(bounds);
@@ -160,21 +164,18 @@ function createMarker(place,number) {
         lat: place.geometry.location.lat(), lng: place.geometry.location.lng(), place_id: place.place_id });
 
   markers.push(marker);
-       
-  //TODO refactor
-  google.maps.event.addListener(marker, 'click', function() {
+  
+
+    google.maps.event.addListener(marker, 'click', function() {
     var locationData = $(marker).data("locationData")
-    $("#event_location_name").val(locationData.location_name);
-    $("#event_location_address").val(locationData.location_address);
-    $("#lat").val(locationData.lat);
-    $("#lng").val(locationData.lng);
-    $("#place_id").val(locationData.place_id);
+    fillForm(locationData);
 
     infowindow.setContent(place.name + "<br />" + place.vicinity + "<br />");
     infowindow.open(map, this);
   });
         
 }
+
 
 function createDrinkupMarker(place,drinkup,number) {
       var image='http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+number+'|FE6256|000000';

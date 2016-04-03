@@ -12,13 +12,7 @@
 </div>
 
 <script type="text/javascript">
-$.getJSON("/events", function (data) {
-    var drinkups = data.events;
-    for(i = 0; i < drinkups.length; i++) {
-      createMarkerForEventsAroundYou(drinkups[i], i+1);
-      console.log(drinkups[i]);
-    }
-  });
+getUserLocationforDrinkups();
 </script>
 
 <div class="container" style="background-color:#EEEEEE; padding:15px;">
@@ -29,7 +23,6 @@ $.getJSON("/events", function (data) {
         <p><b>Long:</b><%= event.lng%></p>
         <p><b>Start Time:</b><%= event.start_time%></p>
         <p><b>End Time:</b><%= event.end_time%></p>
-        <!-- <p><b>Gender:</b><%= event.gender%></p> -->
         <%= link_to 'Show', event_path(event) %>
         <%= link_to('Attend', {:controller => "events", :action => "join", :id => event.id}) if !@events_attending.include?(event.id) %>
         <%= link_to('Unattend', {:controller => "events", :action => "unjoin", :id => event.id}) if @events_attending.include?(event.id) %>

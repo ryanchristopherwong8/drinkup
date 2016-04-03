@@ -41,7 +41,6 @@ function initializeMarkers(position) {
     var drinkups = data.events;
     var drinkups_attending = data.events_attending;
     deleteMarkers();
-    //createBounds();
     for(i = 0; i < drinkups.length; i++) {
       var isAttending = false;
       if ($.inArray(drinkups[i].id, drinkups_attending) !== -1) {

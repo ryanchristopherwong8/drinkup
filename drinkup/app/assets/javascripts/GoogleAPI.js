@@ -39,7 +39,7 @@ function setDrinktypeBar() {
 
 function getUserLocation() {
 	if (navigator.geolocation) {
-		var options={timeout:30000, enableHighAccuracy: true};
+		var options={timeout:30000};
     navigator.geolocation.getCurrentPosition(storePosition,getManualLocation,options);
   } 
 }

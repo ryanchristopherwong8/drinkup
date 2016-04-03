@@ -155,4 +155,22 @@ ol{
   width: 100%;
   margin-top: 45px;
   @include box_sizing;
+<<<<<<< Updated upstream
+=======
+}
+
+@media screen and (max-width: 480px) {
+  #logo img {
+    width:150px;
+  }
+  #nav_thumb {
+    display:none;
+  }
+  .open{
+    background-color: #222;
+  }
+  .dropdown-toggle .nav-user {
+     background-color: transparent;
+  }
+>>>>>>> Stashed changes
 }

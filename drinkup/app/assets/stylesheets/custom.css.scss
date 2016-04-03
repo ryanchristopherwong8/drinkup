@@ -5,9 +5,16 @@
   position: absolute;
   margin-left: auto;
   margin-right: auto;
-  left: 0;
-  right: 0;
-  text-align: center;
+  margin-top:0px;
+  left:0;
+  right:0;
+
+}
+a.dropdown-toggle.nav-user {
+  padding-top:25px;
+}
+#logo img{
+  width:260px;
 }
 
 #logo a {
@@ -18,12 +25,31 @@
   text-decoration: none;
 }
 
+#nav_thumb img {
+  border-radius: 50%;
+  width:55px;
+  height:55px;
+  object-fit: cover;
+}
+
+.alert {
+  clear: both;
+}
+
 .section_header {
   clear: both
 }
-
-.navbar-nav {
-  padding-top: 5px;
+.navbar {
+  background-image: url('dark_back.jpg');
+  box-shadow: 2px 2px 4px #888888;
+  height:80px;
+}
+.navbar-brand
+{
+    position: relative;
+    width: 300px;
+    text-align: center;
+    margin: auto;
 }
 
 body .navbar-inverse .navbar-nav > li > a {
@@ -84,7 +110,7 @@ input {
 /* universal */
 
 body {
-  padding-top: 60px;
+  padding-top: 80px;
   height: 100%;
   width: 100%;
 }
@@ -155,8 +181,6 @@ ol{
   width: 100%;
   margin-top: 45px;
   @include box_sizing;
-<<<<<<< Updated upstream
-=======
 }
 
 @media screen and (max-width: 480px) {
@@ -172,5 +196,4 @@ ol{
   .dropdown-toggle .nav-user {
      background-color: transparent;
   }
->>>>>>> Stashed changes
 }

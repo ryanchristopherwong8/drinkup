@@ -27,7 +27,7 @@ function renderList(results) {
 function createShowListButton (){
   var child = $("#locationDetails").firstChild;
   if($("#show-list-toggle").length === 0){
-    var showListButton = "<button id='show-list-toggle' onclick = 'showList()''>show list</button>";
+    var showListButton = "<button id='show-list-toggle' onclick = 'showList()'>show list</button>";
     $("#locationDetails").prepend(showListButton);
   }
 }

@@ -13,47 +13,71 @@
         </ul>
       </div>
     <% end %>
-   
+
+   <form>
+    <div class="form-group">
     <p>
       <%= f.label :name, value: 'Name of Event' %>
-      <%= f.text_field :name %>
+      <%= f.text_field :name, class: 'form-control'%>
     </p>
     <p>
       <%= f.label :location_name, id: 'location_name', value: 'Name of Location' %>
-      <%= f.text_field :location_name, readonly: true %>
+      <%= f.text_field :location_name, class: 'form-control' %>
     </p>
     <p>
       <%= f.label :location_address, id: 'location_address', value: 'Address of Location' %>
-      <%= f.text_field :location_address, readonly: true %>
+      <%= f.text_field :location_address, class: 'form-control' %>
     </p>
     <p>
       <%= f.label :start_time %>
-      <%= f.text_field :start_time, id: 'date_timepicker_start' %>
+      <%= f.text_field :start_time, id: 'date_timepicker_start', class: 'form-control' %>
     </p>
     <p>
       <%= f.label :end_time %>
-      <%= f.text_field :end_time, id: 'date_timepicker_end' %>
+      <%= f.text_field :end_time, id: 'date_timepicker_end', class: 'form-control' %>
     </p>
-    <script>jQuery(function(){
- jQuery('#date_timepicker_start').datetimepicker({
-    
-  onShow:function( ct ){
-   this.setOptions({
-    maxDate:jQuery('#date_timepicker_end').val()?jQuery('#date_timepicker_end').val():false
-   })
-  },
-  timepicker:true
- });
- jQuery('#date_timepicker_end').datetimepicker({
-    
-  onShow:function( ct ){
-   this.setOptions({
-    minDate:jQuery('#date_timepicker_start').val()?jQuery('#date_timepicker_start').val():false
-   })
-  },
-  timepicker:true
- });
-});</script>
+  <script>jQuery(function(){
+    jQuery('#date_timepicker_start').datetimepicker({
+    onShow:function( ct ){
+     this.setOptions({
+      maxDate:jQuery('#date_timepicker_end').val()?jQuery('#date_timepicker_end').val():false
+     })
+    },
+    minDate: '-1970/01/01',
+    timepicker:true,
+    allowTimes:[
+    '00:00', '00:30', '01:00', '01:30', '02:00', '02:30', 
+    '03:00', '03:30', '04:00', '04:30', '05:00', '05:30',
+    '06:00', '06:30', '07:00', '07:30', '08:00', '08:30', 
+    '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', 
+    '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', 
+    '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', 
+    '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', 
+    '21:00', '21:30', '22:00', '22:30', '23:00', '23:30' 
+   ]
+
+   });
+   jQuery('#date_timepicker_end').datetimepicker({
+      
+    onShow:function( ct ){
+     this.setOptions({
+      minDate:jQuery('#date_timepicker_start').val()?jQuery('#date_timepicker_start').val():false
+     })
+    },
+    timepicker:true,
+    allowTimes:[
+    '00:00', '00:30', '01:00', '01:30', '02:00', '02:30', 
+    '03:00', '03:30', '04:00', '04:30', '05:00', '05:30',
+    '06:00', '06:30', '07:00', '07:30', '08:00', '08:30', 
+    '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', 
+    '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', 
+    '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', 
+    '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', 
+    '21:00', '21:30', '22:00', '22:30', '23:00', '23:30' 
+   ]
+   });
+  });
+</script>
 <!--     <p>
       <%= f.label :gender %>
       <%= f.text_field :gender %>
@@ -68,9 +92,11 @@
       <%= f.hidden_field :place_id, id: 'place_id' %>
     </p>
     <p>
-      <%= f.submit %>
+      <%= f.submit "Create DrinkUp", class: 'btn btn-default' %>
     </p>
     <% end %>
+    </div>
+    </form>
 
 </div>
 

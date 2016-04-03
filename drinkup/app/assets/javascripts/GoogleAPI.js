@@ -65,8 +65,6 @@ function initAutocomplete() {
       /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
       {types: ['geocode']});
 
-  // When the user selects an address from the dropdown, populate the address
-  // fields in the form.
   autocomplete.addListener('place_changed', storePositionFromGoogleAPI);
 }
 
@@ -212,14 +210,22 @@ function createDrinkupMarker(place,drinkup,number,isAttending) {
 
 
 
-function createMarkerForEventsAroundYou(drinkup,number,isAttending) {
+function createMarkerForEventsAroundYou(drinkup,number,isAttending,stopBound) {
     service.getDetails({ placeId: drinkup.place_id }, function(place, status) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
-        var lat=place.geometry.location.lat();
-        var lng=place.geometry.location.lng();
-        bounds.extend(new google.maps.LatLng(lat, lng));
-        createDrinkupMarker(place, drinkup, number, isAttending);
-        map.fitBounds(bounds);
+        if (stopBound==0)
+        {
+          var lat=place.geometry.location.lat();
+          var lng=place.geometry.location.lng();
+          bounds.extend(new google.maps.LatLng(lat, lng));
+          createDrinkupMarker(place, drinkup, number, isAttending);
+          map.fitBounds(bounds);
+        }
+        else
+        {
+          createDrinkupMarker(place, drinkup, number, isAttending);
+
+        }
       }
     });
 }

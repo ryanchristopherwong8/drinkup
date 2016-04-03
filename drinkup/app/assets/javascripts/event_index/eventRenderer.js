@@ -16,8 +16,15 @@ function initAutocompleteforDrinkups() {
       /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
       {types: ['geocode']});
 
-  // When the user selects an address from the dropdown, populate the address
-  // fields in the form.
+  map.addListener('idle', function() {
+    var position= {
+              coords: {latitude:map.getCenter().lat(),longitude:map.getCenter().lng()}
+            };
+    initializeMarkersAfterDrag(position);
+    
+  });
+
+
   autocomplete.addListener('place_changed', storePositionforDrinkups);
 }
 
@@ -47,7 +54,32 @@ function initializeMarkers(position) {
       if ($.inArray(drinkups[i].id, drinkups_attending) !== -1) {
         isAttending = true;
       }
-      createMarkerForEventsAroundYou(drinkups[i], i+1, isAttending);
+      createMarkerForEventsAroundYou(drinkups[i], i+1, isAttending,0);
+    }
+  });
+}
+
+function initializeMarkersAfterDrag(position) {
+  document.getElementById('error').innerHTML="";
+  var crd = position.coords;
+
+  var geoCookie = crd.latitude + "|" + crd.longitude;
+  document.cookie = "lat_lng=" + escape(geoCookie);
+
+  $.getJSON("/events/getEvents", function (data) {
+
+    var drinkups = data.events;
+    var drinkups_attending = data.events_attending;
+    for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(null);
+  }
+    markers=[];
+    for(i = 0; i < drinkups.length; i++) {
+      var isAttending = false;
+      if ($.inArray(drinkups[i].id, drinkups_attending) !== -1) {
+        isAttending = true;
+      }
+      createMarkerForEventsAroundYou(drinkups[i], i+1, isAttending,1);
     }
   });
 }

@@ -33,29 +33,6 @@ function getUserLocation() {
   } 
 }
 
-function getUserLocationforDrinkups() {
-  if (navigator.geolocation) {
-    var options={timeout:30000};
-    navigator.geolocation.getCurrentPosition(setGeoCookie,getManualLocation,options);
-  } 
-}
-
-function setGeoCookie(position) {
-  var crd = position.coords;
-
-  var geoCookie = crd.latitude + "|" + crd.longitude;
-  document.cookie = "lat_lng=" + escape(geoCookie);
-
-  $.getJSON("/events/getEvents", function (data) {
-
-    var drinkups = data.events;
-    createBounds();
-    for(i = 0; i < drinkups.length; i++) {
-      createMarkerForEventsAroundYou(drinkups[i], i+1);
-    }
-  });
-}
-
 function storePosition(position) {
   deleteMarkers();
 	postionOfUserFromGeolocation[0]=position.coords.latitude;
@@ -148,13 +125,13 @@ function callback(results, status) {
 
 
 function createMarker(place,number) {
-        var image='http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+number+'|FE6256|000000';
-        var placeLoc = place.geometry.location;
-        var marker = new google.maps.Marker({
-          map: map,
-          position: place.geometry.location,
-          icon: image
-        });
+    var image='http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+number+'|FE6256|000000';
+    var placeLoc = place.geometry.location;
+    var marker = new google.maps.Marker({
+      map: map,
+      position: place.geometry.location,
+      icon: image
+    });
 
   $(marker).data('locationData', { location_name: place.name, location_address: place.vicinity, 
         lat: place.geometry.location.lat(), lng: place.geometry.location.lng(), place_id: place.place_id });
@@ -176,32 +153,60 @@ function createMarker(place,number) {
         
 }
 
-function createDrinkupMarker(place,drinkup,number) {
-      var image='http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+number+'|FE6256|000000';
-      var placeLoc = place.geometry.location;
-      var marker = new google.maps.Marker({
-        map: map,
-        position: place.geometry.location,
-        icon: image
-      });
+function createDrinkupMarker(place,drinkup,number,isAttending) {
+    var image='http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+number+'|FE6256|000000';
+    var placeLoc = place.geometry.location;
+    var marker = new google.maps.Marker({
+      map: map,
+      position: place.geometry.location,
+      icon: image
+    });
 
-      markers.push(marker);
+    var start_time = moment(drinkup.start_time).format('MMMM Do YYYY, h:mm a');
+    var end_time = moment(drinkup.end_time).format('MMMM Do YYYY, h:mm a');
 
-      google.maps.event.addListener(marker, 'click', function() {
-        infowindow.setContent(drinkup.name + "<br />" + place.name + "<br />" + place.vicinity + "<br />");
-        infowindow.open(map, this);
-      });
+    $(marker).data('drinkupData', { id : drinkup.id, name : drinkup.name, location_name: place.name, location_address : place.vicinity,
+      start_time : start_time, end_time : end_time, isUserAttending : isAttending
+    });
+  
+    infowindow.setContent(drinkup.name + "<br />" + place.name + "<br />" + place.vicinity + "<br />");
+    markers.push(marker);
+
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.open(map, this);
+      var drinkupData = $(marker).data("drinkupData");
+
+      if(!$("#drinkup_listing").is(":visible")) {
+        $("#drinkup_listing").slideDown(500);
+        $("#inspirational_quote").hide();
+      }
+
+      $("#drinkup_name").html(drinkupData.name);
+      $("#drinkup_location_name").html(drinkupData.location_name);
+      $("#drinkup_location_address").html(drinkupData.location_address);
+      $("#drinkup_start_time").html(drinkupData.start_time);
+      $("#drinkup_end_time").html(drinkupData.end_time);
+
+      $("#event_link_show").attr("href", "/events/" + drinkupData.id);
+      if (!drinkupData.isUserAttending) {
+        $("#event_link_attend").attr("href", "/events/join/" + drinkupData.id);
+        $("#event_link_attend").text("Attend")
+      } else {
+        $("#event_link_attend").attr("href", "/events/unjoin/" + drinkupData.id);
+        $("#event_link_attend").text("Unattend")
+      }
+    });
 }
 
 
 
-function createMarkerForEventsAroundYou(drinkup,number) {
+function createMarkerForEventsAroundYou(drinkup,number,isAttending) {
     service.getDetails({ placeId: drinkup.place_id }, function(place, status) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
         var lat=place.geometry.location.lat();
         var lng=place.geometry.location.lng();
         bounds.extend(new google.maps.LatLng(lat, lng));
-        createDrinkupMarker(place, drinkup, number);
+        createDrinkupMarker(place, drinkup, number, isAttending);
         map.fitBounds(bounds);
       }
     });

@@ -9,8 +9,8 @@ class EventsController < ApplicationController
   def index
     # Right now we are just returning all events to test display event data on the index page
     # We will be removing this, once we are able to use jQuery to populate event data to display.
-    @events = Event.all
-    @events_attending = current_user.attendees.attending.select("event_id").map(&:event_id)
+    # @events = Event.all
+    # @events_attending = current_user.attendees.attending.select("event_id").map(&:event_id)
   end
 
   def getEvents

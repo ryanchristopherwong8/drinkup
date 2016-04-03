@@ -31,6 +31,7 @@ function storePositionforDrinkups(){
 }
 
 function initializeMarkers(position) {
+  document.getElementById('error').innerHTML="";
   var crd = position.coords;
 
   var geoCookie = crd.latitude + "|" + crd.longitude;

@@ -27,7 +27,10 @@ class EventsController < ApplicationController
   def show
   	@event = Event.find(params[:id])
     @creator_status = current_user.attendees.creator_of_event(@event).select("is_creator").map(&:is_creator)
-    
+    @chat = Chat.find_by(event_id: @event.id)
+    @messages = @chat.messages
+    @message = Message.new
+
     if @creator_status.blank?
       @creator_status = false
     end
@@ -43,6 +46,8 @@ class EventsController < ApplicationController
  
   	if @event.save
       @event.attendees.create(:user => current_user, :is_attending => true, :is_creator => true)
+      #http://stackoverflow.com/questions/3839779/rails-create-on-has-one-association
+      @chat = @event.create_chat(params[:chat])
   		redirect_to @event
   	else
   		render 'new'
@@ -109,4 +114,5 @@ class EventsController < ApplicationController
   def event_params
     params.require(:event).permit(:name, :lat, :lng, :start_time, :end_time, :gender, :place_id)
   end
+
 end

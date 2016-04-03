@@ -18,3 +18,20 @@
 <%= link_to 'Destroy', event_path(@event),
               method: :delete,
               data: { confirm: 'Are you sure you want to delete this event?' }  if @creator_status  %>
+
+
+<div class="chatboxcontent">
+    <% if @messages.any? %>
+        <%= render @messages %>
+    <% end %>
+</div>
+<div class="chatboxinput">
+    <%= form_for([@chat, @message], :remote=> true, :html => {id: "chat_form_# {@chat.id}"}) do |f| %>
+    <%= f.text_area :body, class: "chatboxtextarea", "data-cid" => @chat.id %>
+    <div class="chat-form-btns">    
+         <%= f.submit "send", class: "btn btn-primary btn-sm btn-submit"%>
+        <%= f.submit "New Title!", class: "btn btn-success btn-sm btn-new-title"%>
+    </div>
+  <% end %>
+<div>
+<%= subscribe_to chat_path(@chat) %>

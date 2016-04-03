@@ -20,3 +20,4 @@
 //= require GoogleAPI
 //= require moment
 //= require datetimepicker
+//= require private_pub

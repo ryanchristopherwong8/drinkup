@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   #routes for users
   resources :users
-  
+
+  resources :chat do
+    resources :messages
+  end
+
   get 'signup'  => 'users#new'
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
@@ -14,6 +18,5 @@ Rails.application.routes.draw do
   	end
   end
   match ':controller(/:action(/:id))', :via => [:get, :post]
-
   
 end

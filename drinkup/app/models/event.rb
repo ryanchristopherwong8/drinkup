@@ -10,6 +10,7 @@ class Event < ActiveRecord::Base
 	
 	has_many :attendees
 	has_many :users, through: :attendees
+	has_one :chat
 
 	validates :name, presence: true
 	validates :lat, presence: true

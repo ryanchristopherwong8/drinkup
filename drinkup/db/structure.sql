@@ -79,6 +79,37 @@ ALTER SEQUENCE attendees_id_seq OWNED BY attendees.id;
 
 
 --
+-- Name: chats; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE chats (
+    id integer NOT NULL,
+    event_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: chats_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE chats_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: chats_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE chats_id_seq OWNED BY chats.id;
+
+
+--
 -- Name: conversations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -149,6 +180,39 @@ ALTER SEQUENCE events_id_seq OWNED BY events.id;
 
 
 --
+-- Name: messages; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE messages (
+    id integer NOT NULL,
+    body text,
+    chat_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    user_id integer
+);
+
+
+--
+-- Name: messages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE messages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: messages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE messages_id_seq OWNED BY messages.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -212,6 +276,13 @@ ALTER TABLE ONLY attendees ALTER COLUMN id SET DEFAULT nextval('attendees_id_seq
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY chats ALTER COLUMN id SET DEFAULT nextval('chats_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY conversations ALTER COLUMN id SET DEFAULT nextval('conversations_id_seq'::regclass);
 
 
@@ -220,6 +291,13 @@ ALTER TABLE ONLY conversations ALTER COLUMN id SET DEFAULT nextval('conversation
 --
 
 ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY messages ALTER COLUMN id SET DEFAULT nextval('messages_id_seq'::regclass);
 
 
 --
@@ -235,6 +313,14 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 ALTER TABLE ONLY attendees
     ADD CONSTRAINT attendees_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: chats_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY chats
+    ADD CONSTRAINT chats_pkey PRIMARY KEY (id);
 
 
 --
@@ -254,6 +340,14 @@ ALTER TABLE ONLY events
 
 
 --
+-- Name: messages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY messages
+    ADD CONSTRAINT messages_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -262,10 +356,40 @@ ALTER TABLE ONLY users
 
 
 --
+-- Name: index_messages_on_chat_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_messages_on_chat_id ON messages USING btree (chat_id);
+
+
+--
+-- Name: index_messages_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_messages_on_user_id ON messages USING btree (user_id);
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- Name: fk_rails_0f670de7ba; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY messages
+    ADD CONSTRAINT fk_rails_0f670de7ba FOREIGN KEY (chat_id) REFERENCES chats(id);
+
+
+--
+-- Name: fk_rails_273a25a7a6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY messages
+    ADD CONSTRAINT fk_rails_273a25a7a6 FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -289,4 +413,10 @@ INSERT INTO schema_migrations (version) VALUES ('20160321001335');
 INSERT INTO schema_migrations (version) VALUES ('20160325111613');
 
 INSERT INTO schema_migrations (version) VALUES ('20160329031644');
+
+INSERT INTO schema_migrations (version) VALUES ('20160403195849');
+
+INSERT INTO schema_migrations (version) VALUES ('20160403201046');
+
+INSERT INTO schema_migrations (version) VALUES ('20160403225601');
 

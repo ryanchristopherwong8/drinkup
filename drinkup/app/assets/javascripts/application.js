@@ -18,3 +18,5 @@
 //= require components
 //= require_tree .
 //= require GoogleAPI
+//= require moment
+//= require datetimepicker

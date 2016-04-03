@@ -28,12 +28,32 @@
     </p>
     <p>
       <%= f.label :start_time %>
-      <%= f.datetime_select :start_time %>
+      <%= f.text_field :start_time, id: 'date_timepicker_start' %>
     </p>
     <p>
       <%= f.label :end_time %>
-      <%= f.datetime_select :end_time %>
+      <%= f.text_field :end_time, id: 'date_timepicker_end' %>
     </p>
+    <script>jQuery(function(){
+ jQuery('#date_timepicker_start').datetimepicker({
+    
+  onShow:function( ct ){
+   this.setOptions({
+    maxDate:jQuery('#date_timepicker_end').val()?jQuery('#date_timepicker_end').val():false
+   })
+  },
+  timepicker:true
+ });
+ jQuery('#date_timepicker_end').datetimepicker({
+    
+  onShow:function( ct ){
+   this.setOptions({
+    minDate:jQuery('#date_timepicker_start').val()?jQuery('#date_timepicker_start').val():false
+   })
+  },
+  timepicker:true
+ });
+});</script>
 <!--     <p>
       <%= f.label :gender %>
       <%= f.text_field :gender %>
@@ -51,5 +71,6 @@
       <%= f.submit %>
     </p>
     <% end %>
+
 </div>
 

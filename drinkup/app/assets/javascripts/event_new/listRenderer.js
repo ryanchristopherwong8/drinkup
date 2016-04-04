@@ -38,8 +38,7 @@ function renderListWithPhotos(results){
     }
 
     addressListItem.appendChild(image);
-    setPlaceDetails(pid, addressListItem);    
-    console.log(i); 
+    setPlaceDetails(pid, addressListItem);
     $("#resultsList").append(addressListItem);
   }
 }

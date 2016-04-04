@@ -33,8 +33,15 @@ function storePositionforDrinkups(){
   var position= {
     coords: {latitude:place.geometry.location.lat(),longitude:place.geometry.location.lng()}
   };
+  changeMapLocationforDrinkups(position.coords.latitude,position.coords.longitude,15);
 
   initializeMarkers(position);
+}
+
+function changeMapLocationforDrinkups(lat_user,lng_user,zoom){
+  var user_location = {lat:lat_user , lng:lng_user};
+  map.setCenter(user_location);
+  map.setZoom(zoom);
 }
 
 function initializeMarkers(position) {

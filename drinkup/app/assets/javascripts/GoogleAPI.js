@@ -77,7 +77,7 @@ function initMap(lat_user,lng_user,zoom) {
         });
   service = new google.maps.places.PlacesService(map);
   infowindow = new google.maps.InfoWindow();
-      }
+}
 
 function changeMapLocation(lat_user,lng_user,zoom){
 	var user_location = {lat:lat_user , lng:lng_user};
@@ -94,6 +94,7 @@ function storePositionFromGoogleAPI(){
   setup(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],1000, drinktype);
 }
 
+//creates a nearby search request to google service
 function setup(lat_user,lng_user,radius,drinktype){
   document.getElementById('error').innerHTML="";
   var user_location = {lat:lat_user , lng:lng_user};
@@ -105,6 +106,7 @@ function setup(lat_user,lng_user,radius,drinktype){
   };
   
   service.nearbySearch(request, callback);
+
 }
 
 function callback(results, status) {
@@ -128,7 +130,9 @@ function callback(results, status) {
       bounds.extend(new google.maps.LatLng(lat, lng));
       createMarker(results[i],(i+1));
     }
-    renderList(results);
+    createShowListButton();
+    //rederList(results);
+    renderListWithPhotos(results);
   }
   map.fitBounds(bounds);
 }
@@ -147,17 +151,13 @@ function createMarker(place,number) {
         lat: place.geometry.location.lat(), lng: place.geometry.location.lng(), place_id: place.place_id });
 
   markers.push(marker);
-       
-  //TODO refactor
-  google.maps.event.addListener(marker, 'click', function() {
-    var locationData = $(marker).data("locationData")
-    $("#event_location_name").val(locationData.location_name);
-    $("#event_location_address").val(locationData.location_address);
-    $("#lat").val(locationData.lat);
-    $("#lng").val(locationData.lng);
-    $("#place_id").val(locationData.place_id);
+  
 
-    infowindow.setContent(place.name + "<br />" + place.vicinity + "<br />");
+    google.maps.event.addListener(marker, 'click', function() {
+    var locationData = $(marker).data("locationData")
+    fillForm(locationData);
+
+    infowindow.setContent(place.name + "<br />" + place.vicinity + "<br />" + photoSource);
     infowindow.open(map, this);
   });
         

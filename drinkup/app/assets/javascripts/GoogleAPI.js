@@ -19,8 +19,6 @@ function setDrinktypeCafe() {
     changeMapLocation(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],15);
     setup(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],1000, drinktype);
   }
-  
-
 }
 
 function setDrinktypeBar() {
@@ -131,7 +129,6 @@ function callback(results, status) {
       createMarker(results[i],(i+1));
     }
     createShowListButton();
-    //rederList(results);
     renderListWithPhotos(results);
   }
   map.fitBounds(bounds);
@@ -157,7 +154,7 @@ function createMarker(place,number) {
     var locationData = $(marker).data("locationData")
     fillForm(locationData);
 
-    infowindow.setContent(place.name + "<br />" + place.vicinity + "<br />" + photoSource);
+    infowindow.setContent(place.name + "<br />" + place.vicinity + "<br />");
     infowindow.open(map, this);
   });
         
@@ -224,7 +221,6 @@ function createMarkerForEventsAroundYou(drinkup,number,isAttending,stopBound) {
         else
         {
           createDrinkupMarker(place, drinkup, number, isAttending);
-
         }
       }
     });

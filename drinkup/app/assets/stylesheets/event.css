@@ -1,3 +1,13 @@
+#resultsList img{
+    float:left;
+    display: inline;
+}
+
+#resultsList a{
+    float: left;
+    display: inline;
+}
+
 #drinkup_listing {
   margin-top: 10px;
 }

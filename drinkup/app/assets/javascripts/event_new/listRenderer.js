@@ -27,20 +27,21 @@ function renderListWithPhotos(results){
   for(var i = 0; i < numberResultsToReturn; i++){
 
     var addressListItem = document.createElement('li'); 
+    createLocationImage(results[i], addressListItem);
 
-    var image = document.createElement("img");
     var pid = results[i].place_id;
-
-    var photos = results[i].photos;
-    if(photos){
-      var photoSource = photos[0].getUrl({'maxWidth': 50, 'maxHeight': 50});
-      image.setAttribute("src",photoSource);
-    }
-
-    addressListItem.appendChild(image);
     setPlaceDetails(pid, addressListItem);    
-    console.log(i); 
     $("#resultsList").append(addressListItem);
+  }
+}
+
+function createLocationImage(place, parentNode) {
+  var image = document.createElement("img");
+  var photos = place.photos;
+  if(photos){
+    var photosUrl = photos[0].getUrl({'maxWidth': 100, 'maxHeight': 100});
+    image.setAttribute("src",photoSource);
+    parentNode.appendChild(image);
   }
 }
 
@@ -69,19 +70,23 @@ function createListItemDetails(place) {
     fillForm(locationData);
   });      
 
-  link.appendChild(document.createTextNode(place.name));
+  link.appendChild(document.createTextNode("BUTTON"));
   link.appendChild(document.createElement("br"));
+
   link.appendChild(document.createTextNode(place.formatted_address));
   link.appendChild(document.createElement("br"));
   link.appendChild(document.createTextNode(place.website));
   link.appendChild(document.createElement("br"));
   link.appendChild(document.createTextNode(place.rating));
   link.appendChild(document.createElement("br"));
+
   link.appendChild(document.createTextNode(place.formatted_phone_number));
   link.appendChild(document.createElement("br"));
   container.appendChild(link);
   return container;
 }
+
+function add
 
 function createShowListButton (){
   var child = $("#locationDetails").firstChild;

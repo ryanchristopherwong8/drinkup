@@ -4,14 +4,63 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    gon.user_id = @user.id
+    gon.conversations = @user.conversations.select("name").map(&:name)
+  end
+
+  def getConversations
+    @conversations = Conversation.all.select("name").map(&:name)
+
+    respond_to do |format|
+      format.html
+      format.json {render :json => {:conversations => @conversations}}
+    end
+  end
+
+  def saveConversations
+    user = User.find(params[:id])
+    conversation = Conversation.find_by_name(params[:conversation])
+
+    userConversation = user.conversations.where(:name => conversation.name).first
+
+    if userConversation.blank?
+      user.conversations << conversation
+      success = true
+    else 
+      success = false
+    end
+
+    respond_to do |format|
+      format.json {render :json => {:success => success}}
+    end
+  end
+
+  def removeConversations
+    user = User.find(params[:id])
+    conversation = Conversation.find_by_name(params[:conversation])
+
+    userConversation = user.conversations.where(:name => conversation.name).first
+
+    if !userConversation.blank?
+      user.conversations.destroy(conversation)
+      success = true
+    else 
+      success = false
+    end
+
+    respond_to do |format|
+      format.json {render :json => {:success => success}}
+    end
   end
 
   def new
   	@user = User.new
+    @conversations = Conversation.all
   end
 
   def edit
     @user = User.find(params[:id])
+    @conversations = Conversation.all
   end
 
   def create

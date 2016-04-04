@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
   #routes for users
-  resources :users
+  resources :users do
+    collection do
+      get 'getConversations'
+    end
+    member do 
+      post 'saveConversations'
+      delete 'removeConversations'
+    end
+  end
   
   get 'signup'  => 'users#new'
   get    'login'   => 'sessions#new'

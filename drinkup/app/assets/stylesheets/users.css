@@ -1,0 +1,41 @@
+.conversation_tag {
+	margin: 2px;
+	padding: 4px;
+	border: 1px solid #33FF66;
+	border-radius: 3px;
+	background-color: #33FF66;
+	color: white;
+	display: inline-block;
+}
+
+#conversation_link {
+	margin: 10px 0 10px 0;
+	display: block;
+	text-decoration: none;
+	clear: both;
+}
+
+#conversation_select {
+	border: 1px solid #00CCFF;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+#conversation_select .conversation_tag {
+	margin: 2px;
+	background-color: #00CCFF;
+	border: 1px solid #00CCFF;
+}
+
+#conversation_select .conversation_tag.selected {
+	background-color: #33FF66;
+	border: 1px solid #33FF66;
+}
+
+#user_conversations .conversation_tag {
+	border: 1px solid #33FF66;
+	border-radius: 3px;
+	background-color: #33FF66;
+	color: white;
+	float: left;
+}

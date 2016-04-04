@@ -182,7 +182,7 @@ function createMarker(place,number) {
     var locationData = $(marker).data("locationData")
     fillForm(locationData);
 
-    infowindow.setContent(place.name + "<br />" + place.vicinity + "<br />" + photoSource);
+    infowindow.setContent(place.name + "<br />" + place.vicinity + "<br />");
     infowindow.open(map, this);
   });
         

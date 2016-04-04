@@ -9,7 +9,6 @@ class MessagesController < ApplicationController
     @path = chat_path(@chat)
   end
 
-
   private
   def message_params
     params.require(:message).permit(:body)

@@ -1,3 +1,4 @@
+/*
 function renderList(results) {
     var numberResultsToReturn = results.length<8 ? results.length : 8;
     for(var i = 0; i < numberResultsToReturn; i++){
@@ -20,7 +21,7 @@ function renderList(results) {
         resultsList.appendChild(addressListItem);
     }
 }
-
+*/
 function renderListWithPhotos(results){
   var numberResultsToReturn = results.length<8 ? results.length : 8;
   for(var i = 0; i < numberResultsToReturn; i++){
@@ -28,7 +29,6 @@ function renderListWithPhotos(results){
     var addressListItem = document.createElement('li'); 
 
     var image = document.createElement("img");
-    image.setAttribute("display", "inline-block");
     var pid = results[i].place_id;
 
     var photos = results[i].photos;
@@ -59,9 +59,8 @@ function setPlaceDetails(pid, parentNode){
 function createListItemDetails(place) {
   var container = document.createElement("div");
   container.setAttribute("class", "list-item details");
-  container.setAttribute("display", "inline-block");
   var link = document.createElement("a");
-  
+
   $(link).data('locationData', { location_name: place.name, location_address: place.vicinity, 
     lat: place.geometry.location.lat(), lng: place.geometry.location.lng(), place_id: place.place_id });
   

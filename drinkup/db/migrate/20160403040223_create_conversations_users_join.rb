@@ -5,11 +5,11 @@ class CreateConversationsUsersJoin < ActiveRecord::Migration
     	t.references :conversation
     end
     add_index :conversations_users, ["user_id", "conversation_id"]
-    remove_column :users, :conversations, :json
+    remove_column :users, :conversations
   end
 
   def down
   	drop_table :conversations_users
-  	add_column :users, :conversations
+  	add_column :users, :conversations, :json
   end
 end

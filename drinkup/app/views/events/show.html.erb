@@ -20,7 +20,7 @@
               data: { confirm: 'Are you sure you want to delete this event?' }  if @creator_status  %>
 
 
-<div class="chatboxcontent">
+<div class="chatboxcontent" id="chatbox_<%= @chat.id %>">
     <% if @messages.any? %>
         <%= render @messages %>
     <% end %>
@@ -29,9 +29,9 @@
     <%= form_for([@chat, @message], :remote=> true, :html => {id: "chat_form_# {@chat.id}"}) do |f| %>
     <%= f.text_area :body, class: "chatboxtextarea", "data-cid" => @chat.id %>
     <div class="chat-form-btns">    
-         <%= f.submit "send", class: "btn btn-primary btn-sm btn-submit"%>
-        <%= f.submit "New Title!", class: "btn btn-success btn-sm btn-new-title"%>
+        <%= f.submit "send", class: "btn btn-primary btn-sm btn-submit"%>
     </div>
   <% end %>
 <div>
+<p><%= chat_path(@chat) %></p>
 <%= subscribe_to chat_path(@chat) %>

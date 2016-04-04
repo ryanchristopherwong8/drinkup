@@ -67,7 +67,7 @@ function initMap(lat_user,lng_user,zoom) {
         });
   service = new google.maps.places.PlacesService(map);
   infowindow = new google.maps.InfoWindow();
-      }
+}
 
 function changeMapLocation(lat_user,lng_user,zoom){
 	var user_location = {lat:lat_user , lng:lng_user};
@@ -121,7 +121,8 @@ function callback(results, status) {
       createMarker(results[i],(i+1));
     }
     createShowListButton();
-    renderList(results);
+    //rederList(results);
+    renderListWithPhotos(results);
   }
   map.fitBounds(bounds);
 }
@@ -146,7 +147,7 @@ function createMarker(place,number) {
     var locationData = $(marker).data("locationData")
     fillForm(locationData);
 
-    infowindow.setContent(place.name + "<br />" + place.vicinity + "<br />");
+    infowindow.setContent(place.name + "<br />" + place.vicinity + "<br />" + photoSource);
     infowindow.open(map, this);
   });
         

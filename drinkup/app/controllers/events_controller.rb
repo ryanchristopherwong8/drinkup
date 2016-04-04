@@ -27,6 +27,7 @@ class EventsController < ApplicationController
   def show
   	@event = Event.find(params[:id])
     @creator_status = current_user.attendees.creator_of_event(@event).select("is_creator").map(&:is_creator)
+    #used to subscribe to specific chat
     @chat = Chat.find_by(event_id: @event.id)
     @messages = @chat.messages
     @message = Message.new

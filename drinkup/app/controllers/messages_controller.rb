@@ -6,8 +6,8 @@ class MessagesController < ApplicationController
     @message = @chat.messages.build(message_params)
     @message.user_id = current_user.id
     @message.save
+    #@path is used for publishing to specific chat
     @path = chat_path(@chat)
-    @current_user_id = current_user.id
   end
 
   private

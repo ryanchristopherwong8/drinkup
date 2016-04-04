@@ -65,35 +65,6 @@ q:after {
  * CREDITS: http://css-tricks.com/replicating-google-hangouts-chat/
  *
  */
-/*
-.chatbox {
-    position: fixed;
-    position: expression("absolute");
-    width: 280px;
-    display: none;
-}
-*/
-.chatboxhead {
-    background: #666;
-    color: white;
-    padding: 0.5rem;
-    overflow: hidden;
-
-    border-right: 1px solid rgba(85, 85, 85, 0.87);
-    border-left: 1px solid rgba(85, 85, 85, 0.87);
-}
-
-.chatboxhead h1 {
-    display: inline;
-    font-size: 17px;
-    font-weight: 700;
-}
-
-.chatboxblink {
-    background-color: #176689;
-    border-right: 1px solid #176689;
-    border-left: 1px solid #176689;
-}
 
 .chatboxcontent {
     font-family: arial, sans-serif;
@@ -202,24 +173,4 @@ q:after {
 
 .chatboxmessage {
     margin-left: 1em;
-}
-
-.chatboxinfo {
-    margin-left: -1em;
-    color: #666666;
-
-}
-
-.chatboxoptions {
-    float: right;
-}
-
-.chatboxoptions a {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-}
-
-.chatboxtitle {
-    float: left;
 }

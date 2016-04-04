@@ -1,12 +1,20 @@
 Rails.application.routes.draw do
-  #routes for users
-  resources :users
 
   #routes for chat and messages
   resources :chat, only: [ :create, :show] do
     resources :messages, only: [ :create]
   end
 
+  resources :users do
+    collection do
+      get 'getConversations'
+    end
+    member do 
+      post 'saveConversations'
+      delete 'removeConversations'
+    end
+  end
+  
   get 'signup'  => 'users#new'
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'

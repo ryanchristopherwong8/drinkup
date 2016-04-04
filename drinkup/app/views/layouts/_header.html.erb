@@ -1,18 +1,17 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
-  <div class="container">
-    <div id="logo"><%= link_to "DRINKUP", logged_in? ? path = events_path : path = root_url %></div>
-    <nav>
-      <ul class="nav navbar-nav navbar-right">
-       <!-- li><%= link_to "Home",   '#' %></li> -->
-       <!--  <li><%= link_to "Help",   '#' %></li> -->
-        <% if logged_in? %>
+    <nav class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container-fluid">
+        <%= link_to image_tag("logo.png"), logged_in? ? path = events_path : path = root_url, id: 'logo', class: 'navbar-brand' %>
+        <ul class="nav navbar-nav navbar-right">
+          <% if logged_in? %>
+          <li id="nav_thumb"> <%= link_to image_tag(current_user.avatar.url(:thumb)), current_user %></li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <%= current_user.first_name %> <b class="caret"></b>
+            <a href="#" class="dropdown-toggle nav-user" data-toggle="dropdown">
+              <%= current_user.first_name%> <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
+              <li><%= link_to "Home", root_url %></li>
               <li><%= link_to "Profile", current_user %></li>
-              <li><%= link_to "Settings", '#' %></li>
+              <li><%= link_to "Settings", edit_user_path(current_user) %></li>
               <li class="divider"></li>
               <li>
                 <%= link_to "Log out", logout_path, method: "delete" %>
@@ -23,6 +22,5 @@
           <li><%= link_to "Log in", login_path %></li>
         <% end %>
       </ul>
+      </div>
     </nav>
-  </div>
-</header>

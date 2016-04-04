@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
 	has_many :attendees
   has_many :events, through: :attendees
+  has_and_belongs_to_many :conversations
 
   #profile pictures
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"

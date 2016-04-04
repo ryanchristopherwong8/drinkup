@@ -1,17 +1,26 @@
+<% content_for :header do %>
+  <%= javascript_include_tag 'profile' %>  
+<% end %>
+
 <div class="row">
   <div class="container">
-      <h1>
-        Profile:
-      </h1>
+      <h1>Profile:</h1>
       <div><%= image_tag @user.avatar.url(:medium) %></div>
-      <p><b>First Name:</b><%=@user.first_name %></p>
-      <p><b>Last Name:</b><%=@user.last_name %></p>
-      <p><b>Email:</b><%= @user.email %></p>
-      <p><b>Date of Birth:</b><%= @user.date_of_birth %></p>
-
+      <p><strong>First Name:</strong><%=@user.first_name %></p>
+      <p><strong>Last Name:</strong><%=@user.last_name %></p>
+      <p><strong>Email:</strong><%= @user.email %></p>
+      <p><strong>Date of birth:</strong><%= @user.date_of_birth %></p>
+      <p><strong>Conversations:</strong></p>
+      <div id="user_conversations" class="clearfix">
+      <% @user.conversations.each do |conversation| %>
+        <span class="conversation_tag"><%= "#{conversation.name}" %></span>
+      <% end %>
+      </div>
+      <%= link_to 'Edit Conversations', "#", id: "conversation_link" if @user == current_user  %>
+      <div id="conversation_select" class=" col-md-12"></div>
   </div>
-<%= link_to 'Edit', edit_user_path(@user), class: "btn btn-default" %>
+<%= link_to 'Edit', edit_user_path(@user), class: "btn btn-default" if @user == current_user %>
 <%= link_to 'Destroy', user_path(@user),
               method: :delete,
-              data: { confirm: 'Are you sure you want to delete your profile?' }, class: "btn btn-default" %>
+              data: { confirm: 'Are you sure you want to delete your profile?' }, class: "btn btn-default" if @user == current_user %>
 </div>

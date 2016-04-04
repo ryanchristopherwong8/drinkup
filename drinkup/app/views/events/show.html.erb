@@ -1,3 +1,6 @@
+<% content_for :header do %>
+  <%= javascript_include_tag 'event_show' %>  
+<% end %>
 
 <%= link_to 'Back to Event Index', events_path%>
 <h1>Event:</h1>
@@ -30,7 +33,7 @@
   <div class="chatboxinput">
       <%= form_for([@chat, @message], :remote=> true, :html => {id: "chat_form_# {@chat.id}"}) do |f| %>
       <%= f.text_area :body, class: "chatboxtextarea", "data-cid" => @chat.id %>
-      <div class="chat-form-btns">    
+      <div class="chat-form-btns" >    
           <%= f.submit "send", class: "btn btn-primary btn-sm btn-submit"%>
       </div>
     <% end %>

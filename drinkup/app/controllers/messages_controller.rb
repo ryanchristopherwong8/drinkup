@@ -7,6 +7,7 @@ class MessagesController < ApplicationController
     @message.user_id = current_user.id
     @message.save
     @path = chat_path(@chat)
+    @current_user_id = current_user.id
   end
 
   private

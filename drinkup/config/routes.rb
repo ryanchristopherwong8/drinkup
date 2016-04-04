@@ -2,8 +2,9 @@ Rails.application.routes.draw do
   #routes for users
   resources :users
 
-  resources :chat do
-    resources :messages
+  #routes for chat and messages
+  resources :chat, only: [ :create, :show] do
+    resources :messages, only: [ :create]
   end
 
   get 'signup'  => 'users#new'

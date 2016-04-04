@@ -9,21 +9,32 @@ var markers=[];
 
 function setDrinktypeCafe() {
   drinktype = 'cafe'
-  var x=document.getElementById("cafeSelector");
-  var y=document.getElementById("barSelector");
-  x.style.backgroundColor == "aquamarine";
-  y.style.backgroundColor == "buttonface";
-  deleteMarkers();
-  changeMapLocation(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],15);
-  setup(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],1000, drinktype);
+  if (postionOfUserFromGeolocation[0]==null && postionOfUserFromGeolocation[1]==null)
+  {
+    document.getElementById('error').innerHTML="Please Enter a Location";
+  }
+  else
+  {
+    deleteMarkers();
+    changeMapLocation(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],15);
+    setup(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],1000, drinktype);
+  }
+  
 
 }
 
 function setDrinktypeBar() {
   drinktype = 'bar'
-  deleteMarkers();
-  changeMapLocation(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],15);
-  setup(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],1000, drinktype);
+  if (postionOfUserFromGeolocation[0]==null && postionOfUserFromGeolocation[1]==null)
+  {
+    document.getElementById('error').innerHTML="Please Enter a Location";
+  }
+  else
+  {
+    deleteMarkers();
+    changeMapLocation(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],15);
+    setup(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],1000, drinktype);
+  }
 }
 
 function getUserLocation() {
@@ -43,6 +54,7 @@ function storePosition(position) {
 
 function getManualLocation(error) {
 	//generate message that location could not be got
+  console.log(error);
   document.getElementById('error').innerHTML="Could Not Get Geolocation";
 } 
 
@@ -53,8 +65,6 @@ function initAutocomplete() {
       /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
       {types: ['geocode']});
 
-  // When the user selects an address from the dropdown, populate the address
-  // fields in the form.
   autocomplete.addListener('place_changed', storePositionFromGoogleAPI);
 }
 
@@ -200,14 +210,22 @@ function createDrinkupMarker(place,drinkup,number,isAttending) {
 
 
 
-function createMarkerForEventsAroundYou(drinkup,number,isAttending) {
+function createMarkerForEventsAroundYou(drinkup,number,isAttending,stopBound) {
     service.getDetails({ placeId: drinkup.place_id }, function(place, status) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
-        var lat=place.geometry.location.lat();
-        var lng=place.geometry.location.lng();
-        bounds.extend(new google.maps.LatLng(lat, lng));
-        createDrinkupMarker(place, drinkup, number, isAttending);
-        map.fitBounds(bounds);
+        if (stopBound==0)
+        {
+          var lat=place.geometry.location.lat();
+          var lng=place.geometry.location.lng();
+          bounds.extend(new google.maps.LatLng(lat, lng));
+          createDrinkupMarker(place, drinkup, number, isAttending);
+          map.fitBounds(bounds);
+        }
+        else
+        {
+          createDrinkupMarker(place, drinkup, number, isAttending);
+
+        }
       }
     });
 }

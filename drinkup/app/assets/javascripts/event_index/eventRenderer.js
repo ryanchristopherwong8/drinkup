@@ -4,14 +4,13 @@ $(document).ready(function(){
 
 function getUserLocationforDrinkups() {
   if (navigator.geolocation) {
-    var options={timeout:30000};
+    var options={timeout:30000, enableHighAccuracy: true};
     navigator.geolocation.getCurrentPosition(initializeMarkers,getManualLocation,options);
   } 
 }
 
 function initializeMarkers(position) {
   var crd = position.coords;
-
   var geoCookie = crd.latitude + "|" + crd.longitude;
   document.cookie = "lat_lng=" + escape(geoCookie);
 

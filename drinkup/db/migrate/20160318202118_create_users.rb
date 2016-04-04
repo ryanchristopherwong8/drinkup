@@ -11,7 +11,7 @@ class CreateUsers < ActiveRecord::Migration
       t.column "gender", :gender
       t.date "date_of_birth", :null => false
       t.string "location"
-      t.json "conversatons"
+      t.json "conversations"
       #t.string "profile_pic_s3_id"
       t.boolean "is_deleted", :default => false
 

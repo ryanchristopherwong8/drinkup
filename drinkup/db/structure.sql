@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.0
--- Dumped by pg_dump version 9.5.0
+-- Dumped from database version 9.5.1
+-- Dumped by pg_dump version 9.5.1
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -110,6 +110,16 @@ ALTER SEQUENCE conversations_id_seq OWNED BY conversations.id;
 
 
 --
+-- Name: conversations_users; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE conversations_users (
+    user_id integer,
+    conversation_id integer
+);
+
+
+--
 -- Name: events; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -170,7 +180,6 @@ CREATE TABLE users (
     gender gender,
     date_of_birth date NOT NULL,
     location character varying,
-    conversatons json,
     is_deleted boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -262,6 +271,13 @@ ALTER TABLE ONLY users
 
 
 --
+-- Name: index_conversations_users_on_user_id_and_conversation_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_conversations_users_on_user_id_and_conversation_id ON conversations_users USING btree (user_id, conversation_id);
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -289,4 +305,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160321001335');
 INSERT INTO schema_migrations (version) VALUES ('20160325111613');
 
 INSERT INTO schema_migrations (version) VALUES ('20160329031644');
+
+INSERT INTO schema_migrations (version) VALUES ('20160403040223');
 

@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.1
--- Dumped by pg_dump version 9.5.1
+-- Dumped from database version 9.5.0
+-- Dumped by pg_dump version 9.5.0
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -365,7 +365,13 @@ ALTER TABLE ONLY users
 
 
 --
-<<<<<<< HEAD
+-- Name: index_conversations_users_on_user_id_and_conversation_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_conversations_users_on_user_id_and_conversation_id ON conversations_users USING btree (user_id, conversation_id);
+
+
+--
 -- Name: index_messages_on_chat_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -377,12 +383,6 @@ CREATE INDEX index_messages_on_chat_id ON messages USING btree (chat_id);
 --
 
 CREATE INDEX index_messages_on_user_id ON messages USING btree (user_id);
-=======
--- Name: index_conversations_users_on_user_id_and_conversation_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_conversations_users_on_user_id_and_conversation_id ON conversations_users USING btree (user_id, conversation_id);
->>>>>>> origin/master
 
 
 --
@@ -430,12 +430,11 @@ INSERT INTO schema_migrations (version) VALUES ('20160325111613');
 
 INSERT INTO schema_migrations (version) VALUES ('20160329031644');
 
+INSERT INTO schema_migrations (version) VALUES ('20160403040223');
+
 INSERT INTO schema_migrations (version) VALUES ('20160403195849');
 
 INSERT INTO schema_migrations (version) VALUES ('20160403201046');
 
 INSERT INTO schema_migrations (version) VALUES ('20160403225601');
-
-INSERT INTO schema_migrations (version) VALUES ('20160403040223');
-
 

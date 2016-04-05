@@ -172,18 +172,18 @@ function createMarker(place,number) {
       icon: image
     });
 
-  $(marker).data('locationData', { location_name: place.name, location_address: place.vicinity, 
+    $(marker).data('locationData', { location_name: place.name, location_address: place.vicinity, 
         lat: place.geometry.location.lat(), lng: place.geometry.location.lng(), place_id: place.place_id });
 
-  markers.push(marker);
+    markers.push(marker);
   
 
     google.maps.event.addListener(marker, 'click', function() {
-    var locationData = $(marker).data("locationData")
-    fillForm(locationData);
+      var locationData = $(marker).data("locationData")
+      fillForm(locationData);
 
-    infowindow.setContent(place.name + "<br />" + place.vicinity + "<br />");
-    infowindow.open(map, this);
+      infowindow.setContent(place.name + "<br />" + place.vicinity + "<br />");
+      infowindow.open(map, this);
   });
         
 }
@@ -197,19 +197,22 @@ function createDrinkupMarker(place,drinkup,number,isAttending) {
       icon: image
     });
 
-    var start_time = moment(drinkup.start_time).format('MMMM Do YYYY, h:mm a');
-    var end_time = moment(drinkup.end_time).format('MMMM Do YYYY, h:mm a');
+    var start_time = moment.utc(drinkup.start_time).format('MMMM Do YYYY, h:mm a');
+    var end_time = moment.utc(drinkup.end_time).format('MMMM Do YYYY, h:mm a');
+
 
     $(marker).data('drinkupData', { id : drinkup.id, name : drinkup.name, location_name: place.name, location_address : place.vicinity,
       start_time : start_time, end_time : end_time, isUserAttending : isAttending
     });
-  
-    infowindow.setContent(drinkup.name + "<br />" + place.name + "<br />" + place.vicinity + "<br />");
+
     markers.push(marker);
 
     google.maps.event.addListener(marker, 'click', function() {
-      infowindow.open(map, this);
       var drinkupData = $(marker).data("drinkupData");
+
+      infowindow.setContent(drinkupData.name + "<br />" + drinkupData.location_name + 
+          "<br />" + drinkupData.location_address + "<br />");
+      infowindow.open(map, marker);
 
       if(!$("#drinkup_listing").is(":visible")) {
         $("#drinkup_listing").slideDown(500);
@@ -232,8 +235,6 @@ function createDrinkupMarker(place,drinkup,number,isAttending) {
       }
     });
 }
-
-
 
 function createMarkerForEventsAroundYou(drinkup,number,isAttending,stopBound) {
     service.getDetails({ placeId: drinkup.place_id }, function(place, status) {

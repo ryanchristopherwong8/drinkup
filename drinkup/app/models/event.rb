@@ -20,4 +20,19 @@ class Event < ActiveRecord::Base
 	# validates :gender, presence: true, inclusion: { in: %w(any male female),
  #    		 				message: "%{value} is not a valid gender" }
     validates :place_id, presence: true
+
+    def getTopConversations
+        eventConversations = []
+        self.users.each do |user|
+            userConversations = user.conversations.pluck(:name)
+            (eventConversations << userConversations).flatten!
+    	end
+
+        conversationCounts = Hash.new 0
+        eventConversations.each do |conversation|
+            conversationCounts[conversation] += 1
+        end
+
+        topConversations = conversationCounts.sort_by{ |k,v| v}.reverse[0..2].to_h.keys
+    end
 end

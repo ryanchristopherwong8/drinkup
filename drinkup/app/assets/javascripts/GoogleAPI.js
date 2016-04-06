@@ -1,7 +1,7 @@
 var map;
 var autocomplete;
 var service;
-var postionOfUserFromGeolocation=new Array;
+var postionOfUserFromGeolocation= new Array;
 var drinktype='bar';
 var infowindow;
 var bounds;
@@ -9,28 +9,22 @@ var markers=[];
 
 function setDrinktypeCafe() {
   drinktype = 'cafe'
-  if (postionOfUserFromGeolocation[0]==null && postionOfUserFromGeolocation[1]==null)
-  {
+  if (postionOfUserFromGeolocation[0]==null && postionOfUserFromGeolocation[1]==null) {
     document.getElementById('error').innerHTML="Please Enter a Location";
   }
-  else
-  {
+  else {
     deleteMarkers();
     changeMapLocation(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],15);
     setup(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],1000, drinktype,0);
   }
-  
-
 }
 
 function setDrinktypeBar() {
   drinktype = 'bar'
-  if (postionOfUserFromGeolocation[0]==null && postionOfUserFromGeolocation[1]==null)
-  {
+  if (postionOfUserFromGeolocation[0]==null && postionOfUserFromGeolocation[1]==null) {
     document.getElementById('error').innerHTML="Please Enter a Location";
   }
-  else
-  {
+  else {
     deleteMarkers();
     changeMapLocation(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],15);
     setup(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],1000, drinktype,0);
@@ -90,7 +84,7 @@ function initMap(lat_user,lng_user,zoom) {
   infowindow = new google.maps.InfoWindow();
 }
 
-function changeMapLocation(lat_user,lng_user,zoom){
+function changeMapLocation(lat_user,lng_user,zoom) {
 	var user_location = {lat:lat_user , lng:lng_user};
 	map.setCenter(user_location);
   map.setZoom(zoom);
@@ -106,7 +100,7 @@ function storePositionFromGoogleAPI(){
 }
 
 //creates a nearby search request to google service
-function setup(lat_user,lng_user,radius,drinktype,stopBound){
+function setup(lat_user,lng_user,radius,drinktype,stopBound) {
   document.getElementById('error').innerHTML="";
   var user_location = {lat:lat_user , lng:lng_user};
   
@@ -131,35 +125,29 @@ function callbackFunction(results, status,stopBound) {
     resultsList.removeChild(resultsList.firstChild);
   }
 
-  if (results.length>8)
-  {
+  if (results.length>8) {
     numberResultsToReturn=8;
   }
 
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < numberResultsToReturn; i++) {
-      if (stopBound==0)
-      {
+      if (stopBound==0) {
         var lat=results[i].geometry.location.lat();
         var lng=results[i].geometry.location.lng();
         bounds.extend(new google.maps.LatLng(lat, lng));
         createMarker(results[i],(i+1));
       }
-      else
-      {
+      else {
         createMarker(results[i],(i+1));
       }
-
     }
     createShowListButton();
     //rederList(results);
     renderListWithPhotos(results);
   }
-  if (stopBound==0)
-  {
+  if (stopBound==0) {
     map.fitBounds(bounds);
   }
-  
 }
 
 
@@ -186,74 +174,6 @@ function createMarker(place,number) {
       infowindow.open(map, this);
   });
         
-}
-
-function createDrinkupMarker(place,drinkup,number,isAttending) {
-    var image='http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+number+'|FE6256|000000';
-    var placeLoc = place.geometry.location;
-    var marker = new google.maps.Marker({
-      map: map,
-      position: place.geometry.location,
-      icon: image
-    });
-
-    var start_time = moment.utc(drinkup.start_time).format('MMMM Do YYYY, h:mm a');
-    var end_time = moment.utc(drinkup.end_time).format('MMMM Do YYYY, h:mm a');
-
-
-    $(marker).data('drinkupData', { id : drinkup.id, name : drinkup.name, location_name: place.name, location_address : place.vicinity,
-      start_time : start_time, end_time : end_time, isUserAttending : isAttending
-    });
-
-    markers.push(marker);
-
-    google.maps.event.addListener(marker, 'click', function() {
-      var drinkupData = $(marker).data("drinkupData");
-
-      infowindow.setContent(drinkupData.name + "<br />" + drinkupData.location_name + 
-          "<br />" + drinkupData.location_address + "<br />");
-      infowindow.open(map, marker);
-
-      if(!$("#drinkup_listing").is(":visible")) {
-        $("#drinkup_listing").slideDown(500);
-        $("#inspirational_quote").hide();
-      }
-
-      $("#drinkup_name").html(drinkupData.name);
-      $("#drinkup_location_name").html(drinkupData.location_name);
-      $("#drinkup_location_address").html(drinkupData.location_address);
-      $("#drinkup_start_time").html(drinkupData.start_time);
-      $("#drinkup_end_time").html(drinkupData.end_time);
-
-      $("#event_link_show").attr("href", "/events/" + drinkupData.id);
-      if (!drinkupData.isUserAttending) {
-        $("#event_link_attend").attr("href", "/events/join/" + drinkupData.id);
-        $("#event_link_attend").text("Attend")
-      } else {
-        $("#event_link_attend").attr("href", "/events/unjoin/" + drinkupData.id);
-        $("#event_link_attend").text("Unattend")
-      }
-    });
-}
-
-function createMarkerForEventsAroundYou(drinkup,number,isAttending,stopBound) {
-    service.getDetails({ placeId: drinkup.place_id }, function(place, status) {
-      if (status == google.maps.places.PlacesServiceStatus.OK) {
-        if (stopBound==0)
-        {
-          var lat=place.geometry.location.lat();
-          var lng=place.geometry.location.lng();
-          bounds.extend(new google.maps.LatLng(lat, lng));
-          createDrinkupMarker(place, drinkup, number, isAttending);
-          map.fitBounds(bounds);
-        }
-        else
-        {
-          createDrinkupMarker(place, drinkup, number, isAttending);
-
-        }
-      }
-    });
 }
 
 function createBounds() {

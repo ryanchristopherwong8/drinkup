@@ -22,6 +22,17 @@
   clear: both;
 }
 
+#drinkup_listing .conversation_tag {
+  margin: 4px 2px 2px 2px;
+  padding: 4px;
+  background-color: #00CCFF;
+  border: 1px solid #00CCFF;
+  border-radius: 3px;
+  color: white;
+  display: inline-block; 
+}
+
+
 #event_links a {
   float: left;
   padding: 5px;

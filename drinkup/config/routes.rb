@@ -25,6 +25,9 @@ Rails.application.routes.draw do
   	collection do
   		get 'getEvents'
   	end
+    member do 
+        get 'getTopConversations'
+    end
   end
   match ':controller(/:action(/:id))', :via => [:get, :post]
   

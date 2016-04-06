@@ -19,8 +19,6 @@ function setDrinktypeCafe() {
     changeMapLocation(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],15);
     setup(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],1000, drinktype,0);
   }
-  
-
 }
 
 function setDrinktypeBar() {
@@ -152,7 +150,6 @@ function callbackFunction(results, status,stopBound) {
 
     }
     createShowListButton();
-    //rederList(results);
     renderListWithPhotos(results);
   }
   if (stopBound==0)
@@ -250,7 +247,6 @@ function createMarkerForEventsAroundYou(drinkup,number,isAttending,stopBound) {
         else
         {
           createDrinkupMarker(place, drinkup, number, isAttending);
-
         }
       }
     });

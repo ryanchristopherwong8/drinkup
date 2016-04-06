@@ -1,13 +1,3 @@
-#resultsList img{
-    float:left;
-    display: inline;
-}
-
-#resultsList a{
-    float: left;
-    display: inline;
-}
-
 #drinkup_listing {
   margin-top: 10px;
 }
@@ -68,4 +58,119 @@ q:after {
   line-height: 0.1em;
   margin-left: 0.25em;
   vertical-align: -0.4em;
+}
+
+/**
+ * GMAIL Like chat css
+ * CREDITS: http://css-tricks.com/replicating-google-hangouts-chat/
+ *
+ */
+
+.chatboxcontent {
+    font-family: arial, sans-serif;
+    height: 280px;
+    overflow-y: auto;
+    padding: 7px;
+    border-left: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+    border-bottom: 1px solid #eeeeee;
+    background: #e5e5e5;
+    line-height: 1.3em;
+    list-style: none;
+}
+
+.chatboxcontent li {
+    padding: 0.5rem;
+    overflow: hidden;
+    display: flex;
+}
+
+.chatboxcontent .avatar {
+    width: 40px;
+    position: relative;
+    height: 40px;
+}
+
+.chatboxcontent .avatar img {
+    height: 100%;
+    display: block;
+    width: 100%;
+}
+
+.message {
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.message .chatboxmessagecontent {
+    order: 1;
+    border-bottom-right-radius: 0;
+}
+
+.message .avatar {
+    order: 2;
+}
+
+.message .avatar:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border: 5px solid white;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.chatboxmessagecontent {
+    background: white;
+    padding: 10px;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.chatboxmessagecontent p {
+    font-size: 12px;
+    margin: 0 0 0.2rem 0;
+    -ms-word-break: break-all;
+
+    /* Non standard for webkit */
+    word-break: break-word;
+
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
+}
+
+.chatboxmessagecontent time {
+    font-size: 9px;
+    color: #ccc;
+}
+
+.chatboxinput {
+    padding: 5px;
+    background-color: #ffffff;
+    border-left: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+}
+
+.chatboxtextarea {
+    height: 44px;
+    padding: 3px 0pt 3px 3px;
+    border: 1px solid #eeeeee;
+    margin: 1px;
+    overflow: hidden;
+    resize: none !important;
+}
+
+.chatboxtextareaselected {
+    border: 2px solid #878787;
+    margin: 0;
+}
+
+.chatboxmessage {
+    margin-left: 1em;
 }

@@ -1,0 +1,11 @@
+<li class="message">
+  <div class="avatar">
+    <%= image_tag message.user.avatar.url(:thumb) %>
+  </div>
+  <div class="chatboxmessagecontent">
+    <p><%= message.body %></p>
+    <time datetime="<%= message.created_at %>" title="<%= message.created_at.strftime("%d %b  %Y at %I:%M%p") %>">
+     <%= message.user.first_name + " " +message.user.last_name %> • <%=  message.created_at.strftime("%H:%M %p") %>
+    </time>	
+  </div>
+</li>

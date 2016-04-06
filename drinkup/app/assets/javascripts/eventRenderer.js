@@ -4,7 +4,7 @@ $(document).ready(function(){
 
 function getUserLocationforDrinkups() {
   if (navigator.geolocation) {
-    var options={timeout:30000, enableHighAccuracy: true};
+    var options={timeout:30000};
     navigator.geolocation.getCurrentPosition(initializeMarkers,getManualLocation,options);
   } 
 }
@@ -16,7 +16,7 @@ function initAutocompleteforDrinkups() {
       /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
       {types: ['geocode']});
 
-  map.addListener('idle', function() {
+  map.addListener('dragend', function() {
     var position= {
               coords: {latitude:map.getCenter().lat(),longitude:map.getCenter().lng()}
             };

@@ -3,24 +3,22 @@ function renderListWithPhotos(results){
   for(var i = 0; i < numberResultsToReturn; i++){
 
     var locationListItem = document.createElement('li');
-    locationListItem.setAttribute("class", "location listItem");
+    locationListItem.setAttribute("class", "list-group-item location listItem");
 
     var itemContainer = document.createElement('div');
     itemContainer.setAttribute("class", "location container");
     createLocationImage(results[i], itemContainer);
 
-
     var pid = results[i].place_id;
     setPlaceDetails(pid, itemContainer);    
     locationListItem.appendChild(itemContainer);    
-
-    $("#resultsList").append(locationListItem);
+    $("#resultsList").append(locationListItem).attr("class","list-group well").height("250px");
   }
 }
 
 function createLocationImage(place, parentNode) {
   var container = document.createElement("div");
-  container.setAttribute("class","location image");
+  container.setAttribute("class","location image container");
   var image = document.createElement("img");
   var photos = place.photos;
   if(photos){
@@ -45,7 +43,7 @@ function setPlaceDetails(pid, parentNode){
 
 function createListItemDetails(place) {
   var container = document.createElement("div");
-  container.setAttribute("class", "location details");
+  container.setAttribute("class", "location details container");
   var headerLink = document.createElement("a");
 
   $(headerLink).data('locationData', { location_name: place.name, location_address: place.vicinity, 
@@ -54,6 +52,7 @@ function createListItemDetails(place) {
   $(headerLink).click(function(){
     var locationData = $(this).data("locationData")
     fillForm(locationData);
+    $(this).parentNode
   });      
   $(headerLink).append(place.name);
 
@@ -65,7 +64,8 @@ function createListItemDetails(place) {
     container.appendChild(document.createElement("br"));
   }
   if(place.website !== undefined){
-    container.appendChild(document.createTextNode("Website: "));
+    var text = document.createTextNode("Website: ");
+    container.appendChild(text);
     var link = document.createElement("a");
     link.setAttribute("href",place.website);
     link.appendChild(document.createTextNode(place.website));
@@ -92,11 +92,11 @@ function createShowListButton (){
 }
 
 function fillForm(data){
-   $("#event_location_name").val(data.location_name);
-    $("#event_location_address").val(data.location_address);
-    $("#lat").val(data.lat);
-    $("#lng").val(data.lng);
-    $("#place_id").val(data.place_id);
+  $("#event_location_name").val(data.location_name);
+  $("#event_location_address").val(data.location_address);
+  $("#lat").val(data.lat);
+  $("#lng").val(data.lng);
+  $("#place_id").val(data.place_id);
 }
 
 function toggleList() {

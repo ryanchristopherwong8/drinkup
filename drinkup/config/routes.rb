@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  #routes for users
+
+  #routes for chat and messages
+  resources :chat, only: [ :create, :show] do
+    resources :messages, only: [ :create]
+  end
+
   resources :users do
     collection do
       get 'getConversations'
@@ -22,6 +27,5 @@ Rails.application.routes.draw do
   	end
   end
   match ':controller(/:action(/:id))', :via => [:get, :post]
-
   
 end

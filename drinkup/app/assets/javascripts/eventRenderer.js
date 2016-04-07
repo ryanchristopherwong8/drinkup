@@ -18,9 +18,13 @@ function initAutocompleteforDrinkups() {
 
   map.addListener('dragend', function() {
     var position= {
-              coords: {latitude:map.getCenter().lat(),longitude:map.getCenter().lng()}
+              coords: { 
+                latitude:map.getCenter().lat(),
+                longitude:map.getCenter().lng()
+              },
+              action: "drag"
             };
-    initializeMarkersAfterDrag(position);
+    initializeMarkers(position);
     
   });
 
@@ -63,6 +67,7 @@ function createDrinkupMarker(place,drinkup,number,isAttending) {
     markers.push(marker);
 
     getTopConversations(drinkup.id).then(function (data) {
+      console.log(data);
       $(marker).data('topConversations', data.top_conversations);
       var drinkupData = $(marker).data("drinkupData");
 
@@ -78,7 +83,7 @@ function createDrinkupMarker(place,drinkup,number,isAttending) {
 function createMarkerForEventsAroundYou(drinkup,number,isAttending,stopBound) {
     service.getDetails({ placeId: drinkup.place_id }, function(place, status) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
-        if (stopBound==0) {
+        if (stopBound == false) {
           var lat=place.geometry.location.lat();
           var lng=place.geometry.location.lng();
           bounds.extend(new google.maps.LatLng(lat, lng));
@@ -96,7 +101,6 @@ function createMarkerForEventsAroundYou(drinkup,number,isAttending,stopBound) {
 function initializeMarkers(position) {
   document.getElementById('error').innerHTML="";
   var crd = position.coords;
-
   var geoCookie = crd.latitude + "|" + crd.longitude;
   document.cookie = "lat_lng=" + escape(geoCookie);
 
@@ -104,37 +108,20 @@ function initializeMarkers(position) {
 
     var drinkups = data.events;
     var drinkups_attending = data.events_attending;
+    var stopBound;
     deleteMarkers();
-    for(i = 0; i < drinkups.length; i++) {
-      var isAttending = false;
-      if ($.inArray(drinkups[i].id, drinkups_attending) !== -1) {
-        isAttending = true;
-      }
-      createMarkerForEventsAroundYou(drinkups[i], i+1, isAttending,0);
+    if (typeof position.action === 'undefined') {
+        stopBound = false;
+        createBounds();
+    } else {
+        stopBound = true;
     }
-  });
-}
-
-function initializeMarkersAfterDrag(position) {
-  document.getElementById('error').innerHTML="";
-  var crd = position.coords;
-  var geoCookie = crd.latitude + "|" + crd.longitude;
-  document.cookie = "lat_lng=" + escape(geoCookie);
-
-  $.getJSON("/events/getEvents", function (data) {
-
-    var drinkups = data.events;
-    var drinkups_attending = data.events_attending;
-    for (var i = 0; i < markers.length; i++) {
-    markers[i].setMap(null);
-  }
-    markers=[];
     for(i = 0; i < drinkups.length; i++) {
       var isAttending = false;
       if ($.inArray(drinkups[i].id, drinkups_attending) !== -1) {
         isAttending = true;
       }
-      createMarkerForEventsAroundYou(drinkups[i], i+1, isAttending,1);
+      createMarkerForEventsAroundYou(drinkups[i], i+1, isAttending, stopBound);
     }
   });
 }

@@ -23,7 +23,9 @@ class Event < ActiveRecord::Base
 
     def getTopConversations
         eventConversations = []
-        self.users.each do |user|
+        attendees = self.attendees.where(:is_attending => true)
+        attendees.each do |attendee|
+            user = attendee.user
             userConversations = user.conversations.pluck(:name)
             (eventConversations << userConversations).flatten!
     	end

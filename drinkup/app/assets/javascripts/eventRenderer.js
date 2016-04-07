@@ -76,7 +76,7 @@ function createDrinkupMarker(place,drinkup,number,isAttending) {
         infowindow.open(map, marker);
         fillEventContent(marker);
       });
-    });
+    }, function() {console.log("get failed!")});
 }
 
 function createMarkerForEventsAroundYou(drinkup,number,isAttending,stopBound) {
@@ -127,6 +127,8 @@ function initializeMarkers(position) {
 function getTopConversations(drinkupId) {
     return $.ajax({
       type: "GET",
+      dataType: "json",
+      contentType: "application/json",
       url: "/events/"+drinkupId+"/getTopConversations"
     });
 }

@@ -62,7 +62,7 @@ function initAutocomplete() {
   autocomplete.addListener('place_changed', storePositionFromGoogleAPI);
 }
 
-function initMap(lat_user,lng_user,zoom) {
+function initMap(lat_user,lng_user,zoom, type) {
   var user_location = {lat:lat_user , lng:lng_user};
 
   map = new google.maps.Map(document.getElementById('map'), {
@@ -77,7 +77,9 @@ function initMap(lat_user,lng_user,zoom) {
     markers=[];
     postionOfUserFromGeolocation[0]=map.getCenter().lat();
     postionOfUserFromGeolocation[1]=map.getCenter().lng();
-    setup(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],1000,drinktype,1);
+    if (type == "create") {
+    	setup(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],1000,drinktype,1);
+    }
     
   });
   service = new google.maps.places.PlacesService(map);

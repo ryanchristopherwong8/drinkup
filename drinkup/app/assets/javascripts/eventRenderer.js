@@ -67,7 +67,6 @@ function createDrinkupMarker(place,drinkup,number,isAttending) {
     markers.push(marker);
 
     getTopConversations(drinkup.id).then(function (data) {
-      console.log(data);
       $(marker).data('topConversations', data.top_conversations);
       var drinkupData = $(marker).data("drinkupData");
 
@@ -105,12 +104,11 @@ function initializeMarkers(position) {
   document.cookie = "lat_lng=" + escape(geoCookie);
 
   $.getJSON("/events/getEvents", function (data) {
-
     var drinkups = data.events;
     var drinkups_attending = data.events_attending;
     var stopBound;
     deleteMarkers();
-    if (typeof position.action === 'undefined') {
+    if (position.action == null) {
         stopBound = false;
         createBounds();
     } else {

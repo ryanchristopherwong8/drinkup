@@ -1,38 +1,88 @@
 <% content_for :header do %>
-  <%= javascript_include_tag 'profileDatepickerConfig' %>   
+  <%= javascript_include_tag 'profileDatepickerConfig' %> 
+  <%= javascript_include_tag "conversations" %>   
 <% end %>
 
-<div class="col-md-6 col-md-offset-3">
-<%= form_for(@user, html: {class: 'form-horizontal'}) do |f| %>
-  <%= render 'shared/error_messages' , object: f.object %>
-  <div class="field form-group">
-    <%= f.label :first_name %>
-    <%= f.text_field :first_name, class: 'form-control' %>
+<div class="container">
+  <h1>Edit Profile</h1>
+  <hr>
+  <div class="row">
+    <%= form_for(@user, html: {class: 'form-horizontal'}) do |f| %>
+    <%= render 'shared/error_messages' , object: f.object %>
+    <!-- left column -->
+    <div class="col-md-3">
+      <div class="text-center">
+        <%= image_tag @user.avatar.url(:medium), class: "avatar img-circle", alt: "avatar" %>
+        <h6>Upload a different photo...</h6>
+        <%= f.file_field :avatar, class: "form-control" %>
+      </div>
+    </div>
+    <!-- edit form column -->
+    <div class="col-md-9 personal-info">
+      <h3>Personal info</h3>
+      <form class="form-horizontal" role="form">
+        <div class="form-group">
+          <%= f.label :first_name, class: "col-lg-3 control-label"%>
+          <div class="col-lg-8">
+            <%= f.text_field :first_name, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="field form-group">
+          <%= f.label :last_name, class: "col-lg-3 control-label" %>
+          <div class="col-lg-8">
+            <%= f.text_field :last_name, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="field form-group">
+          <%= f.label :date_of_birth, class: "col-lg-3 control-label" %>
+          <div class="col-lg-8">
+            <%= f.text_field :date_of_birth, id: 'profileDatepicker', class: 'form-control' %>
+          </div>
+        </div>
+          <div class="field form-group">
+            <%= f.label :email, class: "col-lg-3 control-label"%>
+            <div class="col-lg-8">
+            <%= f.email_field :email, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="field form-group">
+            <%= f.label :password, class: "col-md-3 control-label"%>
+            <div class="col-md-8">
+              <%= f.password_field :password, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="field form-group">
+            <%= f.label :password_confirmation, "Confirm Password", class: "col-md-3 control-label"%>
+            <div class="col-md-8">
+              <%= f.password_field :password_confirmation, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="actions form-group">
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8">
+            <%= f.submit "Create my account", class: "btn btn-primary" %>
+          </div>
+        </div>
+      </div>
+    </form>
+    <% end %>
   </div>
-  <div class="field form-group">
-    <%= f.label :last_name %>
-    <%= f.text_field :last_name, class: 'form-control' %>
-  </div>
-  <div class="field form-group">
-    <%= f.text_field :date_of_birth, id: 'profileDatepicker', class: 'form-control' %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :email%>
-    <%= f.email_field :email, class: 'form-control' %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :password%>
-    <%= f.password_field :password, class: 'form-control' %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :password_confirmation, "Confirmation"%>
-    <%= f.password_field :password_confirmation, class: 'form-control' %>
-  </div>
-  <div class="field form-group">
-    <%= f.file_field :avatar %>
-  </div>
-  <div class="actions form-group">
-    <%= f.submit "Create my account", class: "btn btn-primary" %>
-  </div>
-<% end %>
-
+  <div class="row">
+  <div class="col-md-6">
+      <p><strong>Conversations: <span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="What Conversation topics do you enjoy chatting about? Share your favorite Conversations with others by adding them below. "></span></strong></p>
+      <script>
+          $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+            })
+      </script>
+      <div id="user_conversations" class="clearfix">
+        <% @user.conversations.each do |conversation| %>
+          <span class="conversation_tag"><%= "#{conversation.name}" %></span>
+        <% end %>
+        </div>
+        <%= link_to 'Edit Conversations', "#", id: "conversation_link"  %>
+        <div id="conversation_select" class=" col-md-12"></div>
+    </div>
+    </div>
+</div>
+<hr>

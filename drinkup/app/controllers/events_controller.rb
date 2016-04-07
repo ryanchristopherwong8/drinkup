@@ -17,10 +17,19 @@ class EventsController < ApplicationController
     @lat_lng = cookies[:lat_lng].split("|")
 
     @events = Event.within(5, :origin => [@lat_lng[0], @lat_lng[1]])
-    @events_attending = current_user.attendees.attending.select("event_id").map(&:event_id)
+    @events_attending = current_user.attendees.attending.pluck(:event_id)
 
     respond_to do |format|
       format.json {render :json => {:events => @events, :events_attending => @events_attending }}
+    end
+  end
+
+  def getTopConversations
+    event = Event.find(params[:id])
+    top_conversations = event.getTopConversations
+
+    respond_to do |format|
+      format.json {render :json => {:top_conversations => top_conversations}}
     end
   end
 
@@ -34,7 +43,7 @@ class EventsController < ApplicationController
       @chat = Chat.find_by(event_id: @event.id)
     end
 
-    @creator_status = current_user.attendees.creator_of_event(@event).select("is_creator").map(&:is_creator)
+    @creator_status = current_user.attendees.creator_of_event(@event).pluck(:is_creator)
     @messages = @chat.messages
     @message = Message.new
 

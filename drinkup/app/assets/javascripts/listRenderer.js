@@ -1,27 +1,3 @@
-/*
-function renderList(results) {
-    var numberResultsToReturn = results.length<8 ? results.length : 8;
-    for(var i = 0; i < numberResultsToReturn; i++){
-        var addressListItem = document.createElement('li'); 
-        var link = document.createElement("a");
-
-        addressListItem.setAttribute("class", "location-item");
-
-        $(link).data('locationData', { location_name: results[i].name, location_address: results[i].vicinity, 
-            lat: results[i].geometry.location.lat(), lng: results[i].geometry.location.lng(), place_id: results[i].place_id });
-        link.appendChild(document.createTextNode(results[i].name));
-        link.appendChild(document.createTextNode(", " + results[i].vicinity));
-
-        $(link).click(function(){
-            var locationData = $(this).data("locationData")
-            fillForm(locationData);
-        });      
-
-        addressListItem.appendChild(link);
-        resultsList.appendChild(addressListItem);
-    }
-}
-*/
 function renderListWithPhotos(results){
   var numberResultsToReturn = results.length<8 ? results.length : 8;
   for(var i = 0; i < numberResultsToReturn; i++){

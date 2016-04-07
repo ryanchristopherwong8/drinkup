@@ -164,7 +164,7 @@ function callbackFunction(results, status,stopBound) {
 
 
 function createMarker(place,number) {
-    var image='http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+number+'|FE6256|000000';
+    var image= createImage("/assets/bar.png");
     var placeLoc = place.geometry.location;
     var marker = new google.maps.Marker({
       map: map,
@@ -186,6 +186,15 @@ function createMarker(place,number) {
       infowindow.open(map, this);
   });
         
+}
+
+function createImage(url){
+  var image = {
+    url: url,
+    // This marker is 32 pixels wide by 32 pixels tall.
+    size: new google.maps.Size(33, 45)
+  };
+  return image;
 }
 
 function createDrinkupMarker(place,drinkup,number,isAttending) {

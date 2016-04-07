@@ -1,45 +1,31 @@
-/*
-function renderList(results) {
-    var numberResultsToReturn = results.length<8 ? results.length : 8;
-    for(var i = 0; i < numberResultsToReturn; i++){
-        var addressListItem = document.createElement('li'); 
-        var link = document.createElement("a");
-
-        addressListItem.setAttribute("class", "location-item");
-
-        $(link).data('locationData', { location_name: results[i].name, location_address: results[i].vicinity, 
-            lat: results[i].geometry.location.lat(), lng: results[i].geometry.location.lng(), place_id: results[i].place_id });
-        link.appendChild(document.createTextNode(results[i].name));
-        link.appendChild(document.createTextNode(", " + results[i].vicinity));
-
-        $(link).click(function(){
-            var locationData = $(this).data("locationData")
-            fillForm(locationData);
-        });      
-
-        addressListItem.appendChild(link);
-        resultsList.appendChild(addressListItem);
-    }
-}
-*/
 function renderListWithPhotos(results){
   var numberResultsToReturn = results.length<8 ? results.length : 8;
   for(var i = 0; i < numberResultsToReturn; i++){
 
-    var addressListItem = document.createElement('li'); 
+    var locationListItem = document.createElement('li');
+    locationListItem.setAttribute("class", "list-group-item location listItem");
 
-    var image = document.createElement("img");
+    var itemContainer = document.createElement('div');
+    itemContainer.setAttribute("class", "location container");
+    createLocationImage(results[i], itemContainer);
+
     var pid = results[i].place_id;
+    setPlaceDetails(pid, itemContainer);    
+    locationListItem.appendChild(itemContainer);    
+    $("#resultsList").append(locationListItem).attr("class","list-group well").height("250px");
+  }
+}
 
-    var photos = results[i].photos;
-    if(photos){
-      var photoSource = photos[0].getUrl({'maxWidth': 50, 'maxHeight': 50});
-      image.setAttribute("src",photoSource);
-    }
-
-    addressListItem.appendChild(image);
-    setPlaceDetails(pid, addressListItem);
-    $("#resultsList").append(addressListItem);
+function createLocationImage(place, parentNode) {
+  var container = document.createElement("div");
+  container.setAttribute("class","location image container");
+  var image = document.createElement("img");
+  var photos = place.photos;
+  if(photos){
+    var photosUrl = photos[0].getUrl({'maxWidth': 100, 'maxHeight': 100});
+    image.setAttribute("src",photosUrl);
+    container.appendChild(image);
+    parentNode.appendChild(container);
   }
 }
 
@@ -49,36 +35,51 @@ function setPlaceDetails(pid, parentNode){
     }, 
     function(place, status, result) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        var link = createListItemDetails(place);
-        parentNode.appendChild(link);
+        var detailsContainer = createListItemDetails(place);
+        parentNode.appendChild(detailsContainer);
       }
   });
 }
 
 function createListItemDetails(place) {
   var container = document.createElement("div");
-  container.setAttribute("class", "list-item details");
-  var link = document.createElement("a");
+  container.setAttribute("class", "location details container");
+  var headerLink = document.createElement("a");
 
-  $(link).data('locationData', { location_name: place.name, location_address: place.vicinity, 
+  $(headerLink).data('locationData', { location_name: place.name, location_address: place.vicinity, 
     lat: place.geometry.location.lat(), lng: place.geometry.location.lng(), place_id: place.place_id });
   
-  $(link).click(function(){
+  $(headerLink).click(function(){
     var locationData = $(this).data("locationData")
     fillForm(locationData);
+    $(this).parentNode
   });      
+  $(headerLink).append(place.name);
 
-  link.appendChild(document.createTextNode(place.name));
-  link.appendChild(document.createElement("br"));
-  link.appendChild(document.createTextNode(place.formatted_address));
-  link.appendChild(document.createElement("br"));
-  link.appendChild(document.createTextNode(place.website));
-  link.appendChild(document.createElement("br"));
-  link.appendChild(document.createTextNode(place.rating));
-  link.appendChild(document.createElement("br"));
-  link.appendChild(document.createTextNode(place.formatted_phone_number));
-  link.appendChild(document.createElement("br"));
-  container.appendChild(link);
+  container.appendChild(headerLink);
+  container.appendChild(document.createElement("br"));
+
+  if(place.formatted_address !== undefined){
+    container.appendChild(document.createTextNode("Address: "+place.formatted_address));
+    container.appendChild(document.createElement("br"));
+  }
+  if(place.website !== undefined){
+    var text = document.createTextNode("Website: ");
+    container.appendChild(text);
+    var link = document.createElement("a");
+    link.setAttribute("href",place.website);
+    link.appendChild(document.createTextNode(place.website));
+    container.appendChild(link);
+    container.appendChild(document.createElement("br"));
+  }
+  if(place.rating !== undefined){
+    container.appendChild(document.createTextNode("Rating: "+place.rating+"/5"));
+    container.appendChild(document.createElement("br"));
+  }
+  if(place.formatted_phone_number !== undefined){
+    container.appendChild(document.createTextNode("Phone number: "+place.formatted_phone_number));
+    container.appendChild(document.createElement("br"));
+  }
   return container;
 }
 
@@ -91,11 +92,11 @@ function createShowListButton (){
 }
 
 function fillForm(data){
-   $("#event_location_name").val(data.location_name);
-    $("#event_location_address").val(data.location_address);
-    $("#lat").val(data.lat);
-    $("#lng").val(data.lng);
-    $("#place_id").val(data.place_id);
+  $("#event_location_name").val(data.location_name);
+  $("#event_location_address").val(data.location_address);
+  $("#lat").val(data.lat);
+  $("#lng").val(data.lng);
+  $("#place_id").val(data.place_id);
 }
 
 function toggleList() {

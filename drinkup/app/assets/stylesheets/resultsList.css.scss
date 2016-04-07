@@ -1,0 +1,10 @@
+#resultsList 
+{	
+	overflow: hidden;
+	overflow-y: scroll;
+    list-style: decimal inside;
+
+	.list-group-item {
+  	  display: list-item;
+	}
+}

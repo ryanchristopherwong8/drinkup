@@ -142,7 +142,6 @@ function callbackFunction(results, status,stopBound) {
       }
     }
     createShowListButton();
-    //rederList(results);
     renderListWithPhotos(results);
   }
   if (stopBound==0) {

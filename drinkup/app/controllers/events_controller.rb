@@ -20,6 +20,7 @@ class EventsController < ApplicationController
     @events_attending = current_user.attendees.attending.pluck(:event_id)
 
     respond_to do |format|
+      format.html {redirect_to "index"}
       format.json {render :json => {:events => @events, :events_attending => @events_attending }}
     end
   end
@@ -29,6 +30,7 @@ class EventsController < ApplicationController
     top_conversations = event.getTopConversations
 
     respond_to do |format|
+      format.html {redirect_to "index"}
       format.json {render :json => {:top_conversations => top_conversations}}
     end
   end

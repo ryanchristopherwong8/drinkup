@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     @conversations = Conversation.all.select("name").map(&:name)
 
     respond_to do |format|
-      format.html
+      format.html {redirect_to "index"}
       format.json {render :json => {:conversations => @conversations}}
     end
   end
@@ -31,6 +31,7 @@ class UsersController < ApplicationController
     end
 
     respond_to do |format|
+      format.html {redirect_to "index"}
       format.json {render :json => {:success => success}}
     end
   end
@@ -49,6 +50,7 @@ class UsersController < ApplicationController
     end
 
     respond_to do |format|
+      format.html {redirect_to "index"}
       format.json {render :json => {:success => success}}
     end
   end

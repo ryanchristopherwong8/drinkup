@@ -1,6 +1,15 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+#page_title {
+  font-size:42px;
+  font-weight:600;
+  border-bottom: 2px solid #CCCCCC;
+  padding-bottom: 15px;
+  margin-bottom:  20px;
+  color: #333333;
+}
+
 #logo {
   position: absolute;
   margin-left: auto;

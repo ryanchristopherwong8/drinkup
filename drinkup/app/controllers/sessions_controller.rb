@@ -3,6 +3,9 @@ class SessionsController < ApplicationController
   before_action :redirect_if_not_logged_in, :except => [:index, :new, :create, :destroy]
 
   def index
+    if logged_in?
+      redirect_to 'events/index'
+    end
   end
 
   def show

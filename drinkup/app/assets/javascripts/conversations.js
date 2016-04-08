@@ -23,6 +23,9 @@ $(document).ready(function(){
 		}
 
 	});
+	$(document).on("click", "#info", function(e) {
+		$('[data-toggle="tooltip"]').tooltip();
+	});
 });
 
 function loadConversations() {

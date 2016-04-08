@@ -1,3 +1,10 @@
+.personal-info {
+	margin-top:20px;
+}
+#info {
+	cursor: default;
+}
+
 .conversation_tag {
 	margin: 2px;
 	padding: 4px;
@@ -8,7 +15,11 @@
 	display: inline-block;
 }
 
+.conversation_tags {
+	margin:10px 0 10px 0;
+}
 #conversation_link {
+	max-width:275px;
 	margin: 10px 0 10px 0;
 	display: block;
 	text-decoration: none;
@@ -16,9 +27,11 @@
 }
 
 #conversation_select {
-	border: 1px solid #00CCFF;
+	border: 1px solid #CCCCCC;
+	border-radius: 3px;
 	padding: 10px;
 	margin-bottom: 10px;
+	cursor: pointer;
 }
 
 #conversation_select .conversation_tag {

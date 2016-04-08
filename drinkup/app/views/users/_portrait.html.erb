@@ -1,0 +1,15 @@
+<!-- left column -->
+<div class="col-md-3">
+	<div class="text-center">
+		<% if params[:action] == "new" %>
+			<h6>Choose profile picture</h6>
+        	<%= curr_user.file_field :avatar, class: "form-control" %>
+    	<%else%>
+    		<%= image_tag @user.avatar.url(:medium), class: "avatar img-circle", alt: "avatar" %>
+    		<% if params[:action] == "edit" %>
+    			<h6>Change profile picture</h6>
+        		<%= curr_user.file_field :avatar, class: "form-control" %>
+    		<%end%>
+    	<%end%>
+	</div>
+</div>

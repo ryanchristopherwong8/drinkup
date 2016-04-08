@@ -22,6 +22,9 @@ end
 execute 'image_install' do
   command 'sudo apt-get -y install imagemagick'
 end
+execute 'g++_install' do
+	command 'sudo apt-get -y install g++'
+end
 
 #installing web server nginx
 package "nginx"
@@ -81,4 +84,10 @@ end
 
 execute 'startup' do
 	command 'service unicorn_rails start'
+end
+
+execute 'start_thin' do
+	command 'RAILS_ENV=production bundle exec rackup private_pub.ru -s thin -E production --daemonize'
+	cwd 'home/vagrant/project/drinkup'
+	user 'vagrant'
 end

@@ -1,0 +1,23 @@
+<% content_for :header do %>
+  <%= javascript_include_tag "conversations" %>   
+<% end %>
+
+<div class="row">
+  <div class="col-md-6">
+      <h4><strong>Conversations <span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="What Conversation topics do you enjoy chatting about? Share your favorite Conversations with others by adding them below. "></span></strong></h4>
+      <script>
+          $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+            })
+      </script>
+      <div id="user_conversations" class="col-md-6">
+        <div class="coversation_tags">
+          <% @user.conversations.each do |conversation| %>
+            <span class="conversation_tag"><%= "#{conversation.name}" %></span>
+          <% end %>
+        </div>
+      </div>
+      <%= link_to 'Edit Conversations', "#", id: "conversation_link", class:" col-md-6 btn btn-default btn-xs" %>
+      <div id="conversation_select" class="col-md-8"></div>
+    </div>
+  </div>

@@ -6,13 +6,7 @@
     <%= form_for(@user, html: {class: 'form-horizontal'}) do |f| %>
     <%= render 'shared/error_messages' , object: f.object %>
     <!-- left column -->
-    <div class="col-md-3">
-      <div class="text-center">
-          <%= image_tag @user.avatar.url(:medium), class: "avatar img-circle", alt: "avatar" %>
-        <h6>Upload a different photo...</h6>
-          <%= f.file_field :avatar, class: "form-control" %>
-      </div>
-    </div>
+    <%= render partial: 'portrait', locals: {curr_user: f} %>
     <!-- edit form column -->
     <div class="col-md-9 personal-info">
       <h3>Personal Information</h3>

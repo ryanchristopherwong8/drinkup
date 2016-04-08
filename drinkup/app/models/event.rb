@@ -5,8 +5,6 @@ class Event < ActiveRecord::Base
                      :distance_field_name => :distance,
                      :lat_column_name => :lat,
                      :lng_column_name => :lng
-
-	attr_accessor :location_name, :location_address
 	
 	has_many :attendees
 	has_many :users, through: :attendees

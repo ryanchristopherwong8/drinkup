@@ -57,8 +57,10 @@ function createDrinkupMarker(place,drinkup,number,isAttending) {
       icon: image
     });
 
-    var start_time = moment.utc(drinkup.start_time).format('MMMM Do YYYY, h:mm a');
-    var end_time = moment.utc(drinkup.end_time).format('MMMM Do YYYY, h:mm a');
+    var start_time = moment.utc(drinkup.start_time).toDate();
+    start_time = moment(start_time).format('MMMM Do YYYY, h:mm a');
+    var end_time = moment.utc(drinkup.end_time).toDate();
+    end_time = moment(end_time).format('MMMM Do YYYY, h:mm a');
 
     $(marker).data('drinkupData', { id : drinkup.id, name : drinkup.name, location_name: place.name, location_address : place.vicinity,
         start_time : start_time, end_time : end_time, isUserAttending : isAttending

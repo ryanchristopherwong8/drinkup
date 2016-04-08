@@ -1,0 +1,28 @@
+  <div class="row">
+    <!-- left column -->
+    <div class="col-md-3">
+      <div class="text-center">
+        <%= image_tag @user.avatar.url(:medium), class: "avatar img-circle", alt: "avatar" %>
+
+      </div>
+    </div>
+    <!-- edit form column -->
+    <div class="col-md-9 personal-info">
+      <h3>Personal Information</h3>
+
+      <table class="table">
+        <tr>
+          <td><strong>Name</strong></td>
+          <td><%= "#{@user.first_name} #{@user.last_name}" %></td>
+        </tr>
+        <tr>
+          <td><strong>Email</strong></td>
+          <td><%= @user.email %></td>
+        </tr>
+        <tr>
+          <td><strong>Date of Birth</strong></td>
+          <td><%= @user.date_of_birth %></td>
+        </tr>
+      </table>
+    </div>
+  </div>

@@ -1,25 +1,21 @@
 <% content_for :header do %>
-  <%= javascript_include_tag 'profileDatepickerConfig' %> 
-  <%= javascript_include_tag "conversations" %>   
+  <%= javascript_include_tag 'profileDatepickerConfig' %>    
 <% end %>
 
-<div class="container">
-  <h1>Edit Profile</h1>
-  <hr>
   <div class="row">
     <%= form_for(@user, html: {class: 'form-horizontal'}) do |f| %>
     <%= render 'shared/error_messages' , object: f.object %>
     <!-- left column -->
     <div class="col-md-3">
       <div class="text-center">
-        <%= image_tag @user.avatar.url(:medium), class: "avatar img-circle", alt: "avatar" %>
+          <%= image_tag @user.avatar.url(:medium), class: "avatar img-circle", alt: "avatar" %>
         <h6>Upload a different photo...</h6>
-        <%= f.file_field :avatar, class: "form-control" %>
+          <%= f.file_field :avatar, class: "form-control" %>
       </div>
     </div>
     <!-- edit form column -->
     <div class="col-md-9 personal-info">
-      <h3>Personal info</h3>
+      <h3>Personal Information</h3>
       <form class="form-horizontal" role="form">
         <div class="form-group">
           <%= f.label :first_name, class: "col-lg-3 control-label"%>
@@ -60,29 +56,14 @@
           <div class="actions form-group">
             <label class="col-md-3 control-label"></label>
             <div class="col-md-8">
-            <%= f.submit "Create my account", class: "btn btn-primary" %>
+            <% if params[:action] == "new" %>
+              <%= f.submit "Create My Account", class: "btn btn-primary" %>
+            <%else%>
+              <%= f.submit "Save Changes", class: "btn btn-primary" %>
+            <% end %>
           </div>
         </div>
       </div>
     </form>
     <% end %>
   </div>
-  <div class="row">
-  <div class="col-md-6">
-      <p><strong>Conversations: <span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="What Conversation topics do you enjoy chatting about? Share your favorite Conversations with others by adding them below. "></span></strong></p>
-      <script>
-          $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-            })
-      </script>
-      <div id="user_conversations" class="clearfix">
-        <% @user.conversations.each do |conversation| %>
-          <span class="conversation_tag"><%= "#{conversation.name}" %></span>
-        <% end %>
-        </div>
-        <%= link_to 'Edit Conversations', "#", id: "conversation_link"  %>
-        <div id="conversation_select" class=" col-md-12"></div>
-    </div>
-    </div>
-</div>
-<hr>

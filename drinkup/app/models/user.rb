@@ -60,5 +60,10 @@ class User < ActiveRecord::Base
       #reset encryped token
       update_attribute(:remember_digest, nil)
     end
+
+    def getEventsAttending
+      return self.events.where("attendees.is_attending"=>true)
+
+    end
     
 end

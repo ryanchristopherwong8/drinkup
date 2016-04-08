@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     member do 
       post 'saveConversations'
       delete 'removeConversations'
+      get 'getCurrentEventsForUser'
     end
   end
   

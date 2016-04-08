@@ -53,6 +53,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def getCurrentEventsForUser
+    events_currentUser = current_user.getEventsAttending
+    gon.user_id = current_user.id
+
+    respond_to do |format|
+      format.json {render :json => {:events_currentUser => events_currentUser}}
+    end
+  end
+
   def new
   	@user = User.new
     @conversations = Conversation.all

@@ -4,6 +4,7 @@ function renderListWithPhotos(results){
 
     var locationListItem = document.createElement('li');
     locationListItem.setAttribute("class", "list-group-item location listItem");
+    locationListItem.setAttribute("onclick", "setActiveListItem()");
 
     var itemContainer = document.createElement('div');
     itemContainer.setAttribute("class", "location container");
@@ -21,6 +22,7 @@ function createLocationImage(place, parentNode) {
   container.setAttribute("class","location image container");
   var image = document.createElement("img");
   var photos = place.photos;
+  //if photos is not undefined, we create an image from the url in the array
   if(photos){
     var photosUrl = photos[0].getUrl({'maxWidth': 100, 'maxHeight': 100});
     image.setAttribute("src",photosUrl);
@@ -41,22 +43,26 @@ function setPlaceDetails(pid, parentNode){
   });
 }
 
+function setActiveListItem() {
+      $(".list-group-item").click(function(){
+      $(".list-group-item").removeClass("active");
+      $(this).addClass("active");
+      var locationData = $(this).find("h3").data("locationData");
+      fillForm(locationData);
+    });
+}
+
 function createListItemDetails(place) {
   var container = document.createElement("div");
   container.setAttribute("class", "location details container");
-  var headerLink = document.createElement("a");
+  var placeHeader = document.createElement("h3");
 
-  $(headerLink).data('locationData', { location_name: place.name, location_address: place.vicinity, 
+  $(placeHeader).data('locationData', { location_name: place.name, location_address: place.vicinity, 
     lat: place.geometry.location.lat(), lng: place.geometry.location.lng(), place_id: place.place_id });
-  
-  $(headerLink).click(function(){
-    var locationData = $(this).data("locationData")
-    fillForm(locationData);
-    $(this).parentNode
-  });      
-  $(headerLink).append(place.name);
 
-  container.appendChild(headerLink);
+  $(placeHeader).append(place.name);
+
+  container.appendChild(placeHeader);
   container.appendChild(document.createElement("br"));
 
   if(place.formatted_address !== undefined){

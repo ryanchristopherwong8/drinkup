@@ -7,20 +7,8 @@ var infowindow;
 var bounds;
 var markers=[];
 
-function setDrinktypeCafe() {
-  drinktype = 'cafe'
-  if (postionOfUserFromGeolocation[0]==null && postionOfUserFromGeolocation[1]==null) {
-    document.getElementById('error').innerHTML="Please Enter a Location";
-  }
-  else {
-    deleteMarkers();
-    changeMapLocation(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],15);
-    setup(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],1000, drinktype,0);
-  }
-}
-
-function setDrinktypeBar() {
-  drinktype = 'bar'
+function setDrinktype(type) {
+  drinktype = type;
   if (postionOfUserFromGeolocation[0]==null && postionOfUserFromGeolocation[1]==null) {
     document.getElementById('error').innerHTML="Please Enter a Location";
   }
@@ -180,7 +168,7 @@ function createMarker(place,number) {
 function createImage(url){
   var image = {
     url: url,
-    // This marker is 32 pixels wide by 32 pixels tall.
+    // This marker is 33 pixels wide by 45 pixels tall.
     size: new google.maps.Size(33, 45)
   };
   return image;

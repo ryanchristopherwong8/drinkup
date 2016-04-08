@@ -18,6 +18,11 @@
   clear: both;
 }
 
+.inactive, .inactive:hover {
+  text-decoration: none;
+  color: grey;
+}
+
 #event_links {
   clear: both;
 }

@@ -1,6 +1,9 @@
 .personal-info {
 	margin-top:20px;
 }
+#info {
+	cursor: default;
+}
 
 .conversation_tag {
 	margin: 2px;
@@ -28,6 +31,7 @@
 	border-radius: 3px;
 	padding: 10px;
 	margin-bottom: 10px;
+	cursor: pointer;
 }
 
 #conversation_select .conversation_tag {

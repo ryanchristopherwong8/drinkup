@@ -141,7 +141,8 @@ function callbackFunction(results, status,stopBound) {
 
 
 function createMarker(place,number) {
-    var image= createImage("/assets/bar.png");
+    var drink = drinktype;
+    var image= createImage("/assets/"+drink+".png");
     var placeLoc = place.geometry.location;
     var marker = new google.maps.Marker({
       map: map,

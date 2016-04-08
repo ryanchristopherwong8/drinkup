@@ -4,7 +4,7 @@ function renderListWithPhotos(results){
 
     var locationListItem = document.createElement('li');
     locationListItem.setAttribute("class", "list-group-item location listItem");
-    locationListItem.setAttribute("onclick", "setActiveListItem()");
+    locationListItem.setAttribute("onclick", "setActiveListItem(this)");
 
     var itemContainer = document.createElement('div');
     itemContainer.setAttribute("class", "location container");
@@ -43,14 +43,12 @@ function setPlaceDetails(pid, parentNode){
   });
 }
 
-function setActiveListItem() {
+function setActiveListItem(element) {
       toggleList();
-      $(".list-group-item").click(function(){
       $(".list-group-item").removeClass("active");
-      $(this).addClass("active");
-      var locationData = $(this).find("h3").data("locationData");
+      element.classList.add("active");
+      var locationData = $(".active").find("h3").data("locationData");
       fillForm(locationData);
-    });
 }
 
 function createListItemDetails(place) {

@@ -6,10 +6,13 @@
     <%= form_for(@user, html: {class: 'form-horizontal'}) do |f| %>
     <%= render 'shared/error_messages' , object: f.object %>
     <!-- left column -->
+    
     <%= render partial: 'portrait', locals: {curr_user: f} %>
     <!-- edit form column -->
     <div class="col-md-9 personal-info">
+      <% if params[:action] != "new" %>
       <h3>Personal Information</h3>
+      <%end%>
       <form class="form-horizontal" role="form">
         <div class="form-group">
           <%= f.label :first_name, class: "col-lg-3 control-label"%>

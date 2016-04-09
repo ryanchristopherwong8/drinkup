@@ -34,6 +34,7 @@ class Event < ActiveRecord::Base
             conversationCounts[conversation] += 1
         end
 
-        topConversations = conversationCounts.sort_by{ |k,v| v}.reverse[0..2].to_h.keys
+        topConversationsArr = conversationCounts.sort_by{ |k,v| v}.reverse[0..2]
+        topConversations = Hash[topConversationsArr].keys
     end
 end

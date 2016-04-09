@@ -63,6 +63,12 @@ execute 'migrate' do
 	user 'vagrant'
 end
 
+execute 'db_populate' do
+	command 'rake db:seed RAILS_ENV=production'
+	cwd 'home/vagrant/project/drinkup'
+	user 'vagrant'
+end
+
 execute 'precompile_assets' do
 	command 'RAILS_ENV=production bundle exec rake assets:precompile'
 	cwd 'home/vagrant/project/drinkup'

@@ -58,13 +58,11 @@ function createDrinkupMarker(place,drinkup,number,isAttending) {
       icon: image
     });
 
-    var start_time = moment.utc(drinkup.start_time).toDate();
-    start_time = moment(start_time).format('MMMM Do YYYY, h:mm a');
-    var end_time = moment.utc(drinkup.end_time).toDate();
-    end_time = moment(end_time).format('MMMM Do YYYY, h:mm a');
+    var start_time = moment.utc(drinkup.start_time).format('MMMM Do YYYY, h:mm a');
+    var end_time = moment.utc(drinkup.end_time).format('MMMM Do YYYY, h:mm a');
 
     $(marker).data('drinkupData', { id : drinkup.id, name : drinkup.name, location_name: place.name, location_address : place.vicinity,
-        start_time : start_time, end_time : end_time, isUserAttending : isAttending
+        start_time : start_time, end_time : end_time, isUserAttending : isAttending, count : drinkup.count
     });
 
     markers.push(marker);
@@ -75,11 +73,11 @@ function createDrinkupMarker(place,drinkup,number,isAttending) {
 
       google.maps.event.addListener(marker, 'click', function() {
         infowindow.setContent(drinkupData.name + "<br />" + drinkupData.location_name + 
-          "<br />" + drinkupData.location_address + "<br />");
+          "<br />" + drinkupData.location_address + "<br />" + "Attendees: " + drinkupData.count + "<br />");
         infowindow.open(map, marker);
         fillEventContent(marker);
       });
-    }, function() {console.log("get failed!")});
+    });
 }
 
 function createMarkerForEventsAroundYou(drinkup,number,isAttending,stopBound) {
@@ -98,7 +96,6 @@ function createMarkerForEventsAroundYou(drinkup,number,isAttending,stopBound) {
       }
     });
 }
-
 
 function initializeMarkers(position) {
   document.getElementById('error').innerHTML="";
@@ -144,12 +141,12 @@ function getTopConversations(drinkupId) {
     });
 }
 
-
 function fillEventContent(marker) {
     var drinkupData = $(marker).data("drinkupData");
     var topConversations = $(marker).data("topConversations")
     var drinkupListing = $("#drinkup_listing");
     var eventLinkAttend = $("#event_link_attend");
+    var drinkupAttendeeLimit = 8;
 
     if(!drinkupListing.is(":visible")) {
       drinkupListing.slideDown(500);
@@ -171,11 +168,19 @@ function fillEventContent(marker) {
     $("#drinkup_conversations").html(conversationTagsHTML);
 
     $("#event_link_show").attr("href", "/events/" + drinkupData.id);
-    if (!drinkupData.isUserAttending) {
-      eventLinkAttend.attr("href", "/events/join/" + drinkupData.id);
-      eventLinkAttend.text("Attend")
+    if (drinkupData.count > drinkupAttendeeLimit && !drinkupData.isUserAttending) {
+      eventLinkAttend.removeAttr("href");
+      eventLinkAttend.addClass("inactive");
+      eventLinkAttend.text("Drinkup is full");
     } else {
-      eventLinkAttend.attr("href", "/events/unjoin/" + drinkupData.id);
-      eventLinkAttend.text("Unattend")
+      if (!drinkupData.isUserAttending) {
+        eventLinkAttend.attr("href", "/events/join/" + drinkupData.id);
+        eventLinkAttend.removeClass("inactive");
+        eventLinkAttend.text("Attend")
+      } else {
+        eventLinkAttend.attr("href", "/events/unjoin/" + drinkupData.id);
+        eventLinkAttend.removeClass("inactive");
+        eventLinkAttend.text("Unattend")
+      }
     }
 }

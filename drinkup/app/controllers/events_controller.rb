@@ -16,12 +16,16 @@ class EventsController < ApplicationController
   def getEvents
     @lat_lng = cookies[:lat_lng].split("|")
 
-    @events = Event.within(5, :origin => [@lat_lng[0], @lat_lng[1]])
+    @events = Event.within(5, :origin => [@lat_lng[0], @lat_lng[1]]).where('end_time > ?', Time.now)
     @events_attending = current_user.attendees.attending.pluck(:event_id)
+
+    @events.each do |event|
+      event.count = event.attendees.attending.count
+    end
 
     respond_to do |format|
       format.html {redirect_to "index"}
-      format.json {render :json => {:events => @events, :events_attending => @events_attending }}
+      format.json {render :json => {:events => @events.as_json(:methods => [:count]), :events_attending => @events_attending }}
     end
   end
 
@@ -104,11 +108,16 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
 
     attendee = current_user.attendees.where(:event_id => @event.id).first
+    drinkupAttendeeLimit = 8
 
-    if attendee.blank?
-      @event.attendees.create(:user => current_user, :is_attending => true)
-    else
-      attendee.update_attributes(:is_attending => true)
+    if (@event.attendees.attending.count <= drinkupAttendeeLimit)
+      if attendee.blank?
+        @event.attendees.create(:user => current_user, :is_attending => true)
+      else
+        attendee.update_attributes(:is_attending => true)
+      end
+    else 
+      flash[:danger] = "You cannot join a drinkup that's already full."
     end
 
     redirect_to @event

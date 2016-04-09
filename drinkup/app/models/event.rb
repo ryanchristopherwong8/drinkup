@@ -6,7 +6,7 @@ class Event < ActiveRecord::Base
                      :lat_column_name => :lat,
                      :lng_column_name => :lng
 
-	attr_accessor :location_name, :location_address
+	attr_accessor :location_name, :location_address, :count
 	
 	has_many :attendees
 	has_many :users, through: :attendees
@@ -16,25 +16,25 @@ class Event < ActiveRecord::Base
 	validates :lat, presence: true
 	validates :lng, presence: true
 	validates :start_time, presence: true
-    validates :end_time, presence: true
+  validates :end_time, presence: true
 	# validates :gender, presence: true, inclusion: { in: %w(any male female),
  #    		 				message: "%{value} is not a valid gender" }
-    validates :place_id, presence: true
-
+  validates :place_id, presence: true
+  
     def getTopConversations
         eventConversations = []
-        attendees = self.attendees.attending
-        attendees.each do |attendee|
-            user = attendee.user
+        users = self.users.where("attendees.is_attending" => true)
+        users.each do |user|
             userConversations = user.conversations.pluck(:name)
-            (eventConversations << userConversations).flatten!
-    	end
+            (eventConversations << userConversations).flatten!  
+        end
 
         conversationCounts = Hash.new 0
         eventConversations.each do |conversation|
             conversationCounts[conversation] += 1
         end
 
-        topConversations = conversationCounts.sort_by{ |k,v| v}.reverse[0..2].to_h.keys
+        topConversationsArr = conversationCounts.sort_by{ |k,v| v}.reverse[0..2]
+        topConversations = Hash[topConversationsArr].keys
     end
 end

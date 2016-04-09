@@ -137,6 +137,7 @@ function fillEventContent(marker) {
     var topConversations = $(marker).data("topConversations")
     var drinkupListing = $("#drinkup_listing");
     var eventLinkAttend = $("#event_link_attend");
+    var drinkupAttendeeLimit = 8;
 
     if(!drinkupListing.is(":visible")) {
       drinkupListing.slideDown(500);
@@ -158,7 +159,7 @@ function fillEventContent(marker) {
     $("#drinkup_conversations").html(conversationTagsHTML);
 
     $("#event_link_show").attr("href", "/events/" + drinkupData.id);
-    if (drinkupData.count > 8 && !drinkupData.isUserAttending) {
+    if (drinkupData.count > drinkupAttendeeLimit && !drinkupData.isUserAttending) {
       eventLinkAttend.removeAttr("href");
       eventLinkAttend.addClass("inactive");
       eventLinkAttend.text("Drinkup is full");

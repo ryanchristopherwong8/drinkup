@@ -16,7 +16,7 @@ class EventsController < ApplicationController
   def getEvents
     @lat_lng = cookies[:lat_lng].split("|")
 
-    @events = Event.within(5, :origin => [@lat_lng[0], @lat_lng[1]])
+    @events = Event.within(5, :origin => [@lat_lng[0], @lat_lng[1]]).where('end_time > ?', Time.now)
     @events_attending = current_user.attendees.attending.pluck(:event_id)
 
     @events.each do |event|
@@ -108,8 +108,9 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
 
     attendee = current_user.attendees.where(:event_id => @event.id).first
+    drinkupAttendeeLimit = 8
 
-    if (@event.attendees.attending.count <= 8)
+    if (@event.attendees.attending.count <= drinkupAttendeeLimit)
       if attendee.blank?
         @event.attendees.create(:user => current_user, :is_attending => true)
       else

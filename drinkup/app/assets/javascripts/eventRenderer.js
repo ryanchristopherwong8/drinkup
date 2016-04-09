@@ -1,5 +1,8 @@
 $(document).ready(function(){
+  initMap(49.2667967,-123.2056314,10, "search")
+  initAutocompleteforDrinkups()
   $("#drinkup_listing").hide();
+  getUserLocationforDrinkups();
   getEventsForCurrentUser();
 });
 

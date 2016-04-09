@@ -131,7 +131,7 @@ function getEventsForCurrentUser()
 {
     $.getJSON("/users/"+gon.user_id+"/getCurrentEventsForUser", function (data) {
     var events = data.events_currentUser;
-    console.log(events[0].name);
+    console.log(events);
   });
 }
 

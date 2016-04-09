@@ -1,5 +1,5 @@
 <% content_for :header do %>
-  <%= javascript_include_tag 'eventRenderer' %>  
+  <%= javascript_include_tag 'eventRenderer', 'listRenderer' %>  
 <% end %>
 
 <h1 class="section_header">Drinkups Around You</h1>
@@ -17,8 +17,6 @@
 
 <div id="inspirational_quote" class="col-md-12 text-center"><q>A great man once said, I know you drunk before.</q></div>
 
-<%= render 'resultsList' %>
-
 
 <div id="drinkup_listing" class="container">
     <div class="drinkup_detail"><h4>Drinkup Name: </h4><p id="drinkup_name"></p></div>
@@ -33,4 +31,6 @@
       <%= link_to('Attend', "#", :id => "event_link_attend") %>
     </div>
 </div>
+
+<%= render 'resultsList' %>
 

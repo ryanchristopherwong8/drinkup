@@ -132,7 +132,7 @@ function callbackFunction(results, status,stopBound) {
       }
     }
     createShowListButton();
-    renderListWithPhotos(results);
+    renderListWithPhotos(results,1);
   }
   if (stopBound==0) {
     map.fitBounds(bounds);

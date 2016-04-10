@@ -4,7 +4,7 @@
 
 <%= link_to 'Back to Event Index', events_path, :class=>"clear block"%>
 <h1 class="clear">Event:</h1>
-<div id="show_event_details_body">
+<div id="show_event_details_body" class ="col-md-6">
 <div id="drinkup_listing" class="container">
 <div id="drinkup_details_partial">
   <div class="drinkup_detail"><h4>Drinkup Name: </h4><p id="drinkup_name"><%= @event.name%></p></div>
@@ -28,8 +28,8 @@
               data: { confirm: 'Are you sure you want to delete this event?' }  if @creator_status  %>
 </div>
 
-<div id="show_event_chat_body"
-<div class="chat col-md-6 well">
+<div id="show_event_chat_body" >
+<div class="chat col-md-6 col-xs-12">
   <div class="chatboxcontent" id="chatbox_<%= @chat.id %>">
       <% if @messages.any? %>
           <%= render @messages %>
@@ -42,7 +42,7 @@
           <%= f.submit "send", class: "btn btn-primary btn-sm btn-submit"%>
       </div>
     <% end %>
-  <div>
+  </div>
 </div>
 <%= subscribe_to chat_path(@chat) %>
 

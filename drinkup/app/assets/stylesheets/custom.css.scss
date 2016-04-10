@@ -230,6 +230,32 @@ ol{
   @include box_sizing;
 }
 
+/* Splash Page */
+
+.splash {
+  background: url('splash.jpg') no-repeat center center fixed;
+}
+.splash .jumbotron {
+  background-color: rgba(9, 9, 9, 0.33);
+    margin-top: 6%;
+  text-align: center;
+}
+
+.splash .jumbotron .btn {
+  width:200px;
+  margin: 15px;
+
+}
+.splash .jumbotron h1{
+  font-weight:800;
+  color:#FFFFFF;
+}
+
+.splash .jumbotron p{
+  font-weight:800;
+  color:#BBCEC8;
+}
+
 @media screen and (max-width: 760px) {
   #logo img {
     width:150px;

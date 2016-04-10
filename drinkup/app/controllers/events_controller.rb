@@ -1,7 +1,8 @@
 class EventsController < ApplicationController
 
   before_action :redirect_if_not_logged_in
-  before_filter :set_cache_headers
+  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :set_cache_headers
   
   def test
   end
@@ -138,6 +139,15 @@ class EventsController < ApplicationController
   private
   def event_params
     params.require(:event).permit(:name, :lat, :lng, :start_time, :end_time, :gender, :place_id)
+  end
+
+  # Confirms the correct user.
+  def correct_user
+    @event = Event.find(params[:id])
+    if current_user.attendees.creator_of_event(@event).blank?
+      flash[:danger] = "You can't edit someone else's event."
+      redirect_to @event
+    end
   end
 
 end

@@ -21,6 +21,7 @@ gem 'jquery-rails'
 
 # use moment.js for formatting date and time in javascript
 gem 'momentjs-rails', '~> 2.11'
+gem 'moment_timezone-rails'
 
 # use rails variables in your JS
 gem 'gon'

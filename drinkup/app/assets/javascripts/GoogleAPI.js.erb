@@ -166,13 +166,27 @@ function createMarker(place,number) {
   
 
     google.maps.event.addListener(marker, 'click', function() {
-      var locationData = $(marker).data("locationData")
-      fillForm(locationData);
+      var markerData = $(marker).data("locationData");
+      fillFormOnMarkerClick(markerData);
+
+      //fillForm(locationData);
 
       infowindow.setContent(place.name + "<br />" + place.vicinity + "<br />");
       infowindow.open(map, this);
   });
         
+}
+
+function fillFormOnMarkerClick(markerData) {
+      $(".list-group-item").removeClass("active");
+      $(".list-group-item").each(function() {
+        var listItem = $(this);
+        var listItemHeader = $(this).find('h3');
+        if( listItemHeader.text() == markerData.location_name){
+          fillForm(listItemHeader.data("locationData"));   
+          listItem.addClass("active");         
+        } 
+      });
 }
 
 function createImage(url){

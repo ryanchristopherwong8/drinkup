@@ -132,7 +132,7 @@ function getEventsForCurrentUser()
     $.getJSON("/users/"+gon.user_id+"/getCurrentEventsForUser", function (data) {
     var events = data.events_currentUser;
     console.log(events);
-    renderListWithPhotos(events,0);
+    renderListWithPhotos(events,"indexPage");
   });
 }
 

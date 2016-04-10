@@ -99,8 +99,10 @@ function setup(lat_user,lng_user,radius,drinktype,stopBound) {
     radius: radius,
     types: [drinktype]
   };
+  if (stopBound==0){
+    $(".loading-spinner").show();
+  }
   
-  $(".loading-spinner").show();
   service.nearbySearch(request, function(results,status) {
     callbackFunction(results,status,stopBound);
     $(".loading-spinner").hide();

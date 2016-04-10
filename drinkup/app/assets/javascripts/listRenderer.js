@@ -143,11 +143,11 @@ function createListItemDetails(place,myEvent,page) {
   }
   else if (page=="createPage")
   {
-    if(place.formatted_address !== null) {
+    if(place.formatted_address !== undefined) {
       container.appendChild(document.createTextNode("Address: "+place.formatted_address));
       container.appendChild(document.createElement("br"));
     }
-    if(place.website !== null) {
+    if(place.website !== undefined) {
       var text = document.createTextNode("Website: ");
       container.appendChild(text);
       var link = document.createElement("a");
@@ -156,11 +156,11 @@ function createListItemDetails(place,myEvent,page) {
       container.appendChild(link);
       container.appendChild(document.createElement("br"));
     }
-    if(place.rating !== null) {
+    if(place.rating !== undefined) {
       container.appendChild(document.createTextNode("Rating: "+place.rating+"/5"));
       container.appendChild(document.createElement("br"));
     }
-    if(place.formatted_phone_number !== null) {
+    if(place.formatted_phone_number !== undefined) {
       container.appendChild(document.createTextNode("Phone number: "+place.formatted_phone_number));
       container.appendChild(document.createElement("br"));
     }

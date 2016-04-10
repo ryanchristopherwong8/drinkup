@@ -59,8 +59,10 @@ a.dropdown-toggle.nav-user {
     min-height:80px;
 }
 .panel-footer {
+  position:absolute;
+  bottom:0;
+  width:100%;
   text-align:center;
-  padding:20px;
   margin-top:25px;
 }
 

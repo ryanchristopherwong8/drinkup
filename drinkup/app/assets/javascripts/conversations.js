@@ -50,7 +50,9 @@ function saveConversations(conversation) {
 	$.ajax({
 		type: "POST",
 		url: "/users/"+gon.user_id+"/saveConversations",
-		data: {conversation: conversation},
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+		data: JSON.stringify({conversation: conversation}),
 		success: function(data) {
 			if (data.success) {
 				$("#user_conversations").append("<span class='conversation_tag'>" + conversation + "</span>");
@@ -63,7 +65,9 @@ function removeConversations(conversation, event) {
 	$.ajax({
 		type: "DELETE",
 		url: "/users/"+gon.user_id+"/removeConversations",
-		data: {conversation: conversation},
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+		data: JSON.stringify({conversation: conversation}),
 		success: function(data) {
 			if (data.success) {
 				conversation_name = $(event.target).text();

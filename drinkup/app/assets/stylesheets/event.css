@@ -1,3 +1,12 @@
+#show_event_details_body{
+  float:left;
+  width: 40%;
+}
+
+#show_event_chat_body{
+  display:inline;
+}
+
 #drinkup_listing {
   margin-top: 10px;
 }

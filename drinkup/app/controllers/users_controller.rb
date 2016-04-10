@@ -72,7 +72,6 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
-    @conversations = Conversation.all
   end
 
   def settings

@@ -40,6 +40,7 @@ a.dropdown-toggle.nav-user {
   clear: both
 }
 .navbar-fixed-top {
+
 }
 .navbar {
   background-image: url('dark_back.jpg');
@@ -47,7 +48,12 @@ a.dropdown-toggle.nav-user {
 }
 .navbar-right
 {
-  margin-right:50%;
+    min-height:80px;
+}
+.panel-footer {
+  text-align:center;
+  padding:20px;
+  margin-top:25px;
 }
 
 body .navbar-inverse .navbar-nav > li > a {

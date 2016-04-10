@@ -107,31 +107,31 @@ function createListItemDetails(place,myEvent,page) {
 
   if (page=="indexPage")
   {
-    if(place.name !== null) {
+    if(place.name !== undefined) {
       container.appendChild(document.createTextNode("Location: "+place.name));
       container.appendChild(document.createElement("br"));
     }
 
-    if(place.formatted_address !== null) {
+    if(place.formatted_address !== undefined) {
       container.appendChild(document.createTextNode("Address: "+place.formatted_address));
       container.appendChild(document.createElement("br"));
     }
 
-    if(myEvent.start_time !== null) {
+    if(myEvent.start_time !== undefined) {
       var start_time = moment.utc(myEvent.start_time).format('MMMM Do YYYY, h:mm a');
       var time_zone = moment().tz(String(myEvent.timeZoneId)).format('z');
       container.appendChild(document.createTextNode("Start Time: "+start_time + " " + time_zone));
       container.appendChild(document.createElement("br"));
     }
 
-    if(myEvent.end_time !== null) {
+    if(myEvent.end_time !== undefined) {
       var end_time = moment.utc(myEvent.end_time).format('MMMM Do YYYY, h:mm a');
       var time_zone = moment().tz(String(myEvent.timeZoneId)).format('z');
       container.appendChild(document.createTextNode("End Time: "+end_time  + " " + time_zone));
       container.appendChild(document.createElement("br"));
     }
 
-    if(myEvent.id !== null) {
+    if(myEvent.id !== undefined) {
       //var text = document.createTextNode("Website: ");
       //container.appendChild(text);
       var link = document.createElement("a");

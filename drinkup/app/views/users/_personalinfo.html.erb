@@ -20,4 +20,5 @@
         </tr>
       </table>
     </div>
+    <%= link_to 'Edit Profile', edit_user_path(@user), class: "btn btn-default btn-info pull-right " if @user == current_user %>
   </div>

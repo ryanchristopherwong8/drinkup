@@ -3,6 +3,7 @@
 <% end %>
 
 <h1 class="section_header">Drinkups Around You</h1>
+<img class="loading-spinner" src=<%= image_path('loading.gif') %> alt="Loading drinkups" />
 <%= link_to 'Create Drinkup', new_event_path, :class => "col-md-12 text-right" %>
 <div class="center">
  <div id="error">
@@ -14,9 +15,6 @@
    </div>    
    <div id="map"></div>
 </div>
-
-<div id="inspirational_quote" class="col-md-12 text-center"><q>A great man once said, I know you drunk before.</q></div>
-
 
 <div id="drinkup_listing" class="container">
 

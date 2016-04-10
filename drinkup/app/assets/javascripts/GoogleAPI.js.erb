@@ -36,7 +36,7 @@ function storePosition(position) {
 
 function getManualLocation(error) {
 	//generate message that location could not be got
-  console.log(error);
+  $(".loading-spinner").hide();
   document.getElementById('error').innerHTML="Could Not Get Geolocation";
 } 
 
@@ -100,8 +100,10 @@ function setup(lat_user,lng_user,radius,drinktype,stopBound) {
     types: [drinktype]
   };
   
+  $(".loading-spinner").show();
   service.nearbySearch(request, function(results,status) {
     callbackFunction(results,status,stopBound);
+    $(".loading-spinner").hide();
   });
 
 }

@@ -1,3 +1,8 @@
+#create_form {
+  padding: 0;
+  width: 940px;
+}
+
 #drinkup_listing {
   margin-top: 10px;
 }
@@ -14,6 +19,13 @@
   padding: 0;
 }
 
+#drinkup_attendees {
+  text-align: center;
+  margin: 15px 0 15px 15px;
+  border: 1px solid #33FF66;
+  border-radius: 3px;
+}
+
 .drinkup_detail {
   clear: both;
 }
@@ -21,6 +33,11 @@
 .inactive, .inactive:hover {
   text-decoration: none;
   color: grey;
+}
+
+#show-list-toggle {
+  cursor: pointer; 
+  cursor: hand; 
 }
 
 #event_links {
@@ -44,36 +61,6 @@
   margin: 5px;
   border: 1px solid #33FF66;
   border-radius: 3px;
-}
-
-#inspirational_quote {
-  font-size: 2em;
-  margin-top: 50px;
-  font-style: italic;
-}
-
-q {
-  margin: 1.5em 10px;
-  padding: 0.5em 10px;
-  quotes: "\201C""\201D""\2018""\2019";
-}
-
-q:before {
-  color: #ccc;
-  content: open-quote;
-  font-size: 4em;
-  line-height: 0.1em;
-  margin-right: 0.25em;
-  vertical-align: -0.4em;
-}
-
-q:after {
-  color: #ccc;
-  content: close-quote;
-  font-size: 4em;
-  line-height: 0.1em;
-  margin-left: 0.25em;
-  vertical-align: -0.4em;
 }
 
 /**

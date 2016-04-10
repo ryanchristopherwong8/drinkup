@@ -106,6 +106,7 @@ function initializeMarkers(position) {
   var geoCookie = crd.latitude + "|" + crd.longitude;
   document.cookie = "lat_lng=" + escape(geoCookie);
 
+  $(".loading-spinner").show();
   $.getJSON("/events/getEvents", function (data) {
     var drinkups = data.events;
     var drinkups_attending = data.events_attending;
@@ -124,6 +125,7 @@ function initializeMarkers(position) {
       }
       createMarkerForEventsAroundYou(drinkups[i], i+1, isAttending, stopBound);
     }
+    $(".loading-spinner").hide();
   });
 }
 

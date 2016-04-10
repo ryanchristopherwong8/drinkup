@@ -3,10 +3,12 @@ function renderListWithPhotos(results,page){
   for(var i = 0; i < numberResultsToReturn; i++){
 
     var locationListItem = document.createElement('li');
-    locationListItem.setAttribute("class", "list-group-item location listItem");
     if (page=="createPage")
     {
+      locationListItem.setAttribute("class", "list-group-item location listItem listitem_hover");
       locationListItem.setAttribute("onclick", "setActiveListItem(this)");
+    }else{
+      locationListItem.setAttribute("class", "list-group-item location listItem");
     }
     
 

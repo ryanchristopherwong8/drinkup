@@ -15,5 +15,6 @@
 //= require bootstrap
 //= require GoogleAPI
 //= require moment
+//= require moment-timezone-with-data
 //= require datetimepicker
 //= require private_pub

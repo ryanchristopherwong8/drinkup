@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
 
   def index
     if logged_in?
-      redirect_to 'events/index'
+      redirect_to(:controller => 'events', :action => 'index')
     end
   end
 

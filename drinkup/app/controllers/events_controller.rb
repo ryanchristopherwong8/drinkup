@@ -108,14 +108,19 @@ class EventsController < ApplicationController
   def join
     @event = Event.find(params[:id])
 
-    attendee = current_user.attendees.where(:event_id => @event.id).first
+    attendeeRecord = current_user.attendees.where(:event_id => @event.id)
+    attendee = attendeeRecord.first
     drinkupAttendeeLimit = 8
 
     if (@event.attendees.attending.count <= drinkupAttendeeLimit)
       if attendee.blank?
         @event.attendees.create(:user => current_user, :is_attending => true)
       else
-        attendee.update_attributes(:is_attending => true)
+        if !attendeeRecord.attending_event(@event).blank?
+          flash[:warning] = "You are already attending this event."
+        else
+          attendee.update_attributes(:is_attending => true)
+        end
       end
     else 
       flash[:danger] = "You cannot join a drinkup that's already full."
@@ -129,11 +134,13 @@ class EventsController < ApplicationController
 
     attendee = current_user.attendees.attending_event(@event).first
 
-    if attendee.update_attributes(:is_attending => false)
-      redirect_to @event
+    if !attendee.blank?
+      attendee.update_attributes(:is_attending => false)
     else
-      render('index')
+      flash[:warning] = "You are already not attending this event."
     end
+
+    redirect_to @event
   end
 
   private

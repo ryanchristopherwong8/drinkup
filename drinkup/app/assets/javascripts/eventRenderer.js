@@ -6,6 +6,9 @@ $(document).ready(function(){
   getEventsForCurrentUser();
 });
 
+var inCache;
+var cachedDrinkUps=[];
+
 function getUserLocationforDrinkups() {
   if (navigator.geolocation) {
     var options={timeout:30000};
@@ -106,10 +109,42 @@ function initializeMarkers(position) {
   var crd = position.coords;
   var geoCookie = crd.latitude + "|" + crd.longitude;
   document.cookie = "lat_lng=" + escape(geoCookie);
-
-  $(".loading-spinner").show();
+  if (position.action !== "drag"){
+    $(".loading-spinner").show();
+  }
+  
   $.getJSON("/events/getEvents", function (data) {
     var drinkups = data.events;
+    if (position.action=="drag"){
+
+      if (drinkups.length!=cachedDrinkUps.length){
+        inCache=false;
+      }
+      else{
+        for (i=0; i<drinkups.length; i++){
+          if ($.inArray(drinkups[i].id,cachedDrinkUps)!==-1){
+            inCache=true;
+          }
+          else
+          {
+            inCache=false;
+            break;
+          }
+        }
+      }
+    
+      if (inCache==true){
+        
+        return;
+      }
+      else if (inCache==false){
+        cachedDrinkUps=[];
+        for (i=0; i<drinkups.length; i++){
+          cachedDrinkUps.push(drinkups[i].id);
+        }
+      }
+    }
+    
     var drinkups_attending = data.events_attending;
     var stopBound;
     deleteMarkers();

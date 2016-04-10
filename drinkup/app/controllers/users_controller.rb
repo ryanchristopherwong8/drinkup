@@ -65,6 +65,21 @@ class UsersController < ApplicationController
     @conversations = Conversation.all
   end
 
+  def settings
+    @user = User.find(params[:id])
+  end
+
+  def saveSettings
+    @user = User.find(params[:id])
+   
+    if @user.update(user_settings_params)
+      flash[:success] = "Password successfully changed"
+      redirect_to settings_user_path
+    else
+      render 'settings'
+    end
+  end
+
   def create
     @user = User.new(user_params)   
     if @user.save
@@ -83,6 +98,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
    
     if @user.update(user_params)
+      flash[:success] = "Personal Information successfully updated"
       redirect_to @user
     else
       render 'edit'
@@ -108,8 +124,12 @@ class UsersController < ApplicationController
    private
     def user_params
       #declaring strong paramters
-      params.require(:user).permit(:first_name, :last_name, :date_of_birth, :email, :password,
-                                   :password_confirmation, :avatar)
+      params.require(:user).permit(:first_name, :last_name, :date_of_birth, :email, :avatar)
+    end
+
+    def user_settings_params
+      #declaring strong paramters
+      params.require(:user).permit(:password, :password_confirmation)
     end
 
 end

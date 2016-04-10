@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
     has_secure_password
 
     #validate password
-    validates :password, presence: true, length: { minimum: 6 }
+    validates :password, presence: true, length: { minimum: 6 }, :if => lambda{ new_record? || !password.nil? }
 
     # Returns the hash digest of the given string.
     def User.digest(string)

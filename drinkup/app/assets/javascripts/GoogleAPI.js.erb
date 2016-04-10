@@ -142,7 +142,12 @@ function callbackFunction(results, status,stopBound) {
 
 function createMarker(place,number) {
     var drink = drinktype;
-    var image= createImage("/assets/"+drink+".png");
+    if (drink === 'bar'){
+      var imgPath = "<%= image_path('bar.png') %>";
+    }else{
+      var imgPath = "<%= image_path('cafe.png') %>";
+    }
+    var image = createImage(imgPath);
     var placeLoc = place.geometry.location;
     var marker = new google.maps.Marker({
       map: map,

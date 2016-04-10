@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     member do 
       post 'saveConversations'
       delete 'removeConversations'
+      get 'getCurrentEventsForUser'
     end
   end
   
@@ -26,7 +27,7 @@ Rails.application.routes.draw do
   		get 'getEvents'
   	end
     member do 
-        get 'getTopConversations'
+      get 'getTopConversations'
     end
   end
   match ':controller(/:action(/:id))', :via => [:get, :post]

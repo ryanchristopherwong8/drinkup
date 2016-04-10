@@ -5,6 +5,7 @@ function renderListWithPhotos(results,page) {
     var locationListItem = document.createElement('li');
     if (page=="createPage")
     {
+      $("#resultsList").css("display","none");
       locationListItem.setAttribute("class", "list-group-item location listItem listitem_hover");
       locationListItem.setAttribute("onclick", "setActiveListItem(this)");
     }else{
@@ -28,7 +29,7 @@ function renderListWithPhotos(results,page) {
     var pid = results[i].place_id;
        
     locationListItem.appendChild(itemContainer);    
-    $("#resultsList").append(locationListItem).attr("class","list-group well").css("display","none").height("250px");
+    $("#resultsList").append(locationListItem).attr("class","list-group well").height("250px");
   }
 }
 

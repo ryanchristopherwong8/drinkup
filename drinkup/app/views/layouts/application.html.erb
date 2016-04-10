@@ -4,7 +4,7 @@
   <title>Drinkup</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= include_gon %>
+  <%= include_gon(:init => true) %>
   <%= csrf_meta_tags %>
   <%= content_for :header  %>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZdA5AE3hXH5bcskGACiNQhGtvxJ0e7r8&libraries=places"></script>

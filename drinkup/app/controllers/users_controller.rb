@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   before_action :redirect_if_not_logged_in, :except => [:new, :create]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   def show
     @user = User.find(params[:id])
@@ -52,6 +53,15 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html {redirect_to "index"}
       format.json {render :json => {:success => success}}
+    end
+  end
+
+  def getCurrentEventsForUser
+    events_currentUser = current_user.getEventsAttending
+    gon.user_id = current_user.id
+
+    respond_to do |format|
+      format.json {render :json => {:events_currentUser => events_currentUser}}
     end
   end
 
@@ -119,8 +129,6 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
-  
-
    private
     def user_params
       #declaring strong paramters
@@ -130,6 +138,11 @@ class UsersController < ApplicationController
     def user_settings_params
       #declaring strong paramters
       params.require(:user).permit(:password, :password_confirmation)
+    end
+
+    def correct_user 
+      @user = User.find(params[:id])
+      redirect_to @user unless current_user == @user
     end
 
 end

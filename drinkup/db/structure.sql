@@ -166,7 +166,9 @@ CREATE TABLE events (
     top_conversations json,
     place_id character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    place_name character varying,
+    place_address character varying
 );
 
 
@@ -437,4 +439,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160403195849');
 INSERT INTO schema_migrations (version) VALUES ('20160403201046');
 
 INSERT INTO schema_migrations (version) VALUES ('20160403225601');
+
+INSERT INTO schema_migrations (version) VALUES ('20160408040800');
 

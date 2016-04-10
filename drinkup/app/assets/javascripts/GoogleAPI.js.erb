@@ -36,7 +36,7 @@ function storePosition(position) {
 
 function getManualLocation(error) {
 	//generate message that location could not be got
-  console.log(error);
+  $(".loading-spinner").hide();
   document.getElementById('error').innerHTML="Could Not Get Geolocation";
 } 
 

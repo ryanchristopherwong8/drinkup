@@ -116,6 +116,16 @@ function createListItemDetails(place,myEvent,flag) {
       container.appendChild(document.createTextNode("End Time: "+end_time));
       container.appendChild(document.createElement("br"));
     }
+
+    if(myEvent.id !== undefined){
+      //var text = document.createTextNode("Website: ");
+      //container.appendChild(text);
+      var link = document.createElement("a");
+      link.setAttribute("href","/events/" + myEvent.id);
+      link.appendChild(document.createTextNode("Show"));
+      container.appendChild(link);
+      container.appendChild(document.createElement("br"));
+    }
   }
   else if (flag==1)
   {

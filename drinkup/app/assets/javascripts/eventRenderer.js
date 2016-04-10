@@ -124,8 +124,8 @@ function initializeMarkers(position) {
         isAttending = true;
       }
       createMarkerForEventsAroundYou(drinkups[i], i+1, isAttending, stopBound);
-      $(".loading-spinner").hide();
     }
+    $(".loading-spinner").hide();
   });
 }
 

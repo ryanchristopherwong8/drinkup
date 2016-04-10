@@ -100,8 +100,10 @@ function setup(lat_user,lng_user,radius,drinktype,stopBound) {
     types: [drinktype]
   };
   
+  $(".loading-spinner").show();
   service.nearbySearch(request, function(results,status) {
     callbackFunction(results,status,stopBound);
+    $(".loading-spinner").hide();
   });
 
 }

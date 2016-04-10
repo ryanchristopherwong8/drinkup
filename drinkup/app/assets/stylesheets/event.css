@@ -1,3 +1,8 @@
+#create_form {
+  padding: 0;
+  width: 940px;
+}
+
 #drinkup_listing {
   margin-top: 10px;
 }
@@ -14,6 +19,13 @@
   padding: 0;
 }
 
+#drinkup_attendees {
+  text-align: center;
+  margin: 15px 0 15px 15px;
+  border: 1px solid #33FF66;
+  border-radius: 3px;
+}
+
 .drinkup_detail {
   clear: both;
 }
@@ -21,6 +33,11 @@
 .inactive, .inactive:hover {
   text-decoration: none;
   color: grey;
+}
+
+#show-list-toggle {
+  cursor: pointer; 
+  cursor: hand; 
 }
 
 #event_links {

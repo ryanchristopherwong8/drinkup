@@ -80,12 +80,17 @@ class UsersController < ApplicationController
 
   def saveSettings
     @user = User.find(params[:id])
-   
-    if @user.update(user_settings_params)
-      flash[:success] = "Password successfully changed"
+    
+    if !@user.authenticate(params[:oldPassword])
+      flash[:danger] = "Old password is incorrect"
       redirect_to settings_user_path
     else
-      render 'settings'
+      if @user.update(user_settings_params)
+        flash[:success] = "Password successfully changed"
+        redirect_to settings_user_path
+      else
+        render 'settings'
+      end
     end
   end
 

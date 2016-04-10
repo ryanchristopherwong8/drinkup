@@ -73,51 +73,64 @@ function setActiveListItem(element) {
       fillForm(locationData);
 }
 
+function getTimeZoneDataForPlace(place) {
+  var lat = place.geometry.location.lat();
+  var lng = place.geometry.location.lng();
+  var timestamp = Date.now() / 1000;
+  var url = "https://maps.googleapis.com/maps/api/timezone/json?location="+ lat +","+ lng + "&timestamp="+ timestamp +"&key=AIzaSyAZdA5AE3hXH5bcskGACiNQhGtvxJ0e7r8"
+
+  return $.getJSON(url);
+}
+
 function createListItemDetails(place,myEvent,page) {
   var container = document.createElement("div");
   container.setAttribute("class", "location details container");
   var placeHeader = document.createElement("h3");
-  
-  if (page=="createPage")
-  {
-    $(placeHeader).data('locationData', { location_name: place.name, location_address: place.vicinity, 
-    lat: place.geometry.location.lat(), lng: place.geometry.location.lng(), place_id: place.place_id });
-    $(placeHeader).append(place.name);
-  }
-  else if (page=="indexPage")
-  {
-    $(placeHeader).append(myEvent.name);
-  }
-  
+  getTimeZoneDataForPlace(place).then(function (data) {
+
+    if (page=="createPage")
+    {
+      $(placeHeader).data('locationData', { location_name: place.name, location_address: place.vicinity, 
+      lat: place.geometry.location.lat(), lng: place.geometry.location.lng(), place_id: place.place_id,
+      dstOffset: data.dstOffset, rawOffset: data.rawOffset, timeZoneId: data.timeZoneId, timeZoneName: data.timeZoneName });
+      $(placeHeader).append(place.name);
+    }
+    else if (page=="indexPage")
+    {
+      $(placeHeader).append(myEvent.name);
+    }
+  });
 
   container.appendChild(placeHeader);
   container.appendChild(document.createElement("br"));
 
   if (page=="indexPage")
   {
-    if(place.name !== undefined){
+    if(place.name !== undefined) {
       container.appendChild(document.createTextNode("Location: "+place.name));
       container.appendChild(document.createElement("br"));
     }
 
-    if(place.formatted_address !== undefined){
+    if(place.formatted_address !== undefined) {
       container.appendChild(document.createTextNode("Address: "+place.formatted_address));
       container.appendChild(document.createElement("br"));
     }
 
-    if(myEvent.start_time !== undefined){
+    if(myEvent.start_time !== undefined) {
       var start_time = moment.utc(myEvent.start_time).format('MMMM Do YYYY, h:mm a');
-      container.appendChild(document.createTextNode("Start Time: "+start_time));
+      var time_zone = moment().tz(String(myEvent.timeZoneId)).format('z');
+      container.appendChild(document.createTextNode("Start Time: "+start_time + " " + time_zone));
       container.appendChild(document.createElement("br"));
     }
 
-    if(myEvent.end_time !== undefined){
+    if(myEvent.end_time !== undefined) {
       var end_time = moment.utc(myEvent.end_time).format('MMMM Do YYYY, h:mm a');
-      container.appendChild(document.createTextNode("End Time: "+end_time));
+      var time_zone = moment().tz(String(myEvent.timeZoneId)).format('z');
+      container.appendChild(document.createTextNode("End Time: "+end_time  + " " + time_zone));
       container.appendChild(document.createElement("br"));
     }
 
-    if(myEvent.id !== undefined){
+    if(myEvent.id !== undefined) {
       //var text = document.createTextNode("Website: ");
       //container.appendChild(text);
       var link = document.createElement("a");
@@ -133,7 +146,7 @@ function createListItemDetails(place,myEvent,page) {
       container.appendChild(document.createTextNode("Address: "+place.formatted_address));
       container.appendChild(document.createElement("br"));
     }
-    if(place.website !== undefined){
+    if(place.website !== undefined) {
       var text = document.createTextNode("Website: ");
       container.appendChild(text);
       var link = document.createElement("a");
@@ -142,11 +155,11 @@ function createListItemDetails(place,myEvent,page) {
       container.appendChild(link);
       container.appendChild(document.createElement("br"));
     }
-    if(place.rating !== undefined){
+    if(place.rating !== undefined) {
       container.appendChild(document.createTextNode("Rating: "+place.rating+"/5"));
       container.appendChild(document.createElement("br"));
     }
-    if(place.formatted_phone_number !== undefined){
+    if(place.formatted_phone_number !== undefined) {
       container.appendChild(document.createTextNode("Phone number: "+place.formatted_phone_number));
       container.appendChild(document.createElement("br"));
     }
@@ -169,6 +182,10 @@ function fillForm(data){
   $("#lat").val(data.lat);
   $("#lng").val(data.lng);
   $("#place_id").val(data.place_id);
+  $("#dstOffset").val(data.dstOffset);
+  $("#rawOffset").val(data.rawOffset);
+  $("#timeZoneId").val(data.timeZoneId);
+  $("#timeZoneName").val(data.timeZoneName);
 }
 
 function toggleList() {

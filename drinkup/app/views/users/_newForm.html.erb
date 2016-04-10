@@ -7,52 +7,52 @@
     <%= render 'shared/error_messages' , object: f.object %>
     <!-- left column -->
     
-    <%= render partial: 'portrait', locals: {curr_user: f} %>
     <!-- edit form column -->
-    <div class="col-md-9 personal-info">
+    <div class="col-md-8 col-md-offset-2 personal-info">
       <% if params[:action] != "new" %>
       <h3>Personal Information</h3>
       <%end%>
       <form class="form-horizontal" role="form">
         <div class="form-group">
-          <%= f.label :first_name, class: "col-lg-3 control-label"%>
+          <%= f.label :first_name, class: "col-lg-2 control-label"%>
           <div class="col-lg-8">
             <%= f.text_field :first_name, class: 'form-control' %>
           </div>
         </div>
         <div class="field form-group">
-          <%= f.label :last_name, class: "col-lg-3 control-label" %>
+          <%= f.label :last_name, class: "col-lg-2 control-label" %>
           <div class="col-lg-8">
             <%= f.text_field :last_name, class: 'form-control' %>
           </div>
         </div>
         <div class="field form-group">
-          <%= f.label :date_of_birth, class: "col-lg-3 control-label" %>
+          <%= f.label :date_of_birth, class: "col-lg-2 control-label" %>
           <div class="col-lg-8">
             <%= f.text_field :date_of_birth, id: 'profileDatepicker', class: 'form-control' %>
           </div>
         </div>
           <div class="field form-group">
-            <%= f.label :email, class: "col-lg-3 control-label"%>
+            <%= f.label :email, class: "col-lg-2 control-label"%>
             <div class="col-lg-8">
             <%= f.email_field :email, class: 'form-control' %>
             </div>
           </div>
             <div class="field form-group">
-              <%= f.label :password, class: "col-md-3 control-label"%>
+              <%= f.label :password, class: "col-md-2 control-label"%>
               <div class="col-md-8">
                 <%= f.password_field :password, class: 'form-control' %>
               </div>
             </div>
             <div class="field form-group">
-              <%= f.label :password_confirmation, "Confirm Password", class: "col-md-3 control-label"%>
+              <%= f.label :password_confirmation, "Confirm Password", class: "col-md-2 control-label"%>
               <div class="col-md-8">
                 <%= f.password_field :password_confirmation, class: 'form-control' %>
               </div>
             </div> 
           <div class="actions form-group">
-            <label class="col-md-3 control-label"></label>
+            <label class="col-md-2 control-label"></label>
             <div class="col-md-8">
+            <%= render partial: 'portrait', locals: {curr_user: f} %>  
             <% if params[:action] == "new" %>
               <%= f.submit "Create My Account", class: "btn btn-primary" %>
             <%else%>
@@ -60,6 +60,7 @@
             <% end %>
           </div>
         </div>
+
       </div>
     </form>
     <% end %>

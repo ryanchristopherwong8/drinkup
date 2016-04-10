@@ -145,7 +145,8 @@ class EventsController < ApplicationController
 
   private
   def event_params
-    params.require(:event).permit(:name, :lat, :lng, :start_time, :end_time, :gender, :place_id, :place_name, :place_address)
+    params.require(:event).permit(:name, :lat, :lng, :dstOffset, :rawOffset, :timeZoneId, :timeZoneName,
+     :start_time, :end_time, :gender, :place_id, :place_name, :place_address)
   end
 
   # Confirms the correct user.

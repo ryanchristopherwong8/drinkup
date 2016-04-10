@@ -8,8 +8,12 @@
   <%= csrf_meta_tags %>
   <%= content_for :header  %>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZdA5AE3hXH5bcskGACiNQhGtvxJ0e7r8&libraries=places"></script>
-</head>
-<body>
+  </head>
+  <% if !current_page?(root_url) %>
+    <body>
+  <%else%>
+    <body class="splash">
+  <%end%>
   <!-- header = nav bar -->
   <%= render 'layouts/header' %>
   <div class="container">	

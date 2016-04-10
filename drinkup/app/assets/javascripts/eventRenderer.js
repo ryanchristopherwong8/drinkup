@@ -63,9 +63,10 @@ function createDrinkupMarker(place,drinkup,number,isAttending) {
 
     var start_time = moment.utc(drinkup.start_time).format('MMMM Do YYYY, h:mm a');
     var end_time = moment.utc(drinkup.end_time).format('MMMM Do YYYY, h:mm a');
+    var time_zone = moment().tz(String(drinkup.timeZoneId)).format('z');
 
     $(marker).data('drinkupData', { id : drinkup.id, name : drinkup.name, location_name: place.name, location_address : place.vicinity,
-        start_time : start_time, end_time : end_time, isUserAttending : isAttending, count : drinkup.count
+        start_time : start_time, end_time : end_time, time_zone : time_zone ,isUserAttending : isAttending, count : drinkup.count
     });
 
     markers.push(marker);
@@ -162,8 +163,8 @@ function fillEventContent(marker) {
     $("#drinkup_name").html(drinkupData.name);
     $("#drinkup_location_name").html(drinkupData.location_name);
     $("#drinkup_location_address").html(drinkupData.location_address);
-    $("#drinkup_start_time").html(drinkupData.start_time);
-    $("#drinkup_end_time").html(drinkupData.end_time);
+    $("#drinkup_start_time").html(drinkupData.start_time + " " + drinkupData.time_zone);
+    $("#drinkup_end_time").html(drinkupData.end_time + " " + drinkupData.time_zone);
 
     var conversationTagsHTML = "";
     $.each(topConversations, function(key, value){

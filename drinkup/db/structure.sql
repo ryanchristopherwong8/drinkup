@@ -168,7 +168,11 @@ CREATE TABLE events (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     place_name character varying,
-    place_address character varying
+    place_address character varying,
+    "dstOffset" character varying,
+    "rawOffset" character varying,
+    "timeZoneId" character varying,
+    "timeZoneName" character varying
 );
 
 
@@ -441,4 +445,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160403201046');
 INSERT INTO schema_migrations (version) VALUES ('20160403225601');
 
 INSERT INTO schema_migrations (version) VALUES ('20160408040800');
+
+INSERT INTO schema_migrations (version) VALUES ('20160410190058');
 

@@ -10,7 +10,6 @@ $(document).ready(function(){
 });
 
 function formatTime(unformatted_time) {
-  var formatted_time = moment.utc(unformatted_time).toDate();
-	formatted_time = moment(formatted_time).format('MMMM Do YYYY, h:mm a');
+	var formatted_time = moment.utc(unformatted_time).format('MMMM Do YYYY, h:mm a');
 	return formatted_time;
 }

@@ -1,18 +1,22 @@
 <% content_for :header do %>
-  <%= javascript_include_tag 'chat' %>  
+  <%= javascript_include_tag 'chat' %> 
+  <%= javascript_include_tag 'utcTimeConverter' %>  
 <% end %>
 
-<%= link_to 'Back to Event Index', events_path%>
-<h1>Event:</h1>
+<%= link_to 'Back to Event Index', events_path, :class=>"clear block"%>
+<h1 class="clear">Event:</h1>
+<div id="drinkup_listing" class="container">
+<div id="drinkup_details_partial">
+  <div class="drinkup_detail"><h4>Drinkup Name: </h4><p id="drinkup_name"><%= @event.name%></p></div>
+  <div class="drinkup_detail"><h4>Location: </h4><p id="drinkup_location_name"><%= @event.place_name%></p></div>
+  <div class="drinkup_detail"><h4>Address: </h4><p id="drinkup_location_address"><%= @event.place_address%></p></div>
+  <div class="drinkup_detail"><h4>Start Time: </h4><p id="drinkup_start_time"><%= @event.start_time%></p></div>
+  <div class="drinkup_detail"><h4>End Time: </h4><p id="drinkup_end_time"><%= @event.end_time%></p></div>
 
-<p><strong>Event Name: </strong><%= @event.name%></p>
-<p><strong>place_id:</strong><%= @event.place_id%></p>
-<p><strong>Lat: </strong><%= @event.lat%></p>
-<p><strong>Long: </strong><%= @event.lng%></p>
-<p><strong>Start Time: </strong><%= @event.start_time%></p>
-<p><strong>End Time: </strong><%= @event.end_time%></p>
-<p><strong>Gender: </strong><%= @event.gender%></p>
-
+  <!-- TO DO add conversations-->
+  <div class="drinkup_detail"><h4>Top Conversations: </h4><div id="drinkup_conversations"></div></div>
+</div>
+</div>
 <p><strong>Attendees: </strong></p>
 <% @event.attendees.each do |attendee| %>
 <p><%= link_to("#{attendee.user.first_name} #{attendee.user.last_name}", user_path(attendee.user)) if attendee.is_attending %></p>

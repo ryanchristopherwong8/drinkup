@@ -163,8 +163,8 @@ function createShowListButton (){
 }
 
 function fillForm(data){
-  $("#event_location_name").val(data.location_name);
-  $("#event_location_address").val(data.location_address);
+  $("#event_place_name").val(data.location_name);
+  $("#event_place_address").val(data.location_address);
   $("#lat").val(data.lat);
   $("#lng").val(data.lng);
   $("#place_id").val(data.place_id);

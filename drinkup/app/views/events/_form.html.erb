@@ -26,11 +26,11 @@
     </p>
     <p>
       <%= f.label :place_name, id: 'location_name', value: 'Name of Location' %>
-      <%= f.text_field :place_name, class: 'form-control' %>
+      <%= f.text_field :place_name, class: 'form-control' , :readonly=>true%>
     </p>
     <p>
       <%= f.label :place_address, id: 'location_address', value: 'Address of Location' %>
-      <%= f.text_field :place_address, class: 'form-control' %>
+      <%= f.text_field :place_address, class: 'form-control', :readonly=>true%>
     </p>
     <p>
       <%= f.label :start_time %>

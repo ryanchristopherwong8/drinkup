@@ -2,7 +2,7 @@ class EventsController < ApplicationController
 
   before_action :redirect_if_not_logged_in
   before_action :correct_user, only: [:edit, :update, :destroy]
-  before_action :set_cache_headers
+  # before_action :set_cache_headers
   
   def test
   end

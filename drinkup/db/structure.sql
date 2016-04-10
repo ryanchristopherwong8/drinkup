@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.1
--- Dumped by pg_dump version 9.5.1
+-- Dumped from database version 9.5.0
+-- Dumped by pg_dump version 9.5.0
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -168,7 +168,11 @@ CREATE TABLE events (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     place_name character varying,
-    place_address character varying
+    place_address character varying,
+    "dstOffset" character varying,
+    "rawOffset" character varying,
+    "timeZoneId" character varying,
+    "timeZoneName" character varying
 );
 
 
@@ -441,4 +445,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160403201046');
 INSERT INTO schema_migrations (version) VALUES ('20160403225601');
 
 INSERT INTO schema_migrations (version) VALUES ('20160408040800');
+
+INSERT INTO schema_migrations (version) VALUES ('20160410190058');
 

@@ -1,6 +1,6 @@
-function renderListWithPhotos(results,page){
+function renderListWithPhotos(results,page) {
   var numberResultsToReturn = results.length<8 ? results.length : 8;
-  for(var i = 0; i < numberResultsToReturn; i++){
+  for(var i = 0; i < numberResultsToReturn; i++) {
 
     var locationListItem = document.createElement('li');
     if (page=="createPage")
@@ -25,11 +25,10 @@ function renderListWithPhotos(results,page){
       setPlaceDetails(pid, itemContainer,results[i],"indexPage"); 
     }
     
-
     var pid = results[i].place_id;
        
     locationListItem.appendChild(itemContainer);    
-    $("#resultsList").append(locationListItem).attr("class","list-group well").height("250px");
+    $("#resultsList").append(locationListItem).attr("class","list-group well").css("display","none").height("250px");
   }
 }
 
@@ -47,7 +46,7 @@ function createLocationImage(place, parentNode) {
   }
 }
 
-function setPlaceDetails(pid, parentNode,myEvent,page){
+function setPlaceDetails(pid, parentNode,myEvent,page) {
   service.getDetails({
     placeId: pid
     }, 
@@ -130,7 +129,7 @@ function createListItemDetails(place,myEvent,page) {
   }
   else if (page=="createPage")
   {
-    if(place.formatted_address !== undefined){
+    if(place.formatted_address !== undefined) {
       container.appendChild(document.createTextNode("Address: "+place.formatted_address));
       container.appendChild(document.createElement("br"));
     }
@@ -159,7 +158,7 @@ function createListItemDetails(place,myEvent,page) {
 function createShowListButton (){
   var child = $("#locationDetails").firstChild;
   if($("#show-list-toggle").length === 0){
-    var showListButton = "<a id='show-list-toggle' onclick = 'toggleList()'>Hide List</a>";
+    var showListButton = "<a id='show-list-toggle' onclick='toggleList()'>Show List</a>";
     $("#locationDetails").prepend(showListButton);
   }
 }

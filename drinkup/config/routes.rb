@@ -10,6 +10,8 @@ Rails.application.routes.draw do
       get 'getConversations'
     end
     member do 
+      get 'settings'
+      patch 'saveSettings'
       post 'saveConversations'
       delete 'removeConversations'
       get 'getCurrentEventsForUser'

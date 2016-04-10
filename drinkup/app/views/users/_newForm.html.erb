@@ -38,6 +38,18 @@
             <%= f.email_field :email, class: 'form-control' %>
             </div>
           </div>
+            <div class="field form-group">
+              <%= f.label :password, class: "col-md-3 control-label"%>
+              <div class="col-md-8">
+                <%= f.password_field :password, class: 'form-control' %>
+              </div>
+            </div>
+            <div class="field form-group">
+              <%= f.label :password_confirmation, "Confirm Password", class: "col-md-3 control-label"%>
+              <div class="col-md-8">
+                <%= f.password_field :password_confirmation, class: 'form-control' %>
+              </div>
+            </div> 
           <div class="actions form-group">
             <label class="col-md-3 control-label"></label>
             <div class="col-md-8">

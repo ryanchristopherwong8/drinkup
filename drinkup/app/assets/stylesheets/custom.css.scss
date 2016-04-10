@@ -18,15 +18,6 @@
   color: #333333;
 }
 
-#logo {
-  position: absolute;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top:0px;
-  left:0;
-  right:0;
-
-}
 
 .loading-spinner {
   margin-left: auto;
@@ -63,17 +54,23 @@ a.dropdown-toggle.nav-user {
 .section_header {
   clear: both
 }
+.navbar-fixed-top {
+
+}
 .navbar {
   background-image: url('dark_back.jpg');
   box-shadow: 2px 2px 4px #888888;
-  height:80px;
 }
-.navbar-brand
+.navbar-right
 {
-    position: relative;
-    width: 300px;
-    text-align: center;
-    margin: auto;
+    min-height:80px;
+}
+.panel-footer {
+  position:absolute;
+  bottom:0;
+  width:100%;
+  text-align:center;
+  margin-top:25px;
 }
 
 body .navbar-inverse .navbar-nav > li > a {
@@ -207,17 +204,13 @@ ol{
   @include box_sizing;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 760px) {
   #logo img {
     width:150px;
   }
-  #nav_thumb {
-    display:none;
+  .navbar-right
+  {
+    margin-right:15px;
   }
-  .open{
-    background-color: #222;
-  }
-  .dropdown-toggle .nav-user {
-     background-color: transparent;
-  }
+
 }

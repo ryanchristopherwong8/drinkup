@@ -57,19 +57,19 @@ function initMap(lat_user,lng_user,zoom, type) {
       center: user_location,
       zoom: zoom
         });
-
-  map.addListener('dragend', function() {
-    for (var i = 0; i < markers.length; i++) {
-    markers[i].setMap(null);
-  }
-    markers=[];
-    postionOfUserFromGeolocation[0]=map.getCenter().lat();
-    postionOfUserFromGeolocation[1]=map.getCenter().lng();
-    if (type == "create") {
-    	setup(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],1000,drinktype,1);
-    }
+  if (type=="create"){
+     map.addListener('dragend', function() {
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+      }
+      markers=[];
+      postionOfUserFromGeolocation[0]=map.getCenter().lat();
+      postionOfUserFromGeolocation[1]=map.getCenter().lng();
+      setup(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],1000,drinktype,1);
     
-  });
+    });
+  }
+  
   service = new google.maps.places.PlacesService(map);
   infowindow = new google.maps.InfoWindow();
 }

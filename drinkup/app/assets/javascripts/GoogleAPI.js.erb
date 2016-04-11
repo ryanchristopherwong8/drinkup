@@ -169,8 +169,6 @@ function createMarker(place,number) {
       var markerData = $(marker).data("locationData");
       fillFormOnMarkerClick(markerData);
 
-      //fillForm(locationData);
-
       infowindow.setContent(place.name + "<br />" + place.vicinity + "<br />");
       infowindow.open(map, this);
   });

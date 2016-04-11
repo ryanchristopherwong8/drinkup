@@ -174,6 +174,8 @@ function createShowListButton (){
   if($("#show-list-toggle").length === 0){
     var showListButton = "<a id='show-list-toggle' onclick='toggleList()'>Show List</a>";
     $("#locationDetails").prepend(showListButton);
+  }else{
+    $("#show-list-toggle").text("Show List");
   }
 }
 

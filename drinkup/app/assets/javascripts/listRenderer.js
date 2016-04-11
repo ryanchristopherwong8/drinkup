@@ -62,6 +62,10 @@ function setPlaceDetails(pid, parentNode,myEvent,page) {
           var detailsContainer = createListItemDetails(place,myEvent,"indexPage");
         }
         parentNode.appendChild(detailsContainer);
+      } else {
+        setTimeout(function() {
+          setPlaceDetails(pid, parentNode,myEvent,page);
+        }, 100);
       }
   });
 }

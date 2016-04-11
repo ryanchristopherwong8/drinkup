@@ -161,7 +161,7 @@ function createListItemDetails(place,myEvent,page) {
 function createShowListButton (){
   var child = $("#locationDetails").firstChild;
   if($("#show-list-toggle").length === 0){
-    var showListButton = "<a id='show-list-toggle' onclick='toggleList()'>Show List</a>";
+    var showListButton = "<a id='show-list-toggle' class='btn btn-info center-block' onclick='toggleList()'>Show List</a>";
     $("#locationDetails").prepend(showListButton);
   }else{
     $("#show-list-toggle").text("Show List");

@@ -1,9 +1,19 @@
 <% content_for :header do %>
   <%= javascript_include_tag 'listRenderer','createPageInitialize' %>  
 <% end %>
-
-<%= render 'map' %>
-<%= render 'resultsList' %>
-<%= render 'form' %>
+<div class="container-fluid">
+	<%= render 'map' %>
+		<div class="row ">
+		<div class="col-lg-12">
+			<%= render 'resultsList' %>
+		</div>
+		</div>
+		<div class="row ">
+		<div class="col-lg-12">
+			<%= render 'form' %>
+		</div>
+		</div>
+	
+</div>
 
 <%#= link_to 'Back', events_path%>

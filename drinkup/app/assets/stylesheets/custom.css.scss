@@ -52,6 +52,11 @@ a.dropdown-toggle.nav-user {
   object-fit: cover;
 }
 
+#show-list-toggle{
+  width:200px;
+  margin: 20px;
+}
+
 .alert {
   clear: both;
 }
@@ -83,6 +88,12 @@ a.dropdown-toggle.nav-user {
 body .navbar-inverse .navbar-nav > li > a {
   color: white;
 }
+
+/* centered columns styles */
+.row-centered {
+    text-align:center;
+}
+
 
 @mixin box_sizing {
   -moz-box-sizing:    border-box;
@@ -231,7 +242,7 @@ ol{
 /* Splash Page */
 
 .splash {
-  background: url('splash.jpg') no-repeat center center fixed;
+  background: url(asset-path('splash.jpg')) no-repeat center center fixed;
 }
 .splash .jumbotron {
   background-color: rgba(9, 9, 9, 0.33);

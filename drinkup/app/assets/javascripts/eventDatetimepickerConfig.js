@@ -1,5 +1,7 @@
  $(document).ready(function(){
+
    jQuery(function(){
+    jQuery.datetimepicker.setLocale('en');
       jQuery('#date_timepicker_start').datetimepicker({
       onShow:function( ct ){
        this.setOptions({
@@ -8,6 +10,9 @@
       },
       minDate: '-1970/01/01',
       timepicker:true,
+      scrollMonth:false,
+      scrollTime:false,
+      scrollInput:false,
       allowTimes:[
       '00:00', '00:30', '01:00', '01:30', '02:00', '02:30', 
       '03:00', '03:30', '04:00', '04:30', '05:00', '05:30',
@@ -28,6 +33,9 @@
        })
       },
       timepicker:true,
+      scrollMonth:false,
+      scrollTime:false,
+      scrollInput:false,
       allowTimes:[
       '00:00', '00:30', '01:00', '01:30', '02:00', '02:30', 
       '03:00', '03:30', '04:00', '04:30', '05:00', '05:30',

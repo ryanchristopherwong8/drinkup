@@ -46,7 +46,7 @@
   cursor: hand; 
 }
 
-#event_links {
+.event_links {
   clear: both;
 }
 
@@ -61,7 +61,7 @@
 }
 
 
-#event_links a {
+.event_links a {
   float: left;
   padding: 5px;
   margin: 5px;

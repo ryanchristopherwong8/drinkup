@@ -8,9 +8,9 @@
 .conversation_tag {
 	margin: 2px;
 	padding: 4px;
-	border: 1px solid #33FF66;
+	border: 1px solid #5dd55d;
 	border-radius: 3px;
-	background-color: #33FF66;
+	background-color: #5dd55d;
 	color: white;
 	display: inline-block;
 }
@@ -41,14 +41,14 @@
 }
 
 #conversation_select .conversation_tag.selected {
-	background-color: #33FF66;
-	border: 1px solid #33FF66;
+	background-color: #5dd55d;
+	border: 1px solid #5dd55d;
 }
 
 #user_conversations .conversation_tag {
-	border: 1px solid #33FF66;
+	border: 1px solid #5dd55d;
 	border-radius: 3px;
-	background-color: #33FF66;
+	background-color: #5dd55d;
 	color: white;
 	float: left;
 }

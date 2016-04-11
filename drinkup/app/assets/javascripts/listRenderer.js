@@ -6,10 +6,10 @@ function renderListWithPhotos(results,page) {
     if (page=="createPage")
     {
       $("#resultsList").css("display","none");
-      locationListItem.setAttribute("class", "list-group-item location listItem listitem_hover");
+      locationListItem.setAttribute("class", "list-group-item location listItem listitem_hover event_links");
     }else{
       $("#My-Events-Title").show();
-      locationListItem.setAttribute("class", "list-group-item location listItem");
+      locationListItem.setAttribute("class", "list-group-item location listItem event_links");
     }
     
 

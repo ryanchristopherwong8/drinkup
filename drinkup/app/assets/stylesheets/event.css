@@ -1,3 +1,13 @@
+#barSelector{
+  background-color: purple;
+  border-color:purple;
+}
+
+#cafeSelector{
+  background-color: red;
+  border-color: red;
+}
+
 #create_form {
   padding: 0;
   width: 940px;

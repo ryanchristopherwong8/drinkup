@@ -7,7 +7,6 @@ function renderListWithPhotos(results,page) {
     {
       $("#resultsList").css("display","none");
       locationListItem.setAttribute("class", "list-group-item location listItem listitem_hover");
-      locationListItem.setAttribute("onclick", "setActiveListItem(this)");
     }else{
       $("#My-Events-Title").show();
       locationListItem.setAttribute("class", "list-group-item location listItem");
@@ -67,41 +66,30 @@ function setPlaceDetails(pid, parentNode,myEvent,page) {
   });
 }
 
-function setActiveListItem(element) {
-      toggleList();
-      $(".list-group-item").removeClass("active");
-      element.classList.add("active");
-      var locationData = $(".active").find("h3").data("locationData");
-      fillForm(locationData);
-}
-
-function getTimeZoneDataForPlace(place) {
-  var lat = place.geometry.location.lat();
-  var lng = place.geometry.location.lng();
-  var timestamp = Date.now() / 1000;
-  var url = "https://maps.googleapis.com/maps/api/timezone/json?location="+ lat +","+ lng + "&timestamp="+ timestamp +"&key=AIzaSyAZdA5AE3hXH5bcskGACiNQhGtvxJ0e7r8"
-
-  return $.getJSON(url);
-}
+// function setActiveListItem(element) {
+//       toggleList();
+//       $(".list-group-item").removeClass("active");
+//       element.classList.add("active");
+//       var locationData = $(".active").find("h3").data("locationData");
+//       var timeZoneData = $(".active").find("h3").data("timeZoneData");
+//       fillForm(locationData, timeZoneData);
+// }
 
 function createListItemDetails(place,myEvent,page) {
   var container = document.createElement("div");
   container.setAttribute("class", "location details container");
   var placeHeader = document.createElement("h3");
-  getTimeZoneDataForPlace(place).then(function (data) {
 
-    if (page=="createPage")
-    {
-      $(placeHeader).data('locationData', { location_name: place.name, location_address: place.vicinity, 
-      lat: place.geometry.location.lat(), lng: place.geometry.location.lng(), place_id: place.place_id,
-      dstOffset: data.dstOffset, rawOffset: data.rawOffset, timeZoneId: data.timeZoneId, timeZoneName: data.timeZoneName });
-      $(placeHeader).append(place.name);
-    }
-    else if (page=="indexPage")
-    {
-      $(placeHeader).append(myEvent.name);
-    }
-  });
+  if (page=="createPage")
+  {
+    $(placeHeader).data('locationData', { location_name: place.name, location_address: place.vicinity, 
+    lat: place.geometry.location.lat(), lng: place.geometry.location.lng(), place_id: place.place_id });
+    $(placeHeader).append(place.name);
+  }
+  else if (page=="indexPage")
+  {
+    $(placeHeader).append(myEvent.name);
+  }
 
   container.appendChild(placeHeader);
   container.appendChild(document.createElement("br"));
@@ -180,16 +168,16 @@ function createShowListButton (){
   }
 }
 
-function fillForm(data){
+function fillForm(data, timeZoneData){
   $("#event_place_name").val(data.location_name);
   $("#event_place_address").val(data.location_address);
   $("#lat").val(data.lat);
   $("#lng").val(data.lng);
   $("#place_id").val(data.place_id);
-  $("#dstOffset").val(data.dstOffset);
-  $("#rawOffset").val(data.rawOffset);
-  $("#timeZoneId").val(data.timeZoneId);
-  $("#timeZoneName").val(data.timeZoneName);
+  $("#dstOffset").val(timeZoneData.dstOffset);
+  $("#rawOffset").val(timeZoneData.rawOffset);
+  $("#timeZoneId").val(timeZoneData.timeZoneId);
+  $("#timeZoneName").val(timeZoneData.timeZoneName);
 }
 
 function toggleList() {

@@ -185,10 +185,21 @@ function fillFormOnMarkerClick(markerData) {
       $(".list-group-item").each(function() {
         var listItem = $(this);
         var listItemHeader = $(this).find('h3');
-        if( listItemHeader.text() == markerData.location_name){
-          fillForm(listItemHeader.data("locationData"));   
-          listItem.addClass("active");         
-        } 
+        var locationData = listItemHeader.data("locationData");
+
+        getTimeZoneDataForPlace(locationData.lat, locationData.lng).then(function (data) {
+
+          $(listItemHeader).data('timeZoneData', { dstOffset: data.dstOffset, rawOffset: data.rawOffset, timeZoneId: data.timeZoneId, 
+            timeZoneName: data.timeZoneName 
+          });
+
+          var timeZoneData = listItemHeader.data("timeZoneData");
+          if( listItemHeader.text() == markerData.location_name){
+            fillForm(locationData, timeZoneData);   
+            listItem.addClass("active");         
+          } 
+
+        });
       });
 }
 

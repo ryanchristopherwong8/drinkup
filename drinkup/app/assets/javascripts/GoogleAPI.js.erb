@@ -13,7 +13,7 @@ function setDrinktype(type) {
     document.getElementById('error').innerHTML="Please Enter a Location";
   }
   else {
-    deleteMarkers();
+    //deleteMarkers();
     changeMapLocation(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],15);
     setup(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],1000, drinktype,0);
   }
@@ -27,7 +27,7 @@ function getUserLocation() {
 }
 
 function storePosition(position) {
-  deleteMarkers();
+  //deleteMarkers();
 	postionOfUserFromGeolocation[0]=position.coords.latitude;
 	postionOfUserFromGeolocation[1]=position.coords.longitude;
 	changeMapLocation(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],15);
@@ -59,10 +59,7 @@ function initMap(lat_user,lng_user,zoom, type) {
         });
   if (type=="create"){
      map.addListener('dragend', function() {
-      for (var i = 0; i < markers.length; i++) {
-        markers[i].setMap(null);
-      }
-      markers=[];
+
       postionOfUserFromGeolocation[0]=map.getCenter().lat();
       postionOfUserFromGeolocation[1]=map.getCenter().lng();
       setup(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],1000,drinktype,1);
@@ -81,7 +78,7 @@ function changeMapLocation(lat_user,lng_user,zoom) {
 }
 
 function storePositionFromGoogleAPI(){
-  deleteMarkers();
+  //deleteMarkers();
 	var place = autocomplete.getPlace();
 	postionOfUserFromGeolocation[0]=place.geometry.location.lat();
 	postionOfUserFromGeolocation[1]=place.geometry.location.lng();
@@ -99,8 +96,10 @@ function setup(lat_user,lng_user,radius,drinktype,stopBound) {
     radius: radius,
     types: [drinktype]
   };
+  if (stopBound==0){
+    $(".loading-spinner").show();
+  }
   
-  $(".loading-spinner").show();
   service.nearbySearch(request, function(results,status) {
     callbackFunction(results,status,stopBound);
     $(".loading-spinner").hide();
@@ -109,19 +108,24 @@ function setup(lat_user,lng_user,radius,drinktype,stopBound) {
 }
 
 function callbackFunction(results, status,stopBound) {
-  var numberResultsToReturn=results.length;
-  var resultsList = document.getElementById("resultsList");
-
-  //removes results from previous search
-  while (resultsList.firstChild) {
-    resultsList.removeChild(resultsList.firstChild);
-  }
-
-  if (results.length>8) {
-    numberResultsToReturn=8;
-  }
-
   if (status === google.maps.places.PlacesServiceStatus.OK) {
+    
+    for (var i = 0; i < markers.length; i++) {
+      markers[i].setMap(null);
+    }
+    bounds = new google.maps.LatLngBounds()
+    markers=[];
+    var numberResultsToReturn=results.length;
+    var resultsList = document.getElementById("resultsList");
+
+    //removes results from previous search
+    while (resultsList.firstChild) {
+      resultsList.removeChild(resultsList.firstChild);
+    }
+
+    if (results.length>8) {
+    numberResultsToReturn=8;
+    }
     for (var i = 0; i < numberResultsToReturn; i++) {
       if (stopBound==0) {
         var lat=results[i].geometry.location.lat();
@@ -135,10 +139,12 @@ function callbackFunction(results, status,stopBound) {
     }
     createShowListButton();
     renderListWithPhotos(results,"createPage");
+
+    if (stopBound==0) {
+      map.fitBounds(bounds);
+    }
   }
-  if (stopBound==0) {
-    map.fitBounds(bounds);
-  }
+
 }
 
 

@@ -1,5 +1,5 @@
 <!-- left column -->
-<% if params[:action] == "new" %>
+<% if params[:action] == "new" || @loggedin == false %>
 	<h6>Choose profile picture</h6>
 	<%= curr_user.file_field :avatar, class: "form-control" %>
 <%else%>

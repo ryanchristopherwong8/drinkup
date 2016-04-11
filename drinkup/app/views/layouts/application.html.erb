@@ -8,7 +8,7 @@
   <%= csrf_meta_tags %>
   <%= content_for :header  %>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZdA5AE3hXH5bcskGACiNQhGtvxJ0e7r8&libraries=places"></script>
-  </head>
+</head>
   <% if !current_page?(root_url) %>
     <body>
   <%else%>
@@ -27,5 +27,5 @@
     <%= yield %>
   </div>
   <%= render 'layouts/footer' %>
-</body>
+  </body>
 </html>

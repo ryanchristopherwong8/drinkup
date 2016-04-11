@@ -242,7 +242,7 @@ ol{
 /* Splash Page */
 
 .splash {
-  background: url('splash.jpg') no-repeat center center fixed;
+  background: url(asset-path('splash.jpg')) no-repeat center center fixed;
 }
 .splash .jumbotron {
   background-color: rgba(9, 9, 9, 0.33);

@@ -133,6 +133,13 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
+  def removeImage
+    @user = User.find(params[:id])
+    @user.avatar = nil
+    @user.save
+    redirect_to edit_user_path
+  end
+
    private
     def user_params
       #declaring strong paramters

@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     member do 
       get 'settings'
       patch 'saveSettings'
+      patch 'removeImage'
       post 'saveConversations'
       delete 'removeConversations'
       get 'getCurrentEventsForUser'

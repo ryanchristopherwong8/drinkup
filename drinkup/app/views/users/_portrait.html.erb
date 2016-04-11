@@ -3,9 +3,12 @@
 	<h6>Choose profile picture</h6>
 	<%= curr_user.file_field :avatar, class: "form-control" %>
 <%else%>
-	<%= image_tag @user.avatar.url(:medium), class: "avatar img-rounded profile_picture", alt: "avatar" %>
+	<%= image_tag @user.avatar.url(:medium), class: "avatar img-rounded profile_picture img-responsive center-block ", alt: "avatar" %>
 	<% if params[:action] == "edit" %>
 		<h6>Change profile picture</h6>
 		<%= curr_user.file_field :avatar, class: "form-control" %>
+		<% if @user.avatar.exists? %>
+		<%= link_to 'Remove Image', removeImage_user_path, method: :patch, class: " btn btn-danger btn-xs"  %>
+		<%end%>
 	<%end%>
 <%end%>

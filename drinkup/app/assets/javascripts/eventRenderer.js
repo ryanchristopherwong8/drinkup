@@ -178,15 +178,6 @@ function getEventsForCurrentUser()
   });
 }
 
-function getTopConversations(drinkupId) {
-    return $.ajax({
-      type: "GET",
-      dataType: "json",
-      contentType: "application/json",
-      url: "/events/"+drinkupId+"/getTopConversations"
-    });
-}
-
 function fillEventContent(marker) {
     var drinkupData = $(marker).data("drinkupData");
     var topConversations = $(marker).data("topConversations")

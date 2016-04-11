@@ -126,11 +126,23 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
+    @events = @user.events.where("attendees.is_creator" => true)
+
     @user.avatar = nil
     @user.save
 
     log_out if logged_in?
-    @user.destroy
+    if @user.destroy
+      @events.each do |event|
+        event.update_attributes(:is_deleted => true)
+
+        attendees_for_event = Attendee.where(:event_id => event.id)
+        
+        attendees_for_event.each do |attendee|
+          attendee.update_attributes(:is_attending => false)
+        end
+      end
+    end
  
     redirect_to root_path
   end

@@ -9,6 +9,7 @@ function renderListWithPhotos(results,page) {
       locationListItem.setAttribute("class", "list-group-item location listItem listitem_hover");
       locationListItem.setAttribute("onclick", "setActiveListItem(this)");
     }else{
+      $("#My-Events-Title").show();
       locationListItem.setAttribute("class", "list-group-item location listItem");
     }
     

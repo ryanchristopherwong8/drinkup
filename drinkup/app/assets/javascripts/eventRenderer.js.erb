@@ -57,12 +57,19 @@ function changeMapLocationforDrinkups(lat_user,lng_user,zoom){
 }
 
 function createDrinkupMarker(place,drinkup,number,isAttending, isCreator) {
-    var image='http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+number+'|FE6256|000000';
+    var drink = drinkup.drink_type;
+
+    if (drink === 'bar'){
+      var imgPath = "<%= image_path('bar.png') %>";
+    }else{
+      var imgPath = "<%= image_path('cafe.png') %>";
+    }
+
     var placeLoc = place.geometry.location;
     var marker = new google.maps.Marker({
       map: map,
       position: place.geometry.location,
-      icon: image
+      icon: imgPath
     });
 
     var start_time = moment.utc(drinkup.start_time).format('MMMM Do YYYY, h:mm a');

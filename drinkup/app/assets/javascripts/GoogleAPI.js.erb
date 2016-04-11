@@ -17,6 +17,7 @@ function setDrinktype(type) {
     changeMapLocation(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],15);
     setup(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],1000, drinktype,0);
   }
+  $("#drink_type").val(drinktype);
 }
 
 function getUserLocation() {

@@ -172,7 +172,8 @@ CREATE TABLE events (
     "dstOffset" character varying,
     "rawOffset" character varying,
     "timeZoneId" character varying,
-    "timeZoneName" character varying
+    "timeZoneName" character varying,
+    is_deleted boolean DEFAULT false
 );
 
 
@@ -447,4 +448,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160403225601');
 INSERT INTO schema_migrations (version) VALUES ('20160408040800');
 
 INSERT INTO schema_migrations (version) VALUES ('20160410190058');
+
+INSERT INTO schema_migrations (version) VALUES ('20160411001031');
 

@@ -55,7 +55,7 @@ function changeMapLocationforDrinkups(lat_user,lng_user,zoom){
   map.setZoom(zoom);
 }
 
-function createDrinkupMarker(place,drinkup,number,isAttending) {
+function createDrinkupMarker(place,drinkup,number,isAttending, isCreator) {
     var image='http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+number+'|FE6256|000000';
     var placeLoc = place.geometry.location;
     var marker = new google.maps.Marker({
@@ -69,7 +69,7 @@ function createDrinkupMarker(place,drinkup,number,isAttending) {
     var time_zone = moment().tz(String(drinkup.timeZoneId)).format('z');
 
     $(marker).data('drinkupData', { id : drinkup.id, name : drinkup.name, location_name: place.name, location_address : place.vicinity,
-        start_time : start_time, end_time : end_time, time_zone : time_zone ,isUserAttending : isAttending, count : drinkup.count
+        start_time : start_time, end_time : end_time, time_zone : time_zone ,isUserAttending : isAttending, isUserCreator: isCreator, count : drinkup.count
     });
 
     markers.push(marker);
@@ -87,18 +87,18 @@ function createDrinkupMarker(place,drinkup,number,isAttending) {
     });
 }
 
-function createMarkerForEventsAroundYou(drinkup,number,isAttending,stopBound) {
+function createMarkerForEventsAroundYou(drinkup,number,isAttending,isCreator,stopBound) {
     service.getDetails({ placeId: drinkup.place_id }, function(place, status) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
         if (stopBound == false) {
           var lat=place.geometry.location.lat();
           var lng=place.geometry.location.lng();
           bounds.extend(new google.maps.LatLng(lat, lng));
-          createDrinkupMarker(place, drinkup, number, isAttending);
+          createDrinkupMarker(place, drinkup, number, isAttending, isCreator);
           map.fitBounds(bounds);
         }
         else {
-          createDrinkupMarker(place, drinkup, number, isAttending);
+          createDrinkupMarker(place, drinkup, number, isAttending, isCreator);
         }
       }
     });
@@ -146,6 +146,7 @@ function initializeMarkers(position) {
     }
     
     var drinkups_attending = data.events_attending;
+    var drinkups_creator = data.events_creator;
     var stopBound;
     deleteMarkers();
     if (position.action == null) {
@@ -156,10 +157,14 @@ function initializeMarkers(position) {
     }
     for(i = 0; i < drinkups.length; i++) {
       var isAttending = false;
+      var isCreator = false;
       if ($.inArray(drinkups[i].id, drinkups_attending) !== -1) {
         isAttending = true;
       }
-      createMarkerForEventsAroundYou(drinkups[i], i+1, isAttending, stopBound);
+      if ($.inArray(drinkups[i].id, drinkups_attending) !== -1) {
+        isCreator = true;
+      }
+      createMarkerForEventsAroundYou(drinkups[i], i+1, isAttending, isCreator, stopBound);
     }
     $(".loading-spinner").hide();
   });

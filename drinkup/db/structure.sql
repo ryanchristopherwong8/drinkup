@@ -173,6 +173,8 @@ CREATE TABLE events (
     "rawOffset" character varying,
     "timeZoneId" character varying,
     "timeZoneName" character varying,
+    utc_start_time timestamp without time zone,
+    utc_end_time timestamp without time zone,
     is_deleted boolean DEFAULT false,
     drink_type character varying
 );

@@ -49,9 +49,11 @@
       <%= f.hidden_field :rawOffset, id: 'rawOffset' %>
       <%= f.hidden_field :timeZoneId, id: 'timeZoneId' %>
       <%= f.hidden_field :timeZoneName, id: 'timeZoneName' %>
+      <%= f.hidden_field :utc_start_time, id: 'utc_start_time' %>
+      <%= f.hidden_field :utc_end_time, id: 'utc_end_time' %>
       <%= f.hidden_field :place_id, id: 'place_id' %>
       <div class="col-lg-12">
-        <%= f.submit "Create DrinkUp", class: 'btn btn-primary' %>
+        <%= f.submit "Create DrinkUp", class: 'btn btn-primary', id: 'submit-create-event' %>
       </div>
     <% end %>
 

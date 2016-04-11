@@ -66,15 +66,6 @@ function setPlaceDetails(pid, parentNode,myEvent,page) {
   });
 }
 
-// function setActiveListItem(element) {
-//       toggleList();
-//       $(".list-group-item").removeClass("active");
-//       element.classList.add("active");
-//       var locationData = $(".active").find("h3").data("locationData");
-//       var timeZoneData = $(".active").find("h3").data("timeZoneData");
-//       fillForm(locationData, timeZoneData);
-// }
-
 function createListItemDetails(place,myEvent,page) {
   var container = document.createElement("div");
   container.setAttribute("class", "location details container");

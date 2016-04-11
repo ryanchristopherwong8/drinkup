@@ -62,7 +62,7 @@ class User < ActiveRecord::Base
     end
 
     def getEventsAttending
-      return self.events.where("attendees.is_attending"=>true).where('end_time > ?', Time.now).where(:is_deleted => false)
+      return self.events.where("attendees.is_attending"=>true).where('utc_end_time > ?', Time.now).where(:is_deleted => false)
 
     end
     

@@ -18,6 +18,23 @@ $(document).ready(function(){
 			setActiveListItem(listItem);
 		});
 	});
+
+	$("#new_event").on("submit", function (event) {
+
+		var start_time = $("#date_timepicker_start").val();
+		var end_time = $("#date_timepicker_end").val();
+
+		var timeZoneData = $(".active").find("h3").data("timeZoneData");
+
+		var start_time = moment(start_time).tz(timeZoneData.timeZoneId).format();
+		var end_time = moment(end_time).tz(timeZoneData.timeZoneId).format();
+
+		var utc_start_time = moment.utc(start_time).format();
+		var utc_end_time = moment.utc(end_time).format();
+
+		$("#utc_start_time").val(utc_start_time);
+		$("#utc_end_time").val(utc_end_time);
+	});
  });
 
 function getTimeZoneDataForPlace(lat, lng) {

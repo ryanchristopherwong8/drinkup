@@ -17,7 +17,7 @@ class EventsController < ApplicationController
   def getEvents
     @lat_lng = cookies[:lat_lng].split("|")
 
-    @events = Event.within(5, :origin => [@lat_lng[0], @lat_lng[1]]).where('end_time > ?', Time.now).where(:is_deleted => false)
+    @events = Event.within(5, :origin => [@lat_lng[0], @lat_lng[1]]).where('utc_end_time > ?', Time.now).where(:is_deleted => false)
     @events_attending = current_user.attendees.attending.pluck(:event_id)
     @events_creator = current_user.attendees.creator.pluck(:event_id)
 
@@ -152,7 +152,7 @@ class EventsController < ApplicationController
 
   private
   def event_params
-    params.require(:event).permit(:name, :lat, :lng, :dstOffset, :rawOffset, :timeZoneId, :timeZoneName,
+    params.require(:event).permit(:name, :lat, :lng, :dstOffset, :rawOffset, :timeZoneId, :timeZoneName, :utc_start_time, :utc_end_time,
      :start_time, :end_time, :gender, :place_id, :place_name, :place_address, :drink_type)
   end
 

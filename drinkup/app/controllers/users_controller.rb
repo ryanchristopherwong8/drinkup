@@ -95,7 +95,9 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)   
+    @user = User.new(user_params) 
+    @loggedin = logged_in?  
+    
     if @user.save
       #login user
       log_in @user
@@ -131,6 +133,13 @@ class UsersController < ApplicationController
     @user.destroy
  
     redirect_to root_path
+  end
+
+  def removeImage
+    @user = User.find(params[:id])
+    @user.avatar = nil
+    @user.save
+    redirect_to edit_user_path
   end
 
    private

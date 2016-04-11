@@ -42,6 +42,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    gon.event_id = @event.id
     #if event does not have a chat create one
     #used to subscribe to specific chat
     if !Chat.exists?(:event_id => params[:id])
@@ -146,7 +147,7 @@ class EventsController < ApplicationController
   private
   def event_params
     params.require(:event).permit(:name, :lat, :lng, :dstOffset, :rawOffset, :timeZoneId, :timeZoneName,
-     :start_time, :end_time, :gender, :place_id, :place_name, :place_address)
+     :start_time, :end_time, :gender, :place_id, :place_name, :place_address, :drink_type)
   end
 
   # Confirms the correct user.

@@ -8,32 +8,30 @@
  	  <hr>
   </div>
 
-<div class="col-md-6 col-md-offset-3">
+  <div class="col-md-6 col-md-offset-3">
     <%= form_for(@user, :url => url_for( :action => 'saveSettings')) do |f| %>
-    <%= render 'shared/error_messages' , object: f.object %>
-
-  
-      <h3>Security Information</h3>
-      <form class="form-horizontal" role="form">
-        <div class="field form-group">
-            <%= f.label "Old Password", class: "control-label"%>
-            <%= text_field_tag "oldPassword", "",  class: 'form-control', type: 'password' %>
-         </div>
-         <div class="field form-group">
-            <%= f.label :password, "New Password", class: "control-label"%>
-              <%= f.password_field :password, id: "passwordInput" ,class: 'form-control' %>
-         </div>
-         <div class="field form-group">
-            <%= f.label :password_confirmation, "Confirm Password", class: "control-label"%>
-              <%= f.password_field :password_confirmation, class: 'form-control' %>
-          </div>
-          <div class="actions form-group">
-            <label class="col-md-4 control-label"></label>
-              <%= f.submit "Save Changes", class: "btn btn-primary btn-settings", disabled: "disabled" %>
-          </div>
+    <%= render 'shared/error_messages' , object: f.object %> 
+    <h3>Security Information</h3>
+    <form class="form-horizontal" role="form">
+    <div class="field form-group">
+      <%= f.label "Old Password", class: "control-label"%>
+      <%= text_field_tag "oldPassword", "",  class: 'form-control', type: 'password' %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :password, "New Password", class: "control-label"%>
+      <%= f.password_field :password, id: "passwordInput" ,class: 'form-control' %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :password_confirmation, "Confirm Password", class: "control-label"%>
+      <%= f.password_field :password_confirmation, class: 'form-control' %>
+    </div>
+    <div class="actions form-group">
+      <label class="col-md-4 control-label"></label>
+      <%= f.submit "Save Changes", class: "btn btn-primary btn-settings", disabled: "disabled" %>
+    </div>
     </form>
     <% end %>
- </div>
+  </div>
 </div>
 <hr>
 <%= link_to 'Delete Account', user_path(@user),

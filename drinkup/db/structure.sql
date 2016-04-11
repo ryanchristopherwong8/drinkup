@@ -173,7 +173,8 @@ CREATE TABLE events (
     "rawOffset" character varying,
     "timeZoneId" character varying,
     "timeZoneName" character varying,
-    is_deleted boolean DEFAULT false
+    is_deleted boolean DEFAULT false,
+    drink_type character varying
 );
 
 
@@ -450,4 +451,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160408040800');
 INSERT INTO schema_migrations (version) VALUES ('20160410190058');
 
 INSERT INTO schema_migrations (version) VALUES ('20160411001031');
+
+INSERT INTO schema_migrations (version) VALUES ('20160411043655');
 

@@ -2,6 +2,7 @@ $(document).ready(function(){
   initMap(49.2667967,-123.2056314,10, "search")
   initAutocompleteforDrinkups()
   $("#drinkup_listing").hide();
+  $("#My-Events-Title").hide();
   getUserLocationforDrinkups();
   getEventsForCurrentUser();
 });
@@ -56,12 +57,19 @@ function changeMapLocationforDrinkups(lat_user,lng_user,zoom){
 }
 
 function createDrinkupMarker(place,drinkup,number,isAttending, isCreator) {
-    var image='http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+number+'|FE6256|000000';
+    var drink = drinkup.drink_type;
+
+    if (drink === 'bar'){
+      var imgPath = "<%= image_path('bar.png') %>";
+    }else{
+      var imgPath = "<%= image_path('cafe.png') %>";
+    }
+
     var placeLoc = place.geometry.location;
     var marker = new google.maps.Marker({
       map: map,
       position: place.geometry.location,
-      icon: image
+      icon: imgPath
     });
 
     var start_time = moment.utc(drinkup.start_time).format('MMMM Do YYYY, h:mm a');
@@ -176,15 +184,6 @@ function getEventsForCurrentUser()
     var events = data.events_currentUser;
     renderListWithPhotos(events,"indexPage");
   });
-}
-
-function getTopConversations(drinkupId) {
-    return $.ajax({
-      type: "GET",
-      dataType: "json",
-      contentType: "application/json",
-      url: "/events/"+drinkupId+"/getTopConversations"
-    });
 }
 
 function fillEventContent(marker) {

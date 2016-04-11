@@ -8,7 +8,7 @@
 		<h6>Change profile picture</h6>
 		<%= curr_user.file_field :avatar, class: "form-control" %>
 		<% if @user.avatar.exists? %>
-		<%= link_to 'Remove Image', removeImage_user_path, method: :patch, class: " btn btn-danger btn-xs"  %>
+		  <%= link_to 'Remove Image', removeImage_user_path, method: :patch, class: " btn btn-danger btn-xs"  %>
 		<%end%>
 	<%end%>
 <%end%>

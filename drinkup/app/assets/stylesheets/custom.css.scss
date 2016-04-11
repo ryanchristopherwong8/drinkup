@@ -81,10 +81,11 @@ a.dropdown-toggle.nav-user {
   width: 100%;
   /* Set the fixed height of the footer here */
   height: 120px;
-  background-color: #f2f2f2;
   color: #666;
   padding: 20px 0 0 20px;
   font-weight: 200;
+  opacity: 1;
+  background-color: rgba(242,242,242,0.6);
 }
 
 body .navbar-inverse .navbar-nav > li > a {

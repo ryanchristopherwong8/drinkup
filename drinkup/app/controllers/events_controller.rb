@@ -17,9 +17,8 @@ class EventsController < ApplicationController
   def getEvents
     @lat_lng = cookies[:lat_lng].split("|")
 
-    @events = Event.within(5, :origin => [@lat_lng[0], @lat_lng[1]]).where('end_time > ?', Time.now).where(:is_deleted => false)
+    @events = Event.within(5, :origin => [@lat_lng[0], @lat_lng[1]]).where('end_time > ?', Time.now)
     @events_attending = current_user.attendees.attending.pluck(:event_id)
-    @events_creator = current_user.attendees.creator.pluck(:event_id)
 
     @events.each do |event|
       event.count = event.attendees.attending.count
@@ -27,8 +26,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       format.html {redirect_to "index"}
-      format.json {render :json => {:events => @events.as_json(:methods => [:count]), :events_attending => @events_attending,
-       :events_creator => @events_creator}}
+      format.json {render :json => {:events => @events.as_json(:methods => [:count]), :events_attending => @events_attending }}
     end
   end
 
@@ -53,15 +51,11 @@ class EventsController < ApplicationController
     end
 
     @creator_status = current_user.attendees.creator_of_event(@event).pluck(:is_creator)
-    @creator_attending = @event.attendees.is_creator_attending(@event).pluck(:is_creator)
     @messages = @chat.messages
     @message = Message.new
 
     if @creator_status.blank?
       @creator_status = false
-    end
-    if @creator_attending.blank?
-      @creator_attending = false
     end
   end
 
@@ -100,12 +94,12 @@ class EventsController < ApplicationController
 
   def destroy
     @event = Event.find(params[:id])
-    @event.update_attributes(:is_deleted => true)
+    @event.destroy
 
     attendees_for_event = Attendee.where(:event_id => @event.id)
     
     attendees_for_event.each do |attendee|
-      attendee.update_attributes(:is_attending => false)
+      attendee.destroy
     end
 
     redirect_to events_path

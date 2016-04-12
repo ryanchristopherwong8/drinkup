@@ -15,14 +15,11 @@
   //Previous times are not able to be selected if current day is selected.
   function adjustTime(thisPicker) {
     var userDate = todaysDate();
-    //console.log(userDate);
     var splitedate = $(thisPicker).val().split(" ");
     if (splitedate[0] == userDate) {
-    //console.log('yes');       
       return 0; 
     }
     else {
-    //console.log('no'); 
       return'00:00';
     };
   }
@@ -54,7 +51,6 @@
        })
       },
       minDate:0,
-      //minTime:0,
       timepicker:true,
       scrollMonth:false,
       scrollTime:false,
@@ -84,7 +80,6 @@
         minDate:jQuery('#date_timepicker_start').val()?jQuery('#date_timepicker_start').val():false
        })
       },
-      //minTime:0,
       timepicker:true,
       scrollMonth:false,
       scrollTime:false,

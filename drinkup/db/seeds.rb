@@ -7,4 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 conversations = Conversation.create([{name: 'Hockey'}, {name: 'Soccer'}, {name: 'Sports'}, {name: 'Movies'}, 
-	{name: 'Video Games'}, {name: 'Cooking'}, {name: 'Politics'}, {name: 'History'}, {name: 'Tech'},  ])
+	{name: 'Video Games'}, {name: 'Cooking'}, {name: 'Politics'}, {name: 'History'}, {name: 'Technology'},  {name: 'Cars'},
+  {name: 'Books'}, {name: 'Fashion'}, {name: 'Travel'}, {name: 'Startups'}, {name: 'Programming'}, {name: 'Music'}, 
+  {name: 'Craft Beer'}, {name: 'Art'}, {name: 'Museums'}, {name: 'Architecture'}, {name: 'Hiking'}, {name: 'Skiing'},
+  {name: 'Snowboarding'}, {name: 'Coffee'}])

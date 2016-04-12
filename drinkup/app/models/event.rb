@@ -30,6 +30,9 @@ class Event < ActiveRecord::Base
         end
     end
   
+    # Compares the conversations of all users for an event, by creating hash with the key being the conversation and value
+    # being the number of times a conversation appears. We then return 3 most frequently occuring keys in descending order
+    # Based off an implementation of counting sort.
     def getTopConversations
         eventConversations = []
         users = self.users.where("attendees.is_attending" => true)

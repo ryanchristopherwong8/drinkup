@@ -1,4 +1,7 @@
 module SessionsHelper
+
+  # Based off the tutorial (Chapters 6 to 8 on authentication) at https://www.railstutorial.org/book 
+
   # Logs in the given user.
   def log_in(user)
   	#This places a temporary cookie on the user’s browser containing an encrypted version of the user’s id

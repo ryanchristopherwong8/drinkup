@@ -1,4 +1,6 @@
 $(document).ready(function(){
+
+  /* Displays a drinkup start and end time in the time the user picked + the time zone of where the drinkup is located */
   var start_time = $("#drinkup_start_time").text();
   var end_time = $("#drinkup_end_time").text();
   var time_zone = $("#start_time_zone").text();

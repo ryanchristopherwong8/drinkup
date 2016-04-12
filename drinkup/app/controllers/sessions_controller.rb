@@ -9,15 +9,21 @@ class SessionsController < ApplicationController
   end
 
   def show
+    redirect_to(:controller => 'events', :action => 'index')
   end
 
   def new
+    if logged_in?
+      redirect_to(:controller => 'events', :action => 'index')
+    end
   end
 
   def edit
+    redirect_to(:controller => 'events', :action => 'index')
   end
 
   def create
+
     #get user by email
     user = User.find_by(email: params[:session][:email].downcase)
     #checks if user exits and authtenticate checks encrypted password(has_password_validation)
@@ -36,6 +42,9 @@ class SessionsController < ApplicationController
   end
 
   def delete
+    if logged_in?
+      redirect_to(:controller => 'events', :action => 'index')
+    end
   end
 
   def destroy

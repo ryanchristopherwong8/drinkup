@@ -123,6 +123,9 @@ function initializeMarkers(position) {
   
   $.getJSON("/events/getEvents", function (data) {
     var drinkups = data.events;
+    if (drinkups.length==0){
+      document.getElementById('error').innerHTML="No Drinkups Around You";
+    }
     if (position.action=="drag"){
 
       if (drinkups.length!=cachedDrinkUps.length){

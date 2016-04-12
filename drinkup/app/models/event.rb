@@ -1,6 +1,6 @@
 class Event < ActiveRecord::Base
 
-  	acts_as_mappable :default_units => :kms,
+  acts_as_mappable :default_units => :kms,
                    	 :default_formula => :sphere,
                      :distance_field_name => :distance,
                      :lat_column_name => :lat,
@@ -17,12 +17,11 @@ class Event < ActiveRecord::Base
 	validates :lng, presence: true
 	validates :start_time, presence: true
   validates :end_time, presence: true
-	# validates :gender, presence: true, inclusion: { in: %w(any male female),
- #    		 				message: "%{value} is not a valid gender" }
   validates :place_id, presence: true
   validate :validate_timings
 
     #Source: http://stackoverflow.com/questions/20655633/validating-one-datetime-to-be-later-than-another  
+    #Checks that start time is less than end time
     def validate_timings
         p start_time, end_time
         if (start_time > end_time)

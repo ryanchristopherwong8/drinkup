@@ -192,3 +192,9 @@
   margin-top: 1em;
 }
 
+.list-group-item {
+  display:list-item;
+}
+.show-list-toggle {
+    background-color:#abd0f0;
+  }

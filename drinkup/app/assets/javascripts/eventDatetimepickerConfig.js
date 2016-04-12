@@ -1,3 +1,5 @@
+//This is for configuring the date pickers in the event pages. 
+//Handles click events and date and time limits.
  $(document).ready(function(){
 
   //Get and format today's date
@@ -23,31 +25,32 @@
       return'00:00';
     };
   }
-
+   //jQuery events on date pickers: Start Time and End Time
    jQuery(function(){
-      var currentDate = 0;  //Keep track of date to sync both date pickers
       jQuery.datetimepicker.setLocale('en');
 
-
+      //Check date fields on inital page load
       $('#date_timepicker_start').ready(function(){
           if ($(this).text() == "") { 
-               $('#date_timepicker_end').prop('disabled', true);
+               $('#date_timepicker_end').prop('disabled', true);    //Disable end time if start time is not set
 
           } else {
                $('#date_timepicker_end').prop('disabled', false);
           }
       });
 
+      //Check date fields on changed start time 
       $('#date_timepicker_start').change(function(){
           if ($(this).val() == "" && $('#date_timepicker_end').text() == "") { 
                $('#date_timepicker_end').val("");
-               $('#date_timepicker_end').prop('disabled', true);
+               $('#date_timepicker_end').prop('disabled', true);  //If no start time selected dont enable end time
 
           } else {
                $('#date_timepicker_end').prop('disabled', false);
           }
       });
 
+      //Inital settings for start date time picker
       jQuery('#date_timepicker_start').datetimepicker({
         onSelectDate:function(ct){
           var ptime = adjustTime('#date_timepicker_start');
@@ -79,6 +82,8 @@
 
 
      });
+
+     //Inital settings for end date time picker
      jQuery('#date_timepicker_end').datetimepicker({
       onSelectDate:function(ct){
           var ptime = adjustTime('#date_timepicker_end');

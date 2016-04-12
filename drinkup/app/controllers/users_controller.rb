@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
 
   before_action :redirect_if_not_logged_in, :except => [:new, :create]
-  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :delete, :destroy, :settings,
+   :saveSettings, :saveConversations, :removeConversations, :removeImage]
 
   def show
     @user = User.find(params[:id])

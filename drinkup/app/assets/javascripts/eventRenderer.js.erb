@@ -1,3 +1,5 @@
+//initializes dynamic content and gets user location
+//code is only called on events index page
 $(document).ready(function(){
   initMap(49.2667967,-123.2056314,10, "search")
   initAutocompleteforDrinkups()
@@ -10,6 +12,7 @@ $(document).ready(function(){
 var inCache;
 var cachedDrinkUps=[];
 
+//prompts user for permission to get current location
 function getUserLocationforDrinkups() {
   if (navigator.geolocation) {
     var options={timeout:30000};
@@ -17,13 +20,16 @@ function getUserLocationforDrinkups() {
   } 
 }
 
-function initAutocompleteforDrinkups() {
+
   // Create the autocomplete object, restricting the search to geographical
   // location types.
+function initAutocompleteforDrinkups() {
   autocomplete = new google.maps.places.Autocomplete(
-      /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+      (document.getElementById('autocomplete')),
       {types: ['geocode']});
 
+  //adds drag listener and calls initialize markers on drag finish
+  //stores current position as maps new center
   map.addListener('dragend', function() {
     var position= {
               coords: { 
@@ -33,13 +39,14 @@ function initAutocompleteforDrinkups() {
               action: "drag"
             };
     initializeMarkers(position);
-    
   });
 
-
+  //checks for change of place in autocomplete and calls storePositionforDrinkups
   autocomplete.addListener('place_changed', storePositionforDrinkups);
 }
 
+//called when autocomplete has entered new search
+//stores position as map's new center and renders event markers based on new position
 function storePositionforDrinkups() {
   var place = autocomplete.getPlace();
   var position= {
@@ -50,32 +57,38 @@ function storePositionforDrinkups() {
   initializeMarkers(position);
 }
 
+//renders maps new center
 function changeMapLocationforDrinkups(lat_user,lng_user,zoom){
   var user_location = {lat:lat_user , lng:lng_user};
   map.setCenter(user_location);
   map.setZoom(zoom);
 }
 
+//creates drink up marker and stores drink up data in marker
+//and adds listener to render info window on click
 function createDrinkupMarker(place,drinkup,number,isAttending, isCreator) {
-    var drink = drinkup.drink_type;
 
+    //creates new drink up marker image
+    var drink = drinkup.drink_type;
     if (drink === 'bar'){
       var imgPath = "<%= image_path('bar.png') %>";
     }else{
       var imgPath = "<%= image_path('cafe.png') %>";
     }
-
+    //sets marker location to place location
     var placeLoc = place.geometry.location;
+
     var marker = new google.maps.Marker({
       map: map,
       position: place.geometry.location,
       icon: imgPath
     });
-
+    //create start and end time info
     var start_time = moment.utc(drinkup.start_time).format('MMMM Do YYYY, h:mm a');
     var end_time = moment.utc(drinkup.end_time).format('MMMM Do YYYY, h:mm a');
     var time_zone = moment().tz(String(drinkup.timeZoneId)).format('z');
 
+    //store drink up data on marker
     $(marker).data('drinkupData', { id : drinkup.id, name : drinkup.name, location_name: place.name, location_address : place.vicinity,
         start_time : start_time, end_time : end_time, time_zone : time_zone ,isUserAttending : isAttending, isUserCreator: isCreator, count : drinkup.count
     });
@@ -178,6 +191,8 @@ function initializeMarkers(position) {
   });
 }
 
+//makes call to server to get all events user is attending
+//renders the events list using event infomation
 function getEventsForCurrentUser()
 {
     $.getJSON("/users/"+gon.user_id+"/getCurrentEventsForUser", function (data) {
@@ -186,6 +201,8 @@ function getEventsForCurrentUser()
   });
 }
 
+//creates a container that slides down on marker click
+//fills the contains with data from marker
 function fillEventContent(marker) {
     var drinkupData = $(marker).data("drinkupData");
     var topConversations = $(marker).data("topConversations")

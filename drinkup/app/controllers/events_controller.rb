@@ -1,8 +1,8 @@
+#Controller for users, including user conversations, and user settings
 class EventsController < ApplicationController
-
+  #Security checks to ensure user has the rights to access pages 
   before_action :redirect_if_not_logged_in
   before_action :correct_user, only: [:edit, :update, :destroy]
-  # before_action :set_cache_headers
   
   def test
   end
@@ -14,6 +14,7 @@ class EventsController < ApplicationController
     # @events_attending = current_user.attendees.attending.select("event_id").map(&:event_id)
   end
 
+  #Gets events 
   def getEvents
     @lat_lng = cookies[:lat_lng].split("|")
 
@@ -32,6 +33,7 @@ class EventsController < ApplicationController
     end
   end
 
+  #Top conversations are generated to show within events
   def getTopConversations
     event = Event.find(params[:id])
     top_conversations = event.getTopConversations
@@ -42,6 +44,7 @@ class EventsController < ApplicationController
     end
   end
 
+  #Show events and chat messages
   def show
     @event = Event.find(params[:id])
     gon.event_id = @event.id
@@ -66,10 +69,12 @@ class EventsController < ApplicationController
     end
   end
 
+  #Make a new event
   def new
   	@event = Event.new
   end
 
+  #Create an event
   def create
   	@event = Event.new(event_params)
  
@@ -82,6 +87,7 @@ class EventsController < ApplicationController
   	end
   end
 
+  #Update event info
   def update
    @event = Event.find(params[:id])
  
@@ -92,6 +98,7 @@ class EventsController < ApplicationController
    end
   end
 
+  #Get event details for edit page
   def edit
     @event = Event.find(params[:id])
   end
@@ -99,6 +106,7 @@ class EventsController < ApplicationController
   def delete
   end
 
+  #Destroy an event. Let all attendees know event is gone.
   def destroy
     @event = Event.find(params[:id])
     @event.update_attributes(:is_deleted => true)
@@ -112,6 +120,7 @@ class EventsController < ApplicationController
     redirect_to events_path
   end
 
+  #Add users to event
   def join
     @event = Event.find(params[:id])
 
@@ -136,6 +145,7 @@ class EventsController < ApplicationController
     redirect_to @event
   end
 
+  #Remove users from event
   def unjoin
     @event = Event.find(params[:id])
 

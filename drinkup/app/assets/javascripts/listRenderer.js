@@ -1,13 +1,21 @@
+//Renders search results list on create page and 
+//nearby events list on events index page
+
+
+//creates list item elements and makes call to placeDetails to store data on create event page
+//and creates list items with event details in event index page 
 function renderListWithPhotos(results,page) {
   var numberResultsToReturn = results.length<8 ? results.length : 8;
   for(var i = 0; i < numberResultsToReturn; i++) {
 
+    //creates initial list item element and styles 
     var locationListItem = document.createElement('li');
     if (page=="createPage")
     {
       $("#resultsList").css("display","none");
       locationListItem.setAttribute("class", "list-group-item location listItem listitem_hover");
     }else{
+      //makes events title visible if list is rendered
       $("#My-Events-Title").show();
       locationListItem.setAttribute("class", "list-group-item location listItem");
     }
@@ -15,6 +23,8 @@ function renderListWithPhotos(results,page) {
 
     var itemContainer = document.createElement('div');
     itemContainer.setAttribute("class", "location container");
+
+    //place id is used for making Google's getDetails service
     var pid = results[i].place_id;
     if (page=="createPage")
     {
@@ -25,14 +35,13 @@ function renderListWithPhotos(results,page) {
     {
       setPlaceDetails(pid, itemContainer,results[i],"indexPage"); 
     }
-    
-    var pid = results[i].place_id;
-       
+           
     locationListItem.appendChild(itemContainer);    
     $("#resultsList").append(locationListItem).attr("class","list-group well").height("250px");
   }
 }
 
+//creates place image element in list item container
 function createLocationImage(place, parentNode) {
   var container = document.createElement("div");
   container.setAttribute("class","location image container");
@@ -47,6 +56,9 @@ function createLocationImage(place, parentNode) {
   }
 }
 
+//recursive function that calls setPlaceDetails until getDetails status code is OK
+//results is bubbled up on success
+//on success, creates a event/locations details container in list item
 function setPlaceDetails(pid, parentNode,myEvent,page) {
   service.getDetails({
     placeId: pid
@@ -63,6 +75,7 @@ function setPlaceDetails(pid, parentNode,myEvent,page) {
         }
         parentNode.appendChild(detailsContainer);
       } else {
+        //adds extra 100ms timeout on second setPlaceDetails call
         setTimeout(function() {
           setPlaceDetails(pid, parentNode,myEvent,page);
         }, 100);
@@ -70,11 +83,16 @@ function setPlaceDetails(pid, parentNode,myEvent,page) {
   });
 }
 
+//creates elements for list item details
+//*stores all location data from getDetails in h3 header (used for filling out data in form)*
 function createListItemDetails(place,myEvent,page) {
+
+  //create details container
   var container = document.createElement("div");
   container.setAttribute("class", "location details container");
-  var placeHeader = document.createElement("h3");
 
+  //create h3 header and stores all locations details as data for future reference
+  var placeHeader = document.createElement("h3");
   if (page=="createPage")
   {
     $(placeHeader).data('locationData', { location_name: place.name, location_address: place.vicinity, 
@@ -85,22 +103,26 @@ function createListItemDetails(place,myEvent,page) {
   {
     $(placeHeader).append(myEvent.name);
   }
-
+  //append h3 header
   container.appendChild(placeHeader);
   container.appendChild(document.createElement("br"));
 
+  //create main details for index page
+  //if any data is undefined the elements are not created
   if (page=="indexPage")
   {
+    //add location name info
     if(place.name !== undefined) {
       container.appendChild(document.createTextNode("Location: "+place.name));
       container.appendChild(document.createElement("br"));
     }
 
+    //add address info
     if(place.formatted_address !== undefined) {
       container.appendChild(document.createTextNode("Address: "+place.formatted_address));
       container.appendChild(document.createElement("br"));
     }
-
+    //add start time info
     if(myEvent.start_time !== undefined) {
       var start_time = moment.utc(myEvent.start_time).format('MMMM Do YYYY, h:mm a');
       var time_zone = moment().tz(String(myEvent.timeZoneId)).format('z');
@@ -108,6 +130,7 @@ function createListItemDetails(place,myEvent,page) {
       container.appendChild(document.createElement("br"));
     }
 
+    //add endtime info
     if(myEvent.end_time !== undefined) {
       var end_time = moment.utc(myEvent.end_time).format('MMMM Do YYYY, h:mm a');
       var time_zone = moment().tz(String(myEvent.timeZoneId)).format('z');
@@ -115,6 +138,7 @@ function createListItemDetails(place,myEvent,page) {
       container.appendChild(document.createElement("br"));
     }
 
+    //add link to show event 
     if(myEvent.id !== undefined) {
       //var text = document.createTextNode("Website: ");
       //container.appendChild(text);
@@ -127,10 +151,12 @@ function createListItemDetails(place,myEvent,page) {
   }
   else if (page=="createPage")
   {
+    //add address info
     if(place.formatted_address !== undefined) {
       container.appendChild(document.createTextNode("Address: "+place.formatted_address));
       container.appendChild(document.createElement("br"));
     }
+    //add website info
     if(place.website !== undefined) {
       var text = document.createTextNode("Website: ");
       container.appendChild(text);
@@ -140,10 +166,12 @@ function createListItemDetails(place,myEvent,page) {
       container.appendChild(link);
       container.appendChild(document.createElement("br"));
     }
+    //add rating info
     if(place.rating !== undefined) {
       container.appendChild(document.createTextNode("Rating: "+place.rating+"/5"));
       container.appendChild(document.createElement("br"));
     }
+    //add phone number info
     if(place.formatted_phone_number !== undefined) {
       container.appendChild(document.createTextNode("Phone number: "+place.formatted_phone_number));
       container.appendChild(document.createElement("br"));
@@ -153,8 +181,9 @@ function createListItemDetails(place,myEvent,page) {
   return container;
 }
 
+//creates the show list button if not present and
+//sets the default text to show list if already created 
 function createShowListButton (){
-  var child = $("#locationDetails").firstChild;
   if($("#show-list-toggle").length === 0){
     var showListButton = "<a id='show-list-toggle' class='btn btn-info center-block' onclick='toggleList()'>Show List</a>";
     $("#locationDetails").prepend(showListButton);
@@ -163,6 +192,7 @@ function createShowListButton (){
   }
 }
 
+//fills form data on create event page using json data
 function fillForm(data, timeZoneData){
   $("#event_place_name").val(data.location_name);
   $("#event_place_address").val(data.location_address);
@@ -175,6 +205,7 @@ function fillForm(data, timeZoneData){
   $("#timeZoneName").val(timeZoneData.timeZoneName);
 }
 
+//hides/shows list and changes button text
 function toggleList() {
     var list = document.getElementById("resultsList");
 

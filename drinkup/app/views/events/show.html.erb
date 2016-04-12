@@ -5,19 +5,35 @@
 <%#= link_to 'Back to Event Index', events_path, :class=>"clear block"%>
 <h1 class="clear"><%= @event.name %></h1>
 <div id="show_event_details_body" class ="col-md-6">
-  <div id="drinkup_listing" class="container">
+  <div id="drinkup_listing" class="container-fluid">
+  <h3>Event Details</h3>
     <div id="drinkup_details_partial">
-      <div class="drinkup_detail"><h4>Location: </h4><p id="drinkup_location_name"><%= @event.place_name%></p></div>
-      <div class="drinkup_detail"><h4>Address: </h4><p id="drinkup_location_address"><%= @event.place_address%></p></div>
-      <div class="drinkup_detail"><h4>Start Time: </h4><p id="drinkup_start_time"><%= @event.start_time%></p>
-      <p id="start_time_zone"><%= @event.timeZoneId %></p></div>
-      <div class="drinkup_detail"><h4>End Time: </h4><p id="drinkup_end_time"><%= @event.end_time%></p>
-      <p id="end_time_zone"><%= @event.timeZoneId %></p></div>
+    
+  <table class="table">
+      <tr>
+        <td><h4>Location: </h4></td>
+        <td><p id="drinkup_location_name"><%= @event.place_name%></p></td>
+      </tr>
+      <tr>
+        <td><h4>Address: </h4></td>
+        <td><p id="drinkup_location_address"><%= @event.place_address%></p></td>
+      </tr>
+      <tr>
+        <td><h4>Start Time: </h4></td>
+        <td><p id="drinkup_start_time"><%= @event.start_time%></p>
+            <p id="start_time_zone"><%= @event.timeZoneId %></p></td>
+      </tr>
+      <tr>
+        <td><h4>End Time: </h4></td>
+        <td><p id="drinkup_end_time"><%= @event.end_time%></p>
+            <p id="end_time_zone"><%= @event.timeZoneId %></p></td>
+      </tr>
+      </table>
 
-      <!-- TO DO add conversations-->
       <div class="drinkup_detail"><h4>Top Conversations: </h4><div id="drinkup_conversations"></div></div>
     </div>
   </div>
+
   <div id="drinkup_attendees">
     <h4>Attendees: </h4>
     <p><%= "The creator of this event is no longer attending, but you can still plan to meet up with other attendees." unless @creator_attending %></p>
@@ -25,18 +41,18 @@
     <p><%= link_to("#{attendee.user.first_name} #{attendee.user.last_name}", user_path(attendee.user)) if attendee.is_attending %></p>
     <% end %>
   </div>
-
-
 </div>
 
 <div id="show_event_chat_body" >
 <div class="chat col-md-6 col-xs-12">
+<h3>Drinkup Messenger</h3>
   <div class="chatboxcontent" id="chatbox_<%= @chat.id %>">
       <% if @messages.any? %>
           <%= render @messages %>
       <% end %>
   </div>
   <div class="chatboxinput">
+
       <%= form_for([@chat, @message], :remote=> true, :html => {id: "chat_form_# {@chat.id}"}) do |f| %>
       <%= f.text_area :body, class: "chatboxtextarea", "data-cid" => @chat.id %>
       <div class="chat-form-btns" >    

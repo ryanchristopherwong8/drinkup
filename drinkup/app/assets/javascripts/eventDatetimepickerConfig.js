@@ -28,8 +28,18 @@
       var currentDate = 0;  //Keep track of date to sync both date pickers
       jQuery.datetimepicker.setLocale('en');
 
+
+      $('#date_timepicker_start').ready(function(){
+          if ($(this).text() == "") { 
+               $('#date_timepicker_end').prop('disabled', true);
+
+          } else {
+               $('#date_timepicker_end').prop('disabled', false);
+          }
+      });
+
       $('#date_timepicker_start').change(function(){
-          if ($(this).val() == '') { 
+          if ($(this).val() == "" && $('#date_timepicker_end').text() == "") { 
                $('#date_timepicker_end').val("");
                $('#date_timepicker_end').prop('disabled', true);
 
@@ -50,6 +60,7 @@
         maxDate:jQuery('#date_timepicker_end').val()?jQuery('#date_timepicker_end').val():false
        })
       },
+      minTime:0,
       minDate:0,
       timepicker:true,
       scrollMonth:false,
@@ -80,6 +91,7 @@
         minDate:jQuery('#date_timepicker_start').val()?jQuery('#date_timepicker_start').val():false
        })
       },
+      minTime:0,
       timepicker:true,
       scrollMonth:false,
       scrollTime:false,

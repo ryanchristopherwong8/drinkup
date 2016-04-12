@@ -20,6 +20,15 @@ class Event < ActiveRecord::Base
 	# validates :gender, presence: true, inclusion: { in: %w(any male female),
  #    		 				message: "%{value} is not a valid gender" }
   validates :place_id, presence: true
+  validate :validate_timings
+
+    #Source: http://stackoverflow.com/questions/20655633/validating-one-datetime-to-be-later-than-another  
+    def validate_timings
+        p start_time, end_time
+        if (start_time > end_time)
+            errors[:base] << "Start Time must be less than End Time"
+        end
+    end
   
     def getTopConversations
         eventConversations = []

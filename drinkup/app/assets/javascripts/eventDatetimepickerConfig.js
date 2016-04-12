@@ -1,14 +1,60 @@
  $(document).ready(function(){
 
+  //Get and format today's date
+  function todaysDate() {
+    currDay = new Date;
+    var dd = currDay.getDate();
+    var mm = currDay.getMonth() + 1;
+    var yyyy = currDay.getFullYear();
+    if (mm < 10) {
+      mm = "0" + mm;
+    }
+    return yyyy+'/'+mm+'/'+dd;
+  }
+
+  //Previous times are not able to be selected if current day is selected.
+  function adjustTime(thisPicker) {
+    var userDate = todaysDate();
+    //console.log(userDate);
+    var splitedate = $(thisPicker).val().split(" ");
+    if (splitedate[0] == userDate) {
+    //console.log('yes');       
+      return 0; 
+    }
+    else {
+    //console.log('no'); 
+      return'00:00';
+    };
+  }
+
    jQuery(function(){
-    jQuery.datetimepicker.setLocale('en');
+      var currentDate = 0;  //Keep track of date to sync both date pickers
+      jQuery.datetimepicker.setLocale('en');
+
+      $('#date_timepicker_start').change(function(){
+          if ($(this).val() == '') { 
+               $('#date_timepicker_end').val("");
+               $('#date_timepicker_end').prop('disabled', true);
+
+          } else {
+               $('#date_timepicker_end').prop('disabled', false);
+          }
+      });
+
       jQuery('#date_timepicker_start').datetimepicker({
+        onSelectDate:function(ct){
+          var ptime = adjustTime('#date_timepicker_start');
+          this.setOptions({
+            minTime: ptime
+          })
+        },
       onShow:function( ct ){
        this.setOptions({
         maxDate:jQuery('#date_timepicker_end').val()?jQuery('#date_timepicker_end').val():false
        })
       },
-      minDate: '-1970/01/01',
+      minDate:0,
+      //minTime:0,
       timepicker:true,
       scrollMonth:false,
       scrollTime:false,
@@ -24,14 +70,21 @@
       '21:00', '21:30', '22:00', '22:30', '23:00', '23:30' 
      ]
 
+
      });
      jQuery('#date_timepicker_end').datetimepicker({
-        
+      onSelectDate:function(ct){
+          var ptime = adjustTime('#date_timepicker_end');
+          this.setOptions({
+            minTime: ptime
+          })
+        },
       onShow:function( ct ){
        this.setOptions({
         minDate:jQuery('#date_timepicker_start').val()?jQuery('#date_timepicker_start').val():false
        })
       },
+      //minTime:0,
       timepicker:true,
       scrollMonth:false,
       scrollTime:false,

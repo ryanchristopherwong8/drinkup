@@ -159,7 +159,7 @@ function initializeMarkers(position) {
     deleteMarkers();
     if (position.action == null) {
         stopBound = false;
-        createBounds();
+        bounds = new google.maps.LatLngBounds()
     } else {
         stopBound = true;
     }

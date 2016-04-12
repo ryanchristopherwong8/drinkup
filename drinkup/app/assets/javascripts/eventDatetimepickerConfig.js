@@ -90,6 +90,7 @@
         minDate:jQuery('#date_timepicker_start').val()?jQuery('#date_timepicker_start').val():false
        })
       },
+      minTime:0,
       timepicker:true,
       scrollMonth:false,
       scrollTime:false,

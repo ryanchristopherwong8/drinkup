@@ -52,8 +52,13 @@
       <%= f.hidden_field :utc_start_time, id: 'utc_start_time' %>
       <%= f.hidden_field :utc_end_time, id: 'utc_end_time' %>
       <%= f.hidden_field :place_id, id: 'place_id' %>
+      
       <div class="col-lg-12">
-        <%= f.submit "Create DrinkUp", class: 'btn btn-primary', id: 'submit-create-event' %>
+        <% if params[:action] == "new" %>
+          <%= f.submit "Create DrinkUp", class: 'btn btn-primary', id: 'submit-create-event' %>
+        <%else%>
+          <%= f.submit "Edit DrinkUp", class: 'btn btn-primary', id: 'submit-create-event' %>
+        <%end%>
       </div>
     <% end %>
 

@@ -1,6 +1,13 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+#event_link_show {
+  border-color: #357ebd
+}
+
+#event_link_attend{
+  border-color: #357ebd
+}
 html {
   position: relative;
   min-height: 100%;

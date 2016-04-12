@@ -1,3 +1,6 @@
+//Google API Code
+//Used for retriving nearby place data and creating map 
+
 var map;
 var autocomplete;
 var service;
@@ -7,35 +10,37 @@ var infowindow;
 var bounds;
 var markers=[];
 
+//sets drink type used in search query and makes a new location search 
 function setDrinktype(type) {
   drinktype = type;
   if (postionOfUserFromGeolocation[0]==null && postionOfUserFromGeolocation[1]==null) {
     document.getElementById('error').innerHTML="Please Enter a Location";
   }
   else {
-    //deleteMarkers();
     changeMapLocation(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],15);
     setup(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],1000, drinktype,0);
   }
+  //store drink type in form field
   $("#drink_type").val(drinktype);
 }
 
+//prompt for storing user's geolocation on page load
 function getUserLocation() {
 	if (navigator.geolocation) {
 		var options={timeout:30000};
-    navigator.geolocation.getCurrentPosition(storePosition,getManualLocation,options);
+    navigator.geolocation.getCurrentPosition(storePosition,unableToGetLocation,options);
   } 
 }
 
+//store 
 function storePosition(position) {
-  //deleteMarkers();
 	postionOfUserFromGeolocation[0]=position.coords.latitude;
 	postionOfUserFromGeolocation[1]=position.coords.longitude;
 	changeMapLocation(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],15);
   setup(postionOfUserFromGeolocation[0],postionOfUserFromGeolocation[1],1000,drinktype,0);
 }
 
-function getManualLocation(error) {
+function unableToGetLocation(error) {
 	//generate message that location could not be got
   $(".loading-spinner").hide();
   document.getElementById('error').innerHTML="Could Not Get Geolocation";

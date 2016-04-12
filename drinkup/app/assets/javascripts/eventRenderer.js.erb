@@ -13,7 +13,7 @@ var cachedDrinkUps=[];
 function getUserLocationforDrinkups() {
   if (navigator.geolocation) {
     var options={timeout:30000};
-    navigator.geolocation.getCurrentPosition(initializeMarkers,getManualLocation,options);
+    navigator.geolocation.getCurrentPosition(initializeMarkers,unableToGetLocation,options);
   } 
 }
 

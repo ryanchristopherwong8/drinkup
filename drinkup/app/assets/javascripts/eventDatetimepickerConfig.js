@@ -60,6 +60,7 @@
         maxDate:jQuery('#date_timepicker_end').val()?jQuery('#date_timepicker_end').val():false
        })
       },
+      minTime:0,
       minDate:0,
       timepicker:true,
       scrollMonth:false,

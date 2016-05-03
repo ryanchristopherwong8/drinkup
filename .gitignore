@@ -8,4 +8,4 @@ Gemfile.lock
 log/*
 .bundle
 .DS_Store
-/config/application.yml
+drinkup/config/application.yml

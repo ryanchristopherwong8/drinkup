@@ -67,8 +67,6 @@ gem 'rails_12factor', group: :production
 #in the logs that can be used for future debugging of long running code
 gem 'rack-timeout'
 
-gem 'rails_serve_static_assets'
-
 source 'https://rails-assets.org' do
   gem 'rails-assets-datetimepicker'
 end

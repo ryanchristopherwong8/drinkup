@@ -4,7 +4,6 @@
 *.pyc
 *.sqite3
 
-Gemfile.lock
 log/*
 .bundle
 .DS_Store

@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+#installs the version of ruby used in development
+ruby "2.2.3"
 
 gem 'mail', '2.6.3'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -56,6 +58,10 @@ gem 'thin'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+# Enables logs to be directed to stdout instead of to disk. REQUIRED for Heroku deployment.
+# Read more: https://github.com/heroku/rails_12factor
+gem 'rails_12factor', group: :production
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-datetimepicker'

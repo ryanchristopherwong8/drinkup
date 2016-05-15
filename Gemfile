@@ -63,6 +63,10 @@ gem 'thin'
 # Read more: https://github.com/heroku/rails_12factor
 gem 'rails_12factor', group: :production
 
+#When the Rack::Timeout limit is hit, it closes the requests and generates a stacktrace 
+#in the logs that can be used for future debugging of long running code
+gem 'rack-timeout'
+
 gem 'rails_serve_static_assets'
 
 source 'https://rails-assets.org' do

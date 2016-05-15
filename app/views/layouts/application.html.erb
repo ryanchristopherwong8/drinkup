@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Drinkup</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= include_gon(:init => true) %>
+  <%= csrf_meta_tags %>
+  <%= content_for :header  %>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZdA5AE3hXH5bcskGACiNQhGtvxJ0e7r8&libraries=places"></script>
+</head>
+  <% if !current_page?(root_url) %>
+    <body>
+  <%else%>
+    <body class="splash">
+  <%end%>
+  <!-- header = nav bar -->
+  <%= render 'layouts/header' %>
+  <div class="container">	
+    <!-- flash displays messages from controller -->
+    <% flash.each do |message_type, message| %>
+    <div class="col-md-6 col-md-offset-3">
+      <div class="alert alert-<%= message_type %>"><%= message %></div>
+    </div>
+    <% end %>
+    <!-- yield = view -->
+    <%= yield %>
+  </div>
+  <%= render 'layouts/footer' %>
+  </body>
+</html>

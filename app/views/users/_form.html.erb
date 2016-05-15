@@ -1,0 +1,39 @@
+<% content_for :header do %>
+  <%= javascript_include_tag 'profileDatepickerConfig' %>    
+<% end %>
+
+  <div class="row">
+    <%= form_for(@user, html: {class: 'form-horizontal'}) do |f| %>
+    <%= render 'shared/error_messages' , object: f.object %>
+    <!-- left column -->
+
+    <div class="col-md-4 text-center">
+      <%= render partial: 'portrait', locals: {curr_user: f} %>
+    </div>
+    <!-- edit form column -->
+    <div class="col-md-8 ">
+      <% if params[:action] != "new" %>
+        <h3>Personal Information</h3>
+      <%end%>
+      <%= f.label :first_name%>
+      <%= f.text_field :first_name, class: 'form-control' %>
+  
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name, class: 'form-control' %>
+      
+      <%= f.label :date_of_birth %>
+      <%= f.text_field :date_of_birth, id: 'profileDatepicker', class: 'form-control' %>
+    
+      
+      <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control' %>
+
+      <% if params[:action] == "new" %>
+        <%= f.submit "Create My Account", class: "btn btn-primary" %>
+      <%else%>
+        <%= f.submit "Save Changes", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+    <% end %>
+  </div>
+

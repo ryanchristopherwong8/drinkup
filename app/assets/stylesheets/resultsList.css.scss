@@ -1,0 +1,12 @@
+#resultsList 
+{	
+	overflow: hidden;
+	overflow-y: scroll;
+    list-style: decimal inside;
+
+	.listitem_hover{
+	 :hover{
+  	  	cursor:pointer; 
+ 	 }
+	}
+}

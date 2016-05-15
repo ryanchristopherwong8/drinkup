@@ -1,0 +1,67 @@
+<% content_for :header do %>
+  <%= javascript_include_tag 'eventDatetimepickerConfig' %>   
+<% end %>
+
+<div id="create_form" class="container-fluid">
+  <%= form_for @event do |f| %>
+    <% if @event.errors.any? %>
+      <div id="error_explanation">
+        <h2>
+          <%= pluralize(@event.errors.count, "error") %> prohibited
+          this event from being saved:
+        </h2>
+        <ul>
+          <% @event.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+   <form>
+   <div class="col-lg-12">
+      <h3 class="text-center">Event Details</h3>
+      <%= f.label :name, value: 'Name of Event' %>
+      <%= f.text_field :name, class: 'form-control'%>
+      </div>
+      <div class="col-lg-6">
+        <%= f.label :start_time, class: 'control-label'%>
+        <%= f.text_field :start_time, id: 'date_timepicker_start', class: 'form-control' %>
+      </div>
+      <div class="col-lg-6">
+        <%= f.label :end_time %>
+        <%= f.text_field :end_time, id: 'date_timepicker_end', class: 'form-control', disabled: 'true' %>
+      </div>
+      <div class="col-lg-12">
+      <%= f.label :place_name, id: 'location_name', value: 'Name of Location' %>
+      <%= f.text_field :place_name, class: 'form-control' , :readonly=>true%>
+      </div>
+    <div class="col-lg-12">
+      <%= f.label :place_address, id: 'location_address', value: 'Address of Location' %>
+      <%= f.text_field :place_address, class: 'form-control', :readonly=>true%>
+      </div>
+
+      <%= f.hidden_field :lat, id: 'lat' %>
+      <%= f.hidden_field :lng, id: 'lng' %>
+      <%= f.hidden_field :drink_type, id: 'drink_type', value: 'bar' %>
+      <%= f.hidden_field :dstOffset, id: 'dstOffset' %>
+      <%= f.hidden_field :rawOffset, id: 'rawOffset' %>
+      <%= f.hidden_field :timeZoneId, id: 'timeZoneId' %>
+      <%= f.hidden_field :timeZoneName, id: 'timeZoneName' %>
+      <%= f.hidden_field :utc_start_time, id: 'utc_start_time' %>
+      <%= f.hidden_field :utc_end_time, id: 'utc_end_time' %>
+      <%= f.hidden_field :place_id, id: 'place_id' %>
+
+      <div class="col-lg-12">
+        <% if params[:action] == "new" %>
+          <%= f.submit "Create DrinkUp", class: 'btn btn-primary', id: 'submit-create-event' %>
+        <%else%>
+          <%= f.submit "Edit DrinkUp", class: 'btn btn-primary', id: 'submit-create-event' %>
+        <%end%>
+      </div>
+    <% end %>
+
+    </form>
+
+</div>
+

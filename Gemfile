@@ -63,6 +63,8 @@ gem 'thin'
 # Read more: https://github.com/heroku/rails_12factor
 gem 'rails_12factor', group: :production
 
+gem 'rails_serve_static_assets'
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-datetimepicker'
 end

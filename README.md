@@ -2,6 +2,8 @@
 # 	DRINKUP	        #
 ########################
 
+Visit https://www.drink-up.herokuapp.com 
+
 ##How to use the app
 
 1. Sign up for a user account from the home page (including uploading a profile picture)
@@ -44,13 +46,6 @@
 	- Can be seen when clicking on a drinkup and viewing more details
 
 9) If you try creating several drinkups near each other, the bounds of the map of drinkups will zoom in and out to focus on those around you
-
-
-
-##Special Instructions
-
-- Run a vagrant up, then open a web browser and navigate to "localhost:8080"
-
 
 
 ##Known Issues

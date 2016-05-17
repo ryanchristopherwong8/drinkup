@@ -2,7 +2,7 @@
 # 	DRINKUP	        #
 ########################
 
-Visit https://www.drink-up.herokuapp.com 
+Visit https://drink-up.herokuapp.com 
 
 ##How to use the app
 

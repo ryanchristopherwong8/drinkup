@@ -1,12 +1,12 @@
 development:
-  server: "http://drinkupchat.herokuapp.com/faye"
+  server: "https://drinkupchat.herokuapp.com/faye"
   secret_token: "secret"
 
 test:
-  server: "http://drinkupchat.herokuapp.com/faye"
+  server: "https://drinkupchat.herokuapp.com/faye"
   secret_token: "secret"
 
 production:
-  server: "http://drinkupchat.herokuapp.com/faye"
+  server: "https://drinkupchat.herokuapp.com/faye"
   secret_token: "secret"
   signature_expiration: 3600 # one hour

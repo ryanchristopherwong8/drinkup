@@ -85,13 +85,22 @@ Rails.application.configure do
   #$ heroku config:set AWS_ACCESS_KEY_ID=our_access_key_id
   #$ heroku config:set AWS_SECRET_ACCESS_KEY=our_secret_access_key
 
+  #config.paperclip_defaults = {
+  #  storage: :s3,
+  #  s3_host_name: ENV['s3_host_name'],
+  #  s3_credentials: {
+  #    bucket: ENV['AWS_S3_BUCKET'],
+  #    access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+  #    secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
+  #  }
+  #}
   config.paperclip_defaults = {
     storage: :s3,
-    s3_host_name: ENV['s3_host_name'],
     s3_credentials: {
-      bucket: ENV['AWS_S3_BUCKET'],
-      access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-      secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
+      bucket: ENV.fetch('S3_BUCKET_NAME'),
+      access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID'),
+      secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY'),
+      s3_region: ENV.fetch('AWS_REGION'])
     }
   }
 end

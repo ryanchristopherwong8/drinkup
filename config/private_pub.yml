@@ -1,3 +1,11 @@
+development:
+  server: "http://drinkupchat.herokuapp.com/faye"
+  secret_token: "secret"
+
+test:
+  server: "http://drinkupchat.herokuapp.com/faye"
+  secret_token: "secret"
+
 production:
   server: "http://drinkupchat.herokuapp.com/faye"
   secret_token: "secret"

@@ -10,5 +10,7 @@
     <% end %>
   </div>
 </div>
-<%= link_to 'Edit Conversations', "#", id: "conversation_link", class:" col-md-6 btn btn-default btn-xs" %>
-<div id="conversation_select" class="col-md-8"></div>
+<% if @user == current_user %>
+	<%= link_to 'Edit Conversations', "#", id: "conversation_link", class:" col-md-6 btn btn-default btn-xs" %>
+	<div id="conversation_select" class="col-md-8"></div>
+<% end %>

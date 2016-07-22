@@ -2,7 +2,7 @@
 class EventsController < ApplicationController
   #Security checks to ensure user has the rights to access pages 
   before_action :redirect_if_not_logged_in
-  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy, :join, :unjoin]
   
   def test
   end
@@ -14,7 +14,6 @@ class EventsController < ApplicationController
     # @events_attending = current_user.attendees.attending.select("event_id").map(&:event_id)
   end
 
-  #Gets events 
   def getEvents
     @lat_lng = cookies[:lat_lng].split("|")
 
@@ -27,7 +26,6 @@ class EventsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html {redirect_to "index"}
       format.json {render :json => {:events => @events.as_json(:methods => [:count]), :events_attending => @events_attending,
         :events_creator => @events_creator}}
     end
@@ -39,7 +37,6 @@ class EventsController < ApplicationController
     top_conversations = event.getTopConversations
 
     respond_to do |format|
-      format.html {redirect_to "index"}
       format.json {render :json => {:top_conversations => top_conversations}}
     end
   end

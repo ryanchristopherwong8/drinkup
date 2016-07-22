@@ -1,6 +1,6 @@
 <li class="message">
   <div class="avatar">
-    <%= image_tag message.user.avatar.url(:thumb) %>
+    <%= image_tag(message.user.avatar.url(:thumb), :class => "img-circle") %>
   </div>
   <div class="chatboxmessagecontent">
     <p><%= message.body %></p>

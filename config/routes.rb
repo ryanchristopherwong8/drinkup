@@ -18,6 +18,15 @@ Rails.application.routes.draw do
       get 'getCurrentEventsForUser'
     end
   end
+
+  resources :events do
+    collection do
+      get 'getEvents'
+    end
+    member do 
+      get 'getTopConversations'
+    end
+  end
   
   get 'signup'  => 'users#new'
   get    'login'   => 'sessions#new'
@@ -25,14 +34,7 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
 
   root 'sessions#index'
-  resources :events do
-  	collection do
-  		get 'getEvents'
-  	end
-    member do 
-      get 'getTopConversations'
-    end
-  end
+
   match ':controller(/:action(/:id))', :via => [:get, :post]
   
 end

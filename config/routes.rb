@@ -25,6 +25,8 @@ Rails.application.routes.draw do
     end
     member do 
       get 'getTopConversations'
+      post 'join'
+      post 'unjoin'
     end
   end
   
@@ -35,6 +37,6 @@ Rails.application.routes.draw do
 
   root 'sessions#index'
 
-  match ':controller(/:action(/:id))', :via => [:get, :post]
+  #match ':controller(/:action(/:id))', :via => [:get, :post]
   
 end

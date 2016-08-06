@@ -239,13 +239,17 @@ function fillEventContent(marker) {
       eventLinkAttend.text("Drinkup is full");
     } else {
       if (!drinkupData.isUserAttending) {
-        eventLinkAttend.attr("href", "/events/join/" + drinkupData.id);
         eventLinkAttend.removeClass("inactive");
-        eventLinkAttend.text("Attend")
+        eventLinkAttend.text("Attend");
+        eventLinkAttend.on("click", function(e) {
+          joinEvent(drinkupData.id);
+        });
       } else {
-        eventLinkAttend.attr("href", "/events/unjoin/" + drinkupData.id);
         eventLinkAttend.removeClass("inactive");
-        eventLinkAttend.text("Unattend")
+        eventLinkAttend.text("Unattend");
+        eventLinkAttend.on("click", function(e) {
+          unjoinEvent(drinkupData.id);
+        });
       }
     }
 }

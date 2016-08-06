@@ -37,6 +37,6 @@ Rails.application.routes.draw do
 
   root 'sessions#index'
 
-  #match ':controller(/:action(/:id))', :via => [:get, :post]
+  match ':controller(/:action(/:id))', :via => [:get, :post]
   
 end

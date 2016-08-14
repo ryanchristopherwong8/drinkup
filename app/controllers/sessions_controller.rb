@@ -52,7 +52,7 @@ class SessionsController < ApplicationController
     #Fix bug = if user has multiple windows open and logs out of one and logs out of another. 
     #Make sure user is logged in before logging out
     log_out if logged_in?
-    redirect_to '/sessions/new'
+    redirect_to '/login'
   end
 
 end

@@ -1,7 +1,7 @@
 #Controller for users, including user conversations, and user settings
 class UsersController < ApplicationController
   #Security checks to ensure user has the rights to access pages 
-  before_action :redirect_if_not_logged_in, :except => [:new, :create]
+  before_action :redirect_if_not_logged_in, :except => [:new, :create :getCurrentEventsForUser]
   before_action :correct_user, only: [:edit, :update, :delete, :destroy, :settings,
    :saveSettings, :saveConversations, :removeConversations, :removeImage]
 

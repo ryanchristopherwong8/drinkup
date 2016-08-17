@@ -2,7 +2,7 @@
 class EventsController < ApplicationController
   #Security checks to ensure user has the rights to access pages 
   before_action :redirect_if_not_logged_in
-  before_action :correct_user, only: [:edit, :update, :destroy, :join, :unjoin]
+  before_action :correct_user, only: [:edit, :update, :destroy]
   
   def test
   end

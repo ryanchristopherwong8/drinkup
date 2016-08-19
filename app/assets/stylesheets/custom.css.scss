@@ -5,9 +5,10 @@
   border-color: #357ebd
 }
 
-#event_link_attend{
+#event_link_attend {
   border-color: #357ebd
 }
+
 html {
   position: relative;
   min-height: 100%;
@@ -40,7 +41,7 @@ html {
 a.dropdown-toggle.nav-user {
   padding-top:25px;
 }
-#logo img{
+#logo img {
   width:260px;
 }
 
@@ -59,7 +60,7 @@ a.dropdown-toggle.nav-user {
   object-fit: cover;
 }
 
-#show-list-toggle{
+#show-list-toggle {
   width:200px;
   margin: 20px;
 }
@@ -74,11 +75,13 @@ a.dropdown-toggle.nav-user {
 
 .navbar {
   background: #000000;
+  border-bottom: 0px;
 }
-.navbar-right
-{
+
+.navbar-right {
     min-height:80px;
 }
+
 .footer {
   position: absolute;
   bottom: 0;

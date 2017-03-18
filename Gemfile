@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 #installs the version of ruby used in development
-ruby "2.2.3"
+ruby "2.4.0"
 
 gem 'mail', '2.6.3'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.5'
+gem 'rails', '5.0.2'
 # Use postgresql as the database for Active Record
 gem 'pg'
 #unicorn gem
@@ -40,7 +40,7 @@ gem 'bootstrap-sass', '~> 3.2.0'
 
 #profile pictures
 gem 'paperclip'
-gem 'aws-sdk', '< 2.0'
+gem 'aws-sdk'
 gem 'figaro'
 
 gem 'geokit-rails'
@@ -63,7 +63,7 @@ gem 'thin'
 # Read more: https://github.com/heroku/rails_12factor
 gem 'rails_12factor', group: :production
 
-#When the Rack::Timeout limit is hit, it closes the requests and generates a stacktrace 
+#When the Rack::Timeout limit is hit, it closes the requests and generates a stacktrace
 #in the logs that can be used for future debugging of long running code
 gem 'rack-timeout'
 

@@ -2,11 +2,12 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.1
--- Dumped by pg_dump version 9.5.1
+-- Dumped from database version 9.6.2
+-- Dumped by pg_dump version 9.6.2
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -43,6 +44,18 @@ CREATE TYPE gender AS ENUM (
 SET default_tablespace = '';
 
 SET default_with_oids = false;
+
+--
+-- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE ar_internal_metadata (
+    key character varying NOT NULL,
+    value character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
 
 --
 -- Name: attendees; Type: TABLE; Schema: public; Owner: -
@@ -285,49 +298,57 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: attendees id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY attendees ALTER COLUMN id SET DEFAULT nextval('attendees_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: chats id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY chats ALTER COLUMN id SET DEFAULT nextval('chats_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: conversations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY conversations ALTER COLUMN id SET DEFAULT nextval('conversations_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: events id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: messages id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY messages ALTER COLUMN id SET DEFAULT nextval('messages_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
 --
--- Name: attendees_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ar_internal_metadata
+    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: attendees attendees_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY attendees
@@ -335,7 +356,7 @@ ALTER TABLE ONLY attendees
 
 
 --
--- Name: chats_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: chats chats_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY chats
@@ -343,7 +364,7 @@ ALTER TABLE ONLY chats
 
 
 --
--- Name: conversations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: conversations conversations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY conversations
@@ -351,7 +372,7 @@ ALTER TABLE ONLY conversations
 
 
 --
--- Name: events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: events events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY events
@@ -359,7 +380,7 @@ ALTER TABLE ONLY events
 
 
 --
--- Name: messages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: messages messages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY messages
@@ -367,7 +388,15 @@ ALTER TABLE ONLY messages
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -396,14 +425,7 @@ CREATE INDEX index_messages_on_user_id ON messages USING btree (user_id);
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
-
-
---
--- Name: fk_rails_0f670de7ba; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: messages fk_rails_0f670de7ba; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY messages
@@ -411,7 +433,7 @@ ALTER TABLE ONLY messages
 
 
 --
--- Name: fk_rails_273a25a7a6; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: messages fk_rails_273a25a7a6; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY messages
@@ -424,35 +446,22 @@ ALTER TABLE ONLY messages
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES ('20160318202118');
+INSERT INTO "schema_migrations" (version) VALUES
+('20160318202118'),
+('20160318202442'),
+('20160318202447'),
+('20160318202456'),
+('20160320031957'),
+('20160321001335'),
+('20160325111613'),
+('20160329031644'),
+('20160403040223'),
+('20160403195849'),
+('20160403201046'),
+('20160403225601'),
+('20160408040800'),
+('20160410190058'),
+('20160411001031'),
+('20160411043655');
 
-INSERT INTO schema_migrations (version) VALUES ('20160318202442');
-
-INSERT INTO schema_migrations (version) VALUES ('20160318202447');
-
-INSERT INTO schema_migrations (version) VALUES ('20160318202456');
-
-INSERT INTO schema_migrations (version) VALUES ('20160320031957');
-
-INSERT INTO schema_migrations (version) VALUES ('20160321001335');
-
-INSERT INTO schema_migrations (version) VALUES ('20160325111613');
-
-INSERT INTO schema_migrations (version) VALUES ('20160329031644');
-
-INSERT INTO schema_migrations (version) VALUES ('20160403040223');
-
-INSERT INTO schema_migrations (version) VALUES ('20160403195849');
-
-INSERT INTO schema_migrations (version) VALUES ('20160403201046');
-
-INSERT INTO schema_migrations (version) VALUES ('20160403225601');
-
-INSERT INTO schema_migrations (version) VALUES ('20160408040800');
-
-INSERT INTO schema_migrations (version) VALUES ('20160410190058');
-
-INSERT INTO schema_migrations (version) VALUES ('20160411001031');
-
-INSERT INTO schema_migrations (version) VALUES ('20160411043655');
 
